@@ -23,5 +23,12 @@ class AppTheme {
               borderRadius: BorderRadius.circular(15),
               borderSide:
                   BorderSide(color: BrandColors.primaryColor, width: 2)),
-          labelStyle: TextStyle(color: BrandColors.brandBlack, fontSize: 15)));
+          labelStyle: TextStyle(color: BrandColors.brandBlack, fontSize: 15)),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(backgroundColor: BrandColors.primaryColor)
+    )
+
+
+
+  );
 }

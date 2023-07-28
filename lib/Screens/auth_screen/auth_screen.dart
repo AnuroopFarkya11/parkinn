@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:parkinn/Screens/auth_screen/auth_controller.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Utils/sizes.dart';
+import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 
 class AuthScreen extends GetView<AuthController> {
   const AuthScreen({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class AuthScreen extends GetView<AuthController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
+            /*SliverAppBar(
               expandedHeight: CustomSizes.height * 0.17,
               // backgroundColor: Colors.black54,
               flexibleSpace: LayoutBuilder(
@@ -58,11 +59,12 @@ class AuthScreen extends GetView<AuthController> {
                   );
                 },
               ),
-            ),
+            ),*/
+            const ParkInBar(),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Container(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -81,10 +83,11 @@ class AuthScreen extends GetView<AuthController> {
                     ElevatedButton(
                       onPressed: () {},
                       child: Text("Get otp"),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: BrandColors.primaryColor),
+                    ),
 
-                    )
+
+
+
                   ],
                 ),
               ),
