@@ -60,7 +60,9 @@ class AuthScreen extends GetView<AuthController> {
                 },
               ),
             ),*/
-            const ParkInBar(),
+            const ParkInBar(
+
+            ),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Container(
