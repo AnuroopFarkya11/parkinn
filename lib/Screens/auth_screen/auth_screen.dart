@@ -1,31 +1,94 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:parkinn/Screens/auth_screen/auth_controller.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Utils/sizes.dart';
+import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 
-class AuthScreen extends StatelessWidget {
+class AuthScreen extends GetView<AuthController> {
   const AuthScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              backgroundColor: Colors.black,
-              title: Text(
-                "ParkInn",
-                style: TextStyle(fontSize: 35, color: BrandColors.primaryColor),
+            /*SliverAppBar(
+              expandedHeight: CustomSizes.height * 0.17,
+              // backgroundColor: Colors.black54,
+              flexibleSpace: LayoutBuilder(
+                builder: (context, constraint) {
+                  return Container(
+                    // color: Colors.blue,
+                    padding: const EdgeInsets.all(12),
+                    height: constraint.maxHeight,
+                    width: constraint.maxWidth,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "ParkInn",
+                          style: TextStyle(
+                              color: BrandColors.primaryColor,
+                              fontSize: constraint.maxHeight * 0.2,
+                              fontWeight: FontWeight.w900),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Simple ",
+                              style: TextStyle(
+                                  color: BrandColors.subTitleColor,
+                                  fontSize: constraint.maxWidth * 0.11),
+                            ),
+                            Text(
+                              "parking.",
+                              style: TextStyle(
+                                  color: BrandColors.subTitleColor,
+                                  fontSize: constraint.maxWidth * 0.11,
+                                  fontWeight: FontWeight.w900),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  );
+                },
               ),
-              titleSpacing: 40,
-               expandedHeight: CustomSizes.height * 0.19,
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(CustomSizes.height * 0.18),
-                child: Container(
-                  height: CustomSizes.height / 6,
-                  color: Colors.orange,
+            ),*/
+            const ParkInBar(),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Form(
+                      key: controller.numberKey,
+                      // TODO: NUMBER VALIDATOR
+                      child: TextFormField(
+                        cursorColor: BrandColors.brandBlack,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Mobile Number",
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text("Get otp"),
+                    ),
+
+
+
+
+                  ],
                 ),
               ),
             )
