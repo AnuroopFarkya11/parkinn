@@ -14,25 +14,25 @@ class AuthScreen extends GetView<AuthController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const ParkInBar(subTitle: "Simple parking.",isBold: true,),
+            const ParkInBar(subTitle: "Simple parking.", isBold: true,),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ParkInField(
-                      validator: (p0) {
-                        if (p0!.isEmpty){
-                          return "Enter a mobile number";
-                        }
-                        if (p0.length<10){
-                          return "Enter a valid number";
-                        }
-                        return " ";
-                      },
+                        validator: (p0){
+                          if (p0!.isEmpty) {
+                            return "Please enter a mobile number";
+                          }
+                          if (p0.length < 10) {
+                            return "Please enter a valid number";
+                          }
+                          return null;
+                        },
                         labelText: "Mobile Number",
                         textInputType: TextInputType.phone,
                         formKey: controller.numberKey,
@@ -56,7 +56,11 @@ class AuthScreen extends GetView<AuthController> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        controller.numberKey.currentState!.validate();
+                        if (controller.numberKey.currentState!.validate())
+                          {
+                            // TODO API FOR OTP WILL BE CALLED HERE
+                            controller.otpCheck.value = true;
+                          }
                       },
                       child: const Text("Get otp"),
                     ),

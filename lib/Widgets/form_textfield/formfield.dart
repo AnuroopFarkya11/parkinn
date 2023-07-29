@@ -7,7 +7,7 @@ class ParkInField extends StatelessWidget {
   final TextInputType textInputType;
   final GlobalKey formKey;
   final TextEditingController controller;
-  final String Function(String?)? validator;
+  final String? Function(String?)? validator;
 
   const ParkInField({
     Key? key,
