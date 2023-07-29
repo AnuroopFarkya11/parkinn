@@ -8,7 +8,8 @@ class ParkInBar extends GetView<ParkInnBarController>{
   final bool? actionCheck;
   final String subTitle;
   final bool isBold;
-  const ParkInBar({super.key,required this.subTitle,this.actionCheck=false,this.isBold=false});
+  final double? subtitleHeight;
+  const ParkInBar({super.key,required this.subTitle,this.actionCheck=false,this.isBold=false,this.subtitleHeight=CustomSizes.subSmall});
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +47,13 @@ class ParkInBar extends GetView<ParkInnBarController>{
                       subTitle.split(" ")[0],
                       style: TextStyle(
                           color: BrandColors.subTitleColor,
-                          fontSize: constraint.maxWidth * 0.11),
+                          fontSize: constraint.maxWidth * subtitleHeight!),
                     ),
                     Text(
                       " "+subTitle.split(" ")[1],
                       style: TextStyle(
                           color: BrandColors.subTitleColor,
-                          fontSize: constraint.maxWidth * 0.11,
+                          fontSize: constraint.maxWidth * subtitleHeight!,
                           fontWeight: isBold?FontWeight.w900:FontWeight.w500),
                     )
                   ],

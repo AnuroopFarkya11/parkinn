@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/auth_screen/auth_controller.dart';
+import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/form_textfield/formfield.dart';
 
@@ -14,7 +15,7 @@ class AuthScreen extends GetView<AuthController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const ParkInBar(subTitle: "Simple parking.", isBold: true,),
+            const ParkInBar(subTitle: "Simple parking.", isBold: true,subtitleHeight:CustomSizes.subLarge ),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Container(

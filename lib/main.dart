@@ -12,8 +12,8 @@ import 'package:parkinn/routes/route_class.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ParkInn());
-  Get.put(CardController());
-  Get.put(AuthController());
+  // Get.put(CardController());
+  // Get.put(AuthController());
 
   // Get.put(AuthController());
 }
@@ -32,9 +32,9 @@ class ParkInn extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "ParkInn",
       theme: AppTheme.appTheme,
-      // initialRoute: '/authScreen',
-      // getPages: RouteClass.routes,
-      home: AuthScreen(),
+      initialRoute: '/authScreen',
+      getPages: RouteClass.routes,
+      // home: AuthScreen(),
 
     );
   }
