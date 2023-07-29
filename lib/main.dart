@@ -13,6 +13,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ParkInn());
   Get.put(CardController());
+  Get.put(AuthController());
 
   // Get.put(AuthController());
 }
@@ -33,7 +34,7 @@ class ParkInn extends StatelessWidget {
       theme: AppTheme.appTheme,
       // initialRoute: '/authScreen',
       // getPages: RouteClass.routes,
-      home: TestWidget(),
+      home: AuthScreen(),
 
     );
   }

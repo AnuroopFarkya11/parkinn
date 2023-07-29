@@ -24,8 +24,17 @@ class AuthScreen extends GetView<AuthController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ParkInField(
+                      validator: (p0) {
+                        if (p0!.isEmpty){
+                          return "Enter a mobile number";
+                        }
+                        if (p0.length<10){
+                          return "Enter a valid number";
+                        }
+                        return " ";
+                      },
                         labelText: "Mobile Number",
-                        textInputType: TextInputType.number,
+                        textInputType: TextInputType.phone,
                         formKey: controller.numberKey,
                         controller: controller.numberController),
                     const SizedBox(
@@ -47,7 +56,7 @@ class AuthScreen extends GetView<AuthController> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        controller.otpCheck.value = true;
+                        controller.numberKey.currentState!.validate();
                       },
                       child: const Text("Get otp"),
                     ),
@@ -61,3 +70,5 @@ class AuthScreen extends GetView<AuthController> {
     );
   }
 }
+
+
