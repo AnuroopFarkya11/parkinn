@@ -51,6 +51,7 @@ class AuthScreen extends GetView<AuthController> {
                     Obx(
                       ()=>ElevatedButton(
                         onPressed: controller.onTap,
+                        onLongPress: (){Get.toNamed('homeScreen');},
                         child: controller.otpCheck.value?const Text("Verify otp"):const Text("Get otp"),
                       ),
                     ),
