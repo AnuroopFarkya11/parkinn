@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/auth_screen/auth_controller.dart';
-import 'package:parkinn/Utils/brand_color.dart';
-import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
+import 'package:parkinn/Widgets/form_textfield/formfield.dart';
 
 class AuthScreen extends GetView<AuthController> {
   const AuthScreen({Key? key}) : super(key: key);
@@ -16,78 +14,41 @@ class AuthScreen extends GetView<AuthController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            /*SliverAppBar(
-              expandedHeight: CustomSizes.height * 0.17,
-              // backgroundColor: Colors.black54,
-              flexibleSpace: LayoutBuilder(
-                builder: (context, constraint) {
-                  return Container(
-                    // color: Colors.blue,
-                    padding: const EdgeInsets.all(12),
-                    height: constraint.maxHeight,
-                    width: constraint.maxWidth,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "ParkInn",
-                          style: TextStyle(
-                              color: BrandColors.primaryColor,
-                              fontSize: constraint.maxHeight * 0.2,
-                              fontWeight: FontWeight.w900),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Simple ",
-                              style: TextStyle(
-                                  color: BrandColors.subTitleColor,
-                                  fontSize: constraint.maxWidth * 0.11),
-                            ),
-                            Text(
-                              "parking.",
-                              style: TextStyle(
-                                  color: BrandColors.subTitleColor,
-                                  fontSize: constraint.maxWidth * 0.11,
-                                  fontWeight: FontWeight.w900),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),*/
             const ParkInBar(),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Form(
-                      key: controller.numberKey,
-                      // TODO: NUMBER VALIDATOR
-                      child: TextFormField(
-                        cursorColor: BrandColors.brandBlack,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Mobile Number",
-                        ),
-                      ),
+                    ParkInField(
+                        labelText: "Mobile Number",
+                        formKey: controller.numberKey,
+                        controller: controller.numberController),
+                    const SizedBox(
+                      height: 10,
                     ),
-                    SizedBox(height: 20,),
+                    Obx(() {
+                      if (controller.otpCheck.value) {
+                        return ParkInField(
+                            labelText: "OTP",
+                            formKey: controller.otpKey,
+                            controller: controller.otpController);
+                      } else {
+                        return Container();
+                      }
+                    }),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     ElevatedButton(
-                      onPressed: () {},
-                      child: Text("Get otp"),
+                      onPressed: () {
+                        controller.otpCheck.value = true;
+                      },
+                      child: const Text("Get otp"),
                     ),
-
-
-
-
                   ],
                 ),
               ),
