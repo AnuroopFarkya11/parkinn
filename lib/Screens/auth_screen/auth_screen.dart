@@ -25,15 +25,17 @@ class AuthScreen extends GetView<AuthController> {
                   children: [
                     ParkInField(
                         labelText: "Mobile Number",
+                        textInputType: TextInputType.number,
                         formKey: controller.numberKey,
                         controller: controller.numberController),
                     const SizedBox(
-                      height: 10,
+                      height: 15,
                     ),
                     Obx(() {
                       if (controller.otpCheck.value) {
                         return ParkInField(
                             labelText: "OTP",
+                            textInputType: TextInputType.number,
                             formKey: controller.otpKey,
                             controller: controller.otpController);
                       } else {

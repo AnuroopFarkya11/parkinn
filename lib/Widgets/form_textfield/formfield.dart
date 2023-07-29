@@ -22,11 +22,13 @@ class ParkInField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
+
       child: TextFormField(
         cursorColor: BrandColors.brandBlack,
         controller: controller,
+        keyboardType: textInputType,
         validator: validator,
-        decoration: InputDecoration(labelText: labelText),
+        decoration: InputDecoration(labelText: labelText,),
       ),
     );
   }
