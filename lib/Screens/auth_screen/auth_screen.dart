@@ -55,10 +55,13 @@ class AuthScreen extends GetView<AuthController> {
                       height: 20,
                     ),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: controller.otpCheck.value?(){
+
+                      }:() {
                         if (controller.numberKey.currentState!.validate())
                           {
                             // TODO API FOR OTP WILL BE CALLED HERE
+                            //TODO ON CHANGE FOCUS ONCE OTP SENT
                             controller.otpCheck.value = true;
                           }
                       },
