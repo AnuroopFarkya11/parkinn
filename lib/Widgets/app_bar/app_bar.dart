@@ -6,7 +6,9 @@ import '../../Utils/brand_color.dart';
 import '../../Utils/sizes.dart';
 class ParkInBar extends GetView<ParkInnBarController>{
   final bool? actionCheck;
-  const ParkInBar({super.key,this.actionCheck=false});
+  final String subTitle;
+  final bool isBold;
+  const ParkInBar({super.key,required this.subTitle,this.actionCheck=false,this.isBold=false});
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +43,17 @@ class ParkInBar extends GetView<ParkInnBarController>{
                 Row(
                   children: [
                     Text(
-                      "Simple ",
+                      subTitle.split(" ")[0],
                       style: TextStyle(
                           color: BrandColors.subTitleColor,
                           fontSize: constraint.maxWidth * 0.11),
                     ),
                     Text(
-                      "parking.",
+                      " "+subTitle.split(" ")[1],
                       style: TextStyle(
                           color: BrandColors.subTitleColor,
                           fontSize: constraint.maxWidth * 0.11,
-                          fontWeight: FontWeight.w900),
+                          fontWeight: isBold?FontWeight.w900:FontWeight.w500),
                     )
                   ],
                 )

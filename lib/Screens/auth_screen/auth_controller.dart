@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class AuthController extends GetxController{
   GlobalKey<FormState> numberKey = GlobalKey<FormState>();
   TextEditingController numberController = TextEditingController();
+  GlobalKey<FormState> otpKey = GlobalKey<FormState>();
+  TextEditingController otpController = TextEditingController();
 
   late Rx<bool> otpCheck;
 
