@@ -37,7 +37,7 @@ class HomeScreen extends GetView<HomeController> {
                           shrinkWrap: true,
                           itemCount: 2,
                           itemBuilder: (context, index) {
-                            return ParkInnCard("sea", "efe");
+                            return ParkInnCard("MP 09 DA 1107", "2 wheeler");
                           },
                         ),
                         Row(
