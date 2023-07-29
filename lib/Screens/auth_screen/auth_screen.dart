@@ -14,7 +14,7 @@ class AuthScreen extends GetView<AuthController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const ParkInBar(),
+            const ParkInBar(subTitle: "Simple parking.",isBold: true,),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Container(
