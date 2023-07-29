@@ -8,7 +8,7 @@ class TestWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ParkInnCard(),
+        child: Container(),
       ),
     ) ;
   }
