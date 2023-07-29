@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/auth_screen/auth_controller.dart';
 import 'package:parkinn/Screens/auth_screen/auth_screen.dart';
-import 'package:parkinn/Screens/home_screen/home_screen.dart';
 import 'package:parkinn/Theme/app_theme.dart';
 import 'package:parkinn/Widgets/card_layout/card_controller.dart';
 import 'package:parkinn/Widgets/test_widget.dart';
@@ -13,8 +12,8 @@ import 'package:parkinn/routes/route_class.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ParkInn());
-  Get.put(CardController());
-
+  // Get.put(CardController());
+  // Get.put(AuthController());
 
   // Get.put(AuthController());
 }
@@ -33,8 +32,7 @@ class ParkInn extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "ParkInn",
       theme: AppTheme.appTheme,
-      initialRoute: '/homeScreen',
-      // initialRoute: '/authScreen',
+      initialRoute: '/authScreen',
       getPages: RouteClass.routes,
       // home: AuthScreen(),
 
