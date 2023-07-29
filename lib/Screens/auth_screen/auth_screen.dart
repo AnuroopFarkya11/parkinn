@@ -24,18 +24,11 @@ class AuthScreen extends GetView<AuthController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ParkInField(
-                        validator: (p0){
-                          if (p0!.isEmpty) {
-                            return "Please enter a mobile number";
-                          }
-                          if (p0.length < 10) {
-                            return "Please enter a valid number";
-                          }
-                          return null;
-                        },
+                        validator: controller.onNumberValidator,
                         labelText: "Mobile Number",
-                        textInputType: TextInputType.phone,
+                        textInputType: TextInputType.number,
                         formKey: controller.numberKey,
+                        focusNode: controller.numberFocus,
                         controller: controller.numberController),
                     const SizedBox(
                       height: 15,
@@ -54,18 +47,11 @@ class AuthScreen extends GetView<AuthController> {
                     const SizedBox(
                       height: 20,
                     ),
-                    ElevatedButton(
-                      onPressed: controller.otpCheck.value?(){
-
-                      }:() {
-                        if (controller.numberKey.currentState!.validate())
-                          {
-                            // TODO API FOR OTP WILL BE CALLED HERE
-                            //TODO ON CHANGE FOCUS ONCE OTP SENT
-                            controller.otpCheck.value = true;
-                          }
-                      },
-                      child: const Text("Get otp"),
+                    Obx(
+                      ()=>ElevatedButton(
+                        onPressed: controller.onTap,
+                        child: controller.otpCheck.value?const Text("Verify otp"):const Text("Get otp"),
+                      ),
                     ),
                   ],
                 ),
