@@ -1,10 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/home_screen/home_controller.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
+import 'package:parkinn/Widgets/app_bar/new_bar.dart';
 import 'package:parkinn/Widgets/card_layout/card_layout.dart';
+import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
 class HomeScreen extends GetView<HomeController> {
   /*
@@ -16,15 +19,23 @@ class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: ParkInDrawer(),
       body: SafeArea(
         child: CustomScrollView(
+          // physics: NeverScrollableScrollPhysics(),
           slivers: [
             const ParkInBar(
-              actionCheck: true,
+              // actionCheck: true,
               subTitle: "Select vehicle",
             ),
+
+            /* SliverFixedExtentList(delegate: SliverChildBuilderDelegate(childCount: 12,(context,cnt){
+
+              return ParkInnCard("MP 09 DA 1107", "2 wheeler");
+
+            }), itemExtent: 100)*/
             SliverFillRemaining(
-              //hasScrollBody: false,
+              // hasScrollBody: false,
               child: Container(
                 padding: EdgeInsets.all(12),
                 child: Column(
@@ -43,7 +54,7 @@ class HomeScreen extends GetView<HomeController> {
                         Row(
                           children: [
                             ElevatedButton(
-                                onPressed: () {}, child: Text("New vehicle")),
+                                onPressed: () {Get.toNamed('/addScreen');}, child: Text("New vehicle")),
                             SizedBox(
                               width: 10,
                             ),

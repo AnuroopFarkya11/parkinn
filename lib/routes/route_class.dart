@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:parkinn/Screens/add_vehicle_screen/add_vehicle_binding.dart';
+import 'package:parkinn/Screens/add_vehicle_screen/add_vehicle_screen.dart';
 import 'package:parkinn/Screens/auth_screen/auth_screen.dart';
 import 'package:parkinn/Screens/auth_screen/auth_binding.dart';
 import 'package:parkinn/Screens/home_screen/home_binding.dart';
@@ -13,6 +15,10 @@ class RouteClass {
     GetPage(
         name: '/homeScreen',
         page: () => HomeScreen(),
-        binding: SetHomeBinding())
+        binding: SetHomeBinding()),
+    GetPage(
+        name: '/addScreen',
+        page: () => AddVehicleScreen(),
+        binding: SetAddVehicleController())
   ];
 }

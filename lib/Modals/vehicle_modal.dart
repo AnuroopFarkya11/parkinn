@@ -7,6 +7,13 @@ class Vehicle{
   late String _vehicleNumber;
   late DateTime _date;
 
+  Vehicle()
+  {
+    _vehicleNumber ="DEFAULT NUMBER";
+    _vehicleType = "DEFAULT TYPE";
+    _date =  DateTime.now();
+  }
+
 
 
   //           SETTERS

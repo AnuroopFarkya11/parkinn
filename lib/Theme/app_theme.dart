@@ -6,14 +6,14 @@ import '../Utils/brand_color.dart';
 class AppTheme {
   static ThemeData appTheme = ThemeData(
       textTheme: GoogleFonts.poppinsTextTheme(),
-      appBarTheme: const AppBarTheme(
+    /*  appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         titleTextStyle: TextStyle(
             color: Color(0xff53D5C6),
             fontWeight: FontWeight.w800,
-            fontSize: 50),
-      ),
+            fontSize: 20),
+      ),*/
       inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
