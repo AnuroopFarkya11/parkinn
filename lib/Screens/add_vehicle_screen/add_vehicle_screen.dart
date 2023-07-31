@@ -52,6 +52,7 @@ class AddVehicleScreen extends GetView<AddVehicleController> {
               ),
             ),
             SliverFillRemaining(
+              hasScrollBody: false,
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
                 child: Column(
