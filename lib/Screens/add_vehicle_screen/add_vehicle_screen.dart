@@ -18,7 +18,7 @@ class AddVehicleScreen extends GetView<AddVehicleController> {
       endDrawer: ParkInDrawer(),
       body: SafeArea(
         child: CustomScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          // physics: NeverScrollableScrollPhysics(),
           slivers: [
             ParkInBar(subTitle: "Add Vehicle"),
             SliverToBoxAdapter(
@@ -52,6 +52,7 @@ class AddVehicleScreen extends GetView<AddVehicleController> {
               ),
             ),
             SliverFillRemaining(
+              hasScrollBody: false,
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
                 child: Column(
