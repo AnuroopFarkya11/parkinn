@@ -4,23 +4,34 @@ import 'package:parkinn/Widgets/app_bar/app_bar_controller.dart';
 
 import '../../Utils/brand_color.dart';
 import '../../Utils/sizes.dart';
-class ParkInBar extends GetView<ParkInnBarController>{
+
+class ParkInBar extends GetView<ParkInnBarController> {
   final bool? actionCheck;
   final String subTitle;
   final bool isBold;
   final double? subtitleHeight;
-  const ParkInBar({super.key,required this.subTitle,this.actionCheck=false,this.isBold=false,this.subtitleHeight=CustomSizes.subSmall});
+  final bool showContainer;
+
+  const ParkInBar(
+      {super.key,
+      required this.subTitle,
+      this.actionCheck = false,
+      this.isBold = false,
+      this.subtitleHeight = CustomSizes.subSmall,
+      this.showContainer = false});
 
   @override
   Widget build(BuildContext context) {
-
     return SliverAppBar(
       automaticallyImplyLeading: false,
       pinned: true,
       backgroundColor: Colors.white,
-      actionsIconTheme: IconThemeData(color: Colors.black),
+      actionsIconTheme: const IconThemeData(color: Colors.black),
       title: const Text("ParkInn"),
-      titleTextStyle: TextStyle(color: BrandColors.primaryColor,fontSize: 35,fontWeight: FontWeight.w500),
+      titleTextStyle: TextStyle(
+          color: BrandColors.primaryColor,
+          fontSize: 35,
+          fontWeight: FontWeight.w500),
 
       // actions: [
       //   IconButton(onPressed: (){
@@ -35,11 +46,11 @@ class ParkInBar extends GetView<ParkInnBarController>{
       // }),
 
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(Get.height*0.06),
+        preferredSize: Size.fromHeight(Get.height * 0.06),
         child: Container(
           // color: Colors.black,
-          padding: EdgeInsets.symmetric(vertical: 0,horizontal: 15),
-          height: Size.fromHeight(Get.height*0.06).height,
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+          height: Size.fromHeight(Get.height * 0.06).height,
           width: Get.width,
           // color: Colors.black,
           child: Row(
@@ -48,27 +59,41 @@ class ParkInBar extends GetView<ParkInnBarController>{
                 subTitle.split(" ")[0],
                 style: TextStyle(
                     color: BrandColors.subTitleColor,
-                    fontSize: Get.height*0.06 * 0.5),
+                    fontSize: Get.height * 0.06 * 0.5),
               ),
               Text(
-                " "+subTitle.split(" ")[1],
+                " ${subTitle.split(" ")[1]}",
                 style: TextStyle(
                     color: BrandColors.subTitleColor,
-                    fontSize: Get.height*0.06 * 0.5,
-                    fontWeight: isBold?FontWeight.w900:FontWeight.w500),
-              )
+                    fontSize: Get.height * 0.06 * 0.5,
+                    fontWeight: isBold ? FontWeight.w900 : FontWeight.w500),
+              ),
+              SizedBox(
+                width: 180,
+              ),
+              showContainer
+                  ? Container(
+                      height: CustomSizes.height * 0.05,
+                      width: CustomSizes.width * 0.25,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                            color: BrandColors.primaryColor, width: 2.5),
+                      ),
+                      child: Center(
+                          child: Text("All vehicles",
+                              style:
+                                  TextStyle(color: BrandColors.primaryColor))),
+                    )
+                  : Container(),
             ],
           ),
         ),
       ),
-
-
     );
   }
-
 }
-
-
 
 /*
 *  SliverAppBar(
