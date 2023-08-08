@@ -22,18 +22,22 @@ class AuthScreen extends GetView<AuthController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-
             // const ParkInBar(subTitle: "Simple parking.", isBold: true,subtitleHeight:CustomSizes.subLarge ),
-            ParkInBar(bottomWidget: Row(
-             children: [
-               Text('Simple',style: TextStyle(
-                   color: BrandColors.subTitleColor,
-                   fontSize: CustomSizes.width * 0.11),),
-               Text(
+            ParkInBar(
+                bottomWidget: Row(
+              children: [
+                Text(
+                  'Simple',
+                  style: TextStyle(
+                      color: BrandColors.subTitleColor,
+                      fontSize: CustomSizes.width * 0.11),
+                ),
+                Text(
                   ' parking.',
                   style: TextStyle(
                       color: BrandColors.subTitleColor,
-                      fontSize: CustomSizes.width * 0.11,fontWeight: FontWeight.w900),
+                      fontSize: CustomSizes.width * 0.11,
+                      fontWeight: FontWeight.w900),
                 ),
               ],
             )),
@@ -41,7 +45,7 @@ class AuthScreen extends GetView<AuthController> {
               hasScrollBody: false,
               child: Container(
                 padding:
-                const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -51,8 +55,7 @@ class AuthScreen extends GetView<AuthController> {
                         textInputType: TextInputType.number,
                         formKey: controller.numberKey,
                         focusNode: controller.numberFocus,
-                        controller: controller.numberController
-                    ),
+                        controller: controller.numberController),
                     const SizedBox(
                       height: 15,
                     ),
@@ -62,6 +65,16 @@ class AuthScreen extends GetView<AuthController> {
                             labelText: "OTP",
                             textInputType: TextInputType.number,
                             formKey: controller.otpKey,
+                            validator: (value){
+                              if(value!.isEmpty)
+                                {
+                                  return "Please enter your otp";
+                                }
+                              if(value.length<5||value.length>5)
+                                {
+                                  return "Please enter a valid OTP.";
+                                }
+                            },
                             controller: controller.otpController);
                       } else {
                         return Container();
@@ -71,29 +84,32 @@ class AuthScreen extends GetView<AuthController> {
                       height: 20,
                     ),
                     Obx(
-                      ()=>ElevatedButton(
-                        onPressed: controller.onTap,
-                        onLongPress: ()async{
+                      () => ElevatedButton(
+                        onPressed: controller.otpCheck.value?controller.onVerifyOtp:controller.onGetOtp,
+                        onLongPress: () async {
+                          controller.isLoading.value = true;
+                          try {
+                            await API.createUser(controller.numberController.text, controller.otpController.text).then((Customer customer){
 
-                          Get.off(()=>HomeScreen());
+                              log(name:"AUTH SCREEN","CUSTOMER RECEIVED: ${customer.mobileNumber} ${customer.customerId}");
+                              Get.offAllNamed('/homeScreen');
 
-                          //
-                          // try {
-                          //   await API.createUser(controller.numberController.text, controller.otpController.text).then((Customer customer){
-                          //
-                          //     log(name:"AUTH SCREEN","CUSTOMER RECEIVED: ${customer.mobileNumber} ${customer.customerId}");
-                          //
-                          //   });
-                          // } on Exception catch (e) {
-                          //   // TODO
-                          // }
-
-
-
-
-
+                            });
+                          } on Exception catch (e) {
+                            // TODO
+                          }
                         },
-                        child: controller.otpCheck.value?const Text("Verify otp"):const Text("Get otp"),
+                        child: controller.isLoading.value
+                            ? const SizedBox(
+                                height: 15,
+                                width: 15,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 3.0,
+                                ))
+                            : controller.otpCheck.value
+                                ? const Text("Verify otp")
+                                : const Text("Get otp"),
                       ),
                     ),
                   ],
@@ -106,5 +122,3 @@ class AuthScreen extends GetView<AuthController> {
     );
   }
 }
-
-
