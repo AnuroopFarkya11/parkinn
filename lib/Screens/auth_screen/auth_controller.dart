@@ -36,6 +36,26 @@ class AuthController extends GetxController {
     return null;
   }
 
+
+  String? onOtpValidation(String? otp)
+  {
+    if(otp!.isEmpty)
+    {
+      return "Please enter your otp";
+    }
+    if(otp.length<5||otp.length>5)
+    {
+      return "Please enter a valid OTP.";
+    }
+    return null;
+  }
+
+
+
+
+
+
+
   void onGetOtp() {
 
 

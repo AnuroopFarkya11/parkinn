@@ -4,21 +4,20 @@ import 'package:http/http.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:parkinn/Modals/vehicle_modal.dart';
+import 'package:parkinn/Services/API/api_paths.dart';
 
 import '../../Modals/customer_modal.dart';
 
 class API {
   static http.Client client = http.Client();
-
-  static const defaultUrl = "https://aquamarine-turkey-gear.cyclic.cloud";
+  static ApiPath apiPath= ApiPath();
 
   static Future<Customer> createUser(String mobileNumber, String otp) async {
-    Uri url = Uri.parse("$defaultUrl/api/customer");
-    log(url.toString());
+
 
     try {
       Response response = await client
-          .post(url, body: {"mobileNumber": mobileNumber, "otp": otp});
+          .post(apiPath.createUser, body: {"mobileNumber": mobileNumber, "otp": otp});
 
       if (response.statusCode == 200) {
         log(name: "CREATE USER API:", "RESPONSE RECEIVED SUCCESSFULLY");

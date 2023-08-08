@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/auth_screen/auth_controller.dart';
@@ -8,7 +7,6 @@ import 'package:parkinn/Services/API/api_services.dart';
 import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/form_textfield/formfield.dart';
-
 import '../../Modals/customer_modal.dart';
 import '../../Utils/brand_color.dart';
 
@@ -65,17 +63,9 @@ class AuthScreen extends GetView<AuthController> {
                             labelText: "OTP",
                             textInputType: TextInputType.number,
                             formKey: controller.otpKey,
-                            validator: (value){
-                              if(value!.isEmpty)
-                                {
-                                  return "Please enter your otp";
-                                }
-                              if(value.length<5||value.length>5)
-                                {
-                                  return "Please enter a valid OTP.";
-                                }
-                            },
-                            controller: controller.otpController);
+                            validator: controller.onOtpValidation,
+                            controller: controller.otpController
+                        );
                       } else {
                         return Container();
                       }
@@ -86,19 +76,6 @@ class AuthScreen extends GetView<AuthController> {
                     Obx(
                       () => ElevatedButton(
                         onPressed: controller.otpCheck.value?controller.onVerifyOtp:controller.onGetOtp,
-                        onLongPress: () async {
-                          controller.isLoading.value = true;
-                          try {
-                            await API.createUser(controller.numberController.text, controller.otpController.text).then((Customer customer){
-
-                              log(name:"AUTH SCREEN","CUSTOMER RECEIVED: ${customer.mobileNumber} ${customer.customerId}");
-                              Get.offAllNamed('/homeScreen');
-
-                            });
-                          } on Exception catch (e) {
-                            // TODO
-                          }
-                        },
                         child: controller.isLoading.value
                             ? const SizedBox(
                                 height: 15,
