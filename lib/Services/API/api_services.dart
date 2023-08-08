@@ -12,7 +12,7 @@ class API {
   static http.Client client = http.Client();
   static ApiPath apiPath = ApiPath();
 
-  static Future<Customer> createUser(String mobileNumber, String otp) async {
+  static Future<Customer?> createUser(String mobileNumber, String otp) async {
     try {
       Response response = await client.post(apiPath.createUser,
           body: {"mobileNumber": mobileNumber, "otp": otp});

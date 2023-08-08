@@ -1,11 +1,15 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:parkinn/Screens/home_screen/home_screen.dart';
+import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
 
 import '../../Modals/customer_modal.dart';
 import '../../Services/API/api_services.dart';
+import '../../Services/shared_preferences/shared_preference.dart';
 
 class AuthController extends GetxController {
   GlobalKey<FormState> numberKey = GlobalKey<FormState>();
@@ -16,7 +20,6 @@ class AuthController extends GetxController {
 
   late Rx<bool> otpCheck;
   late Rx<bool> isLoading;
-
 
   @override
   void onInit() {
@@ -29,36 +32,24 @@ class AuthController extends GetxController {
     if (p0!.isEmpty) {
       return "Please enter a mobile number";
     }
-    if (p0.isNotEmpty && p0.length < 10 && p0.length>10) {
+    if (p0.isNotEmpty && p0.length < 10 && p0.length > 10) {
       return "Please enter a valid number";
     }
 
     return null;
   }
 
-
-  String? onOtpValidation(String? otp)
-  {
-    if(otp!.isEmpty)
-    {
+  String? onOtpValidation(String? otp) {
+    if (otp!.isEmpty) {
       return "Please enter your otp";
     }
-    if(otp.length<5||otp.length>5)
-    {
+    if (otp.length < 5 || otp.length > 5) {
       return "Please enter a valid OTP.";
     }
     return null;
   }
 
-
-
-
-
-
-
   void onGetOtp() {
-
-
     if (numberKey.currentState!.validate()) {
       // TODO API FOR OTP WILL BE CALLED HERE
       //TODO ON CHANGE FOCUS ONCE OTP SENT
@@ -66,29 +57,26 @@ class AuthController extends GetxController {
       Future.delayed(const Duration(milliseconds: 5), () {
         numberFocus.nextFocus();
       });
-
     }
   }
 
-  Future onVerifyOtp () async {
-
+  Future onVerifyOtp() async {
     //TODO:Error handling now done by anuroop
 
-    if(otpKey.currentState!.validate())
-    {
+    if (otpKey.currentState!.validate()) {
       isLoading.value = true;
 
       try {
         await API
             .createUser(numberController.text, otpController.text)
-            .then((Customer customer) {
-          log(
-              name: "AUTH SCREEN",
-              "CUSTOMER RECEIVED: ${customer.mobileNumber} ${customer.customerId}");
+            .then((Customer? customer) {
+          SharedService.setCustomerId(
+              customer!.mobileNumber!, customer.customerId!);
+
           Get.offAllNamed('/homeScreen');
         });
       } on Exception catch (e) {
-        // TODO
+        // TODO Anuroop ERror handling will be done
       }
     }
   }
