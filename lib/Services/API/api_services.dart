@@ -24,6 +24,7 @@ class API {
         log(name: "CREATE USER API:", "RESPONSE RECEIVED SUCCESSFULLY");
 
         return decodeCustomer(response);
+
       } else {
         log(
             name: "CREATE USER API: ",
@@ -37,6 +38,12 @@ class API {
     }
   }
 
+
+
+
+
+
+  //                 decoding methods
   static List<Vehicle> decodeVehicleList({required List<dynamic> list}) {
     List<Vehicle> vehicleList = list.map((tempVehicle) {
       return Vehicle(

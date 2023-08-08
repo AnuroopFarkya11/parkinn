@@ -32,7 +32,7 @@ class ParkInn extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "ParkInn",
       theme: AppTheme.appTheme,
-      initialRoute: '/authScreen',
+      initialRoute: '/homeScreen',
       getPages: RouteClass.routes,
       // home: AuthScreen(),
 
