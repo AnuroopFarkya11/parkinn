@@ -6,19 +6,18 @@ import '../../Utils/brand_color.dart';
 import '../../Utils/sizes.dart';
 
 class ParkInBar extends GetView<ParkInnBarController> {
-  final bool? actionCheck;
-  final String subTitle;
-  final bool isBold;
-  final double? subtitleHeight;
-  final bool showContainer;
+  // final bool? actionCheck;
+  // final String subTitle;
+  // final bool isBold;
+  // final double? subtitleHeight;
+  // final bool showContainer;
+
+  final Widget bottomWidget;
 
   const ParkInBar(
       {super.key,
-      required this.subTitle,
-      this.actionCheck = false,
-      this.isBold = false,
-      this.subtitleHeight = CustomSizes.subSmall,
-      this.showContainer = false});
+        required this.bottomWidget
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -33,27 +32,27 @@ class ParkInBar extends GetView<ParkInnBarController> {
           fontSize: 35,
           fontWeight: FontWeight.w500),
 
-      // actions: [
-      //   IconButton(onPressed: (){
-      //
-      //   }, icon: Icon(Icons.menu))
-      // ],
-
-      // titleSpacing: 10,
-      // expandedHeight: Get.height*0.1,
-      // flexibleSpace: LayoutBuilder(builder: (context,constraint){
-      //   return Text("Select Vehicle");
-      // }),
-
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(Get.height * 0.06),
+        preferredSize: Size.fromHeight(CustomSizes.height * 0.08),
         child: Container(
           // color: Colors.black,
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-          height: Size.fromHeight(Get.height * 0.06).height,
+          constraints: BoxConstraints(
+            minHeight:Size.fromHeight(CustomSizes.height *0.05).height,
+            maxHeight: Size.fromHeight(CustomSizes.height *0.08).height
+          ),
+          // height: Size.fromHeight(Get.height * 0.06).height,
           width: Get.width,
-          // color: Colors.black,
-          child: Row(
+          child: bottomWidget,
+        ),
+      ),
+    );
+  }
+}
+
+
+/*
+* Row(
             children: [
               Text(
                 subTitle.split(" ")[0],
@@ -88,12 +87,8 @@ class ParkInBar extends GetView<ParkInnBarController> {
                     )
                   : Container(),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+          )
+* */
 
 /*
 *  SliverAppBar(

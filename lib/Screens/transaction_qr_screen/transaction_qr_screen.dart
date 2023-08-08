@@ -9,6 +9,8 @@ import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
 class TransactionQr extends GetView<TransactionQrController> {
+  const TransactionQr({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,62 +18,47 @@ class TransactionQr extends GetView<TransactionQrController> {
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
-          ParkInBar(subTitle: "    "),
-          SliverToBoxAdapter(
+          ParkInBar(
+              bottomWidget: ListTile(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+            tileColor: BrandColors.primaryColor,
+            title: Text("Vehicle Number"),
+            subtitle: Text("Vehicle type"),
+            trailing: TextButton(
+              onPressed: () {},
+              child: Text("Change Vehicle"),
+              style:
+                  TextButton.styleFrom(backgroundColor: BrandColors.brandWhite),
+            ),
+          )),
+          SliverFillRemaining(
+            hasScrollBody: false,
             child: Column(
               children: [
-                ParkInnCard("Hanumanji", " 4 wheeler"),
-                Container(
-                  height: CustomSizes.height / 2,
-                  color: Colors.transparent,
-                  child: Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: BrandColors.primaryColor, width: 3),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png")))),
-                  ),
-                ),
-                Text(
-                  "Parking time not started",
-                  style: TextStyle(color: BrandColors.primaryColor),
-                ),
-                SizedBox(
-                  height: 105,
-                ),
-                Container(
-                  // height: 60,
-                  padding: EdgeInsets.all(15),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Balance",
-                                style: TextStyle(
-                                    color: BrandColors.subTitleColor,
-                                    fontWeight: FontWeight.bold)),
-                            Text("Rs 300",
-                                style: TextStyle(
-                                    color: BrandColors.brandBlack,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25)),
-                          ],
-                        ),
-                        ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Recharge",
-                            ))
-                      ],
+                Expanded(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: BrandColors.subTitleColor,width:2),
+                      ),
+                      child: Image.network(
+                        "https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png",
+                        fit: BoxFit.fill,
+                        height: CustomSizes.height * 0.4,
+                      ),
                     ),
-                  ),
+                    Text("Parking time not started")
+                  ],
+                )),
+                ListTile(
+                  tileColor: BrandColors.brandWhite,
+                  title: Text("Balance",style: TextStyle(fontSize: 13,color: BrandColors.subTitleColor),),
+                  subtitle: Text("Rs.400",style: TextStyle(fontSize: 20,color: BrandColors.brandBlack),),
+                  trailing: ElevatedButton(onPressed: (){},child: Text("Recharge"),),
                 )
               ],
             ),
@@ -81,3 +68,9 @@ class TransactionQr extends GetView<TransactionQrController> {
     );
   }
 }
+
+/*
+*
+* NetworkImage(
+                              "https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png"))
+* */
