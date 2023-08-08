@@ -1,49 +1,43 @@
 // ignore_for_file: unnecessary_getters_setters
 
-class Vehicle{
-
+class Vehicle {
   //        VEHICLE PROPERTIES
-  late String _vehicleType;
-  late String _vehicleNumber;
-  late DateTime _date;
+  late String? vehicleType;
+  late String? vehicleNumber;
+  late DateTime? date;
 
-  Vehicle()
-  {
-    _vehicleNumber ="DEFAULT NUMBER";
-    _vehicleType = "DEFAULT TYPE";
-    _date =  DateTime.now();
-  }
-
-
+  Vehicle({
+     this.vehicleNumber,
+     this.vehicleType,
+     this.date
+  });
 
   //           SETTERS
-  set vehicleType(String value) {
-    _vehicleType = value;
-  }
-
-
-  set vehicleNumber(String value) {
-    _vehicleNumber = value;
-  }
-
-  set date(DateTime value) {
-    _date = value;
-  }
-
-  //            GETTERS
-
-  String get vehicleType => _vehicleType;
-
-  String get vehicleNumber => _vehicleNumber;
-
-  DateTime get date => _date;
-
-
-  toJSON(){
-    return{
-    "vehicleType":_vehicleType,
-    "vehicleNumber":_vehicleNumber,
-    "date":_date
-    };
-  }
+  // set etVehicleType(String value) {
+  //   vehicleType = value;
+  // }
+  //
+  // set setVehicleNumber(String value) {
+  //   vehicleNumber = value;
+  // }
+  //
+  // set setDate(DateTime value) {
+  //   date = value;
+  // }
+  //
+  // //            GETTERS
+  //
+  // String? get getVehicleType => vehicleType;
+  //
+  // String? get getVehicleNumber => vehicleNumber;
+  //
+  // DateTime get getDate => date;
+  //
+  // toJSON() {
+  //   return {
+  //     "vehicleType": vehicleType,
+  //     "vehicleNumber": vehicleNumber,
+  //     "date": date
+  //   };
+  // }
 }

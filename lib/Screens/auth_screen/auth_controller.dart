@@ -21,12 +21,10 @@ class AuthController extends GetxController {
     if (p0!.isEmpty) {
       return "Please enter a mobile number";
     }
-    if (p0.length > 0 && p0.length < 10) {
+    if (p0.isNotEmpty && p0.length < 10 && p0.length>10) {
       return "Please enter a valid number";
     }
-    if (p0.length > 10) {
-      return "Please enter a valid number";
-    }
+
     return null;
   }
 
