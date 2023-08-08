@@ -49,20 +49,20 @@ class API {
   }
 
   static Customer decodeCustomer(Response response) {
-    Map<dynamic, dynamic> data = json.decode(response.body);
+    Map<dynamic, dynamic> customerData = json.decode(response.body);
 
-    if (data.length == 2) {
+    if (customerData.length == 2) {
       throw "Response failed";
     }
 
     return Customer(
-        mobileNumber: data['mobileNumber'],
-        customerId: data['customerId'],
-        balance: data['balance'],
-        currentTransaction: data['currentTransaction'],
-        vehicles: decodeVehicleList(list: data['vehicles']),
-        allVehicles: decodeVehicleList(list: data['allVehicles']),
-        history: data['history'],
-        createDate: data['createDate']);
+        mobileNumber: customerData['mobileNumber'],
+        customerId: customerData['customerId'],
+        balance: customerData['balance'],
+        currentTransaction: customerData['currentTransaction'],
+        vehicles: decodeVehicleList(list: customerData['vehicles']),
+        allVehicles: decodeVehicleList(list: customerData['allVehicles']),
+        history: customerData['history'],
+        createDate: customerData['createDate']);
   }
 }
