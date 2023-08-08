@@ -4,7 +4,8 @@ class Vehicle {
   //        VEHICLE PROPERTIES
   late String? vehicleType;
   late String? vehicleNumber;
-  late DateTime? date;
+  // todo anuroop
+  late String? date;
 
   Vehicle({
      this.vehicleNumber,

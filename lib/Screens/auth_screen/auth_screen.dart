@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:parkinn/Screens/auth_screen/auth_controller.dart';
 import 'package:parkinn/Screens/home_screen/home_screen.dart';
 import 'package:parkinn/Services/API/api_services.dart';
+import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/form_textfield/formfield.dart';
@@ -15,6 +16,8 @@ class AuthScreen extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(

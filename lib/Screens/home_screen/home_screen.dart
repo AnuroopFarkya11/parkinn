@@ -12,6 +12,7 @@ import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
 import '../../Modals/vehicle_modal.dart';
+import '../../Services/global_controller.dart';
 import '../../Utils/sizes.dart';
 import '../../Utils/text_styles.dart';
 import '../../Widgets/form_textfield/formfield.dart';
@@ -50,6 +51,14 @@ class HomeScreen extends GetView<HomeController> {
             /* SliverFixedExtentList(delegate: SliverChildBuilderDelegate(childCount: 12,(context,cnt){
 
               return ParkInnCard("MP 09 DA 1107", "2 wheeler");
+ log(name:"Home Screen",GlobalController.to.userID);
+
+    return Scaffold(
+      endDrawer: ParkInDrawer(),
+      body: SafeArea(
+        child: CustomScrollView(
+          // physics: NeverScrollableScrollPhysics(),
+          slivers: [
 
             }), itemExtent: 100)*/
             true?SliverFillRemaining(

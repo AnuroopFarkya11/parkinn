@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:parkinn/Screens/home_screen/home_screen.dart';
+import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
 
 import '../../Modals/customer_modal.dart';
@@ -72,6 +73,12 @@ class AuthController extends GetxController {
             .then((Customer? customer) {
           SharedService.setCustomerId(
               customer!.mobileNumber!, customer.customerId!);
+
+          GlobalController.to.userID = customer.customerId!;
+          GlobalController.to.userNumber = customer.mobileNumber!;
+
+
+
 
           Get.offAllNamed('/homeScreen');
         });
