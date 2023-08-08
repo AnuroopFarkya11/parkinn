@@ -5,6 +5,8 @@ import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/form_textfield/formfield.dart';
 
+import '../../Utils/brand_color.dart';
+
 class AuthScreen extends GetView<AuthController> {
   const AuthScreen({Key? key}) : super(key: key);
 
@@ -15,7 +17,21 @@ class AuthScreen extends GetView<AuthController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const ParkInBar(subTitle: "Simple parking.", isBold: true,subtitleHeight:CustomSizes.subLarge ),
+
+            // const ParkInBar(subTitle: "Simple parking.", isBold: true,subtitleHeight:CustomSizes.subLarge ),
+            ParkInBar(bottomWidget: Row(
+             children: [
+               Text('Simple',style: TextStyle(
+                   color: BrandColors.subTitleColor,
+                   fontSize: CustomSizes.width * 0.11),),
+               Text(
+                  ' parking.',
+                  style: TextStyle(
+                      color: BrandColors.subTitleColor,
+                      fontSize: CustomSizes.width * 0.11,fontWeight: FontWeight.w900),
+                ),
+              ],
+            )),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Container(

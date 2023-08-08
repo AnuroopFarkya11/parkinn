@@ -12,6 +12,8 @@ import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
 import '../../Modals/vehicle_modal.dart';
+import '../../Utils/sizes.dart';
+import '../../Utils/text_styles.dart';
 import '../../Widgets/form_textfield/formfield.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -29,17 +31,28 @@ class HomeScreen extends GetView<HomeController> {
         child: CustomScrollView(
           // physics: NeverScrollableScrollPhysics(),
           slivers: [
-            const ParkInBar(
-              // actionCheck: true,
-              subTitle: "Select vehicle",
-            ),
+            
+            ParkInBar(bottomWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Select Vehicle",style: TextStyle(
+                    color: BrandColors.subTitleColor,
+                    fontSize: CustomSizes.height * 0.06 * 0.5),),
+              ],
+            )),
+            
+            // const ParkInBar(
+            //   // actionCheck: true,
+            //   subTitle: "Select vehicle",
+            // ),
 
             /* SliverFixedExtentList(delegate: SliverChildBuilderDelegate(childCount: 12,(context,cnt){
 
               return ParkInnCard("MP 09 DA 1107", "2 wheeler");
 
             }), itemExtent: 100)*/
-            false?SliverFillRemaining(
+            true?SliverFillRemaining(
               // hasScrollBody: false,
               child: Container(
                 padding: EdgeInsets.all(12),

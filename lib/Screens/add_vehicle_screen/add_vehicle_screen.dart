@@ -20,7 +20,7 @@ class AddVehicleScreen extends GetView<AddVehicleController> {
         child: CustomScrollView(
           // physics: NeverScrollableScrollPhysics(),
           slivers: [
-            ParkInBar(subTitle: "Add Vehicle"),
+            // ParkInBar(subTitle: "Add Vehicle"),
             SliverToBoxAdapter(
               child: Container(
                 padding: EdgeInsets.all(12),
