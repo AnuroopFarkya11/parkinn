@@ -71,6 +71,9 @@ class AuthController extends GetxController {
   }
 
   Future onVerifyOtp () async {
+
+    //TODO:Error handling now done by anuroop
+
     if(otpKey.currentState!.validate())
     {
       isLoading.value = true;

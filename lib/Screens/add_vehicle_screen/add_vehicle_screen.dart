@@ -78,8 +78,8 @@ class AddVehicleScreen extends GetView<AddVehicleController> {
                             items: <String>["2 Wheeler", "4 Wheeler"]
                                 .map<DropdownMenuItem<String>>(
                                     (e) => DropdownMenuItem<String>(
-                                          child: Text(e),
                                           value: e,
+                                          child: Text(e),
                                         ))
                                 .toList(),
                             onChanged: (value) {})),

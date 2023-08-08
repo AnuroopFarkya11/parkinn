@@ -10,20 +10,17 @@ import '../../Modals/customer_modal.dart';
 
 class API {
   static http.Client client = http.Client();
-  static ApiPath apiPath= ApiPath();
+  static ApiPath apiPath = ApiPath();
 
   static Future<Customer> createUser(String mobileNumber, String otp) async {
-
-
     try {
-      Response response = await client
-          .post(apiPath.createUser, body: {"mobileNumber": mobileNumber, "otp": otp});
+      Response response = await client.post(apiPath.createUser,
+          body: {"mobileNumber": mobileNumber, "otp": otp});
 
       if (response.statusCode == 200) {
         log(name: "CREATE USER API:", "RESPONSE RECEIVED SUCCESSFULLY");
 
         return decodeCustomer(response);
-
       } else {
         log(
             name: "CREATE USER API: ",
@@ -37,10 +34,30 @@ class API {
     }
   }
 
+  static Future addVehicle(
+      {required String vehicleNumber,
+      required String vehicleType,
+      required String mobileNumber,
+      required customerId}) async {
+    try {
+      Response response = await client.post(apiPath.addVehicle, body: {
+        "mobileNumber": mobileNumber,
+        "customerId": customerId,
+        "vehicleNumber": vehicleNumber,
+        "vehicleType": vehicleType
+      });
 
+      if (response.statusCode == 200) {
+        log(name: "ADD VEHICLE API", "RESPONSE RECEIVED");
 
-
-
+        return decodeCustomer(response);
+      } else {
+        throw "Response failed ${response.statusCode}";
+      }
+    } on Exception catch (e) {
+      throw "Response failed";
+    }
+  }
 
   //                 decoding methods
   static List<Vehicle> decodeVehicleList({required List<dynamic> list}) {
