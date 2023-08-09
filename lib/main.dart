@@ -11,10 +11,10 @@ import 'package:parkinn/routes/route_class.dart';
 
 
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put<GlobalController>(GlobalController());
-  SharedService.initializeSharedPreferences();
+  await SharedService.initializeSharedPreferences();
   runApp(const ParkInn());
    Get.put(CardController());
   // Get.put(AuthController());
@@ -36,7 +36,7 @@ class ParkInn extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "ParkInn",
       theme: AppTheme.appTheme,
-      initialRoute: '/authScreen',
+      initialRoute: '/splashScreen',
       getPages: RouteClass.routes,
       // home: AuthScreen(),
 

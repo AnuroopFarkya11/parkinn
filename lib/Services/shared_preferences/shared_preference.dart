@@ -63,8 +63,8 @@ class SharedService {
     bool? status = false;
 
     try {
-      status = shared!.getBool('LogStatus');
-      log(name: "SHARED SERVICE", "LOG STATUS : $status");
+      status = shared!.getBool("logStatus");
+      log(name: "SHARED SERVICE", "lOG STATUS : $status");
     } on Exception catch (e) {
       log(name: "SHARED SERVICE", "LOG STATUS FAILED $e");
     }
