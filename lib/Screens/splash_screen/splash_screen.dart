@@ -17,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late Map<String?, String?>? user;
+
   // late Future<Customer?> customer;
 
   @override
@@ -28,26 +29,20 @@ class _SplashScreenState extends State<SplashScreen> {
       () async {
         if (SharedService.checkStatus() == true) {
           user = SharedService.getCustomerId();
-          if(user!.isNotEmpty)
-            {
-              GlobalController.to.userID = user!['customerId']!;
-              GlobalController.to.userNumber = user!['mobileNumber']!;
-              try {
-                GlobalController.to.customer = await API.loginUser(
-                    GlobalController.to.userNumber, GlobalController.to.userID);
-                Get.offNamed('/homeScreen');
-
-              } on Exception catch (e) {
-                // TODO
-              }
+          if (user!.isNotEmpty) {
+            String userID = user!['customerId']!;
+            String userNumber = user!['mobileNumber']!;
+            try {
+              GlobalController.to.customer =
+                  await API.loginUser(userNumber, userID);
+              Get.offNamed('/homeScreen');
+            } on Exception catch (e) {
+              // TODO
             }
-        }
-        else{
+          }
+        } else {
           Get.offNamed('/authScreen');
-
         }
-
-
       },
     );
   }
