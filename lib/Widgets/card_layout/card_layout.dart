@@ -3,11 +3,14 @@ import 'package:get/get.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Widgets/card_layout/card_controller.dart';
 
-class ParkInnCard extends GetView<CardController> {
-  String vehicleNumber;
-  String vehicleType;
+import '../../Modals/vehicle_modal.dart';
 
-  ParkInnCard(this.vehicleNumber, this.vehicleType, {super.key});
+class ParkInnCard extends StatelessWidget{
+  final CardController controller = Get.put(CardController());
+  late final Vehicle vehicle;
+  // ParkInnCard(this.vehicleNumber, this.vehicleType, {super.key});
+
+  ParkInnCard({super.key, required this.vehicle});
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +20,21 @@ class ParkInnCard extends GetView<CardController> {
         margin: EdgeInsets.symmetric(vertical: 10),
         child: ListTile(
           title: Text(
-            vehicleNumber,
+            vehicle.vehicleNumber!,
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
-          subtitle: Text(vehicleType),
-          trailing: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.delete),
-              color: Colors.black,
-              iconSize: 40),
+          subtitle: Text(vehicle.date!),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(vehicle.vehicleType!),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.delete),
+                  color: Colors.black,
+                  iconSize: 20),
+            ],
+          ),
           tileColor: controller.isSelected.value
               ? BrandColors.primaryColor
               : Colors.transparent,

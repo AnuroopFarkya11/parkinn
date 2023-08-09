@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:parkinn/Services/global_controller.dart';
 
+import '../../Modals/customer_modal.dart';
 import '../../Services/API/api_services.dart';
 
 class HomeController extends GetxController{
@@ -63,12 +65,21 @@ class HomeController extends GetxController{
         await API.addVehicle(
             vehicleNumber: vNumController
                 .text, vehicleType:vType!)
-            .then((value) {
-          log(name:"ADD VEHICLE","${value.toString()}");
-          isAdding.value = false;
-          vNumController.clear();
+            .then((Customer? customer) {
 
-          Get.snackbar("Vehicle Status", "Vehicle added successfully");
+              if(customer!=null)
+                {
+                  GlobalController.to.customer = customer;
+                  vNumController.clear();
+                  Get.snackbar("Vehicle Status", "Vehicle added successfully");
+                  isAdding.value = false;
+                  clickAdd.value=false;
+
+                }
+              else{
+                Get.snackbar("Vehicle Status", "Something ");
+              }
+
 
 
         });
@@ -78,6 +89,10 @@ class HomeController extends GetxController{
     }
   }
 
-  void onCancelPressed(){}
+  void onCancelPressed(){
+
+    clickAdd.value=false;
+
+  }
 
 }

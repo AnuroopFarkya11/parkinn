@@ -57,26 +57,24 @@ class HomeScreen extends GetView<HomeController> {
                           Container(
                             constraints:
                                 BoxConstraints(maxHeight: 200, minHeight: 100),
-                            child: Obx(
-                              () {
-                                if (controller.allVehicleList.isEmpty) {
-                                  return Container(
+                            child:GlobalController.to.customer!.allVehicles!.length==0?
+                                  Container(
                                     height: 100,
                                     child: Center(
                                       child: Text("No Vehicle added"),
                                     ),
-                                  );
-                                }
-                                return ListView.builder(
+                                  )
+                                :
+                                ListView.builder(
                                   shrinkWrap: true,
-                                  itemCount: controller.allVehicleList.length,
+                                  itemCount: GlobalController.to.customer!.allVehicles!.length,
                                   itemBuilder: (context, index) {
-                                    return ParkInnCard("Ramji", "4 wheeler");
+                                    return ParkInnCard(vehicle: GlobalController.to.customer!.allVehicles![index],);
                                   },
-                                );
-                              },
+                                )
+
                             ),
-                          ),
+
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                             child: Column(
@@ -97,7 +95,7 @@ class HomeScreen extends GetView<HomeController> {
                                   height: 20,
                                 ),
                                 Form(
-                                  // key: controller.vTypeKey,
+                                  key: controller.vTypeKey,
                                     child: DropdownButtonFormField(
                                         validator:controller.menuValidator,
                                         decoration:
@@ -166,7 +164,7 @@ class HomeScreen extends GetView<HomeController> {
                               shrinkWrap: true,
                               itemCount: GlobalController.to.customer!.vehicles!.length,
                               itemBuilder: (context, index) {
-                                return ParkInnCard("Ramji", "4 wheeler");
+                                return ParkInnCard(vehicle: GlobalController.to.customer!.vehicles![index],);
                               },
                             ),
                           ),
