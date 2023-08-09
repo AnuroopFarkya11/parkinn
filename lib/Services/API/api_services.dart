@@ -35,6 +35,26 @@ class API {
     }
   }
 
+  static Future<Customer> loginUser(
+      String mobileNumber, String customerId) async {
+    try {
+      Response response = await client.post(apiPath.loginUser,
+          body: {"mobileNumber": mobileNumber, "customerId": customerId});
+
+      if (response.statusCode == 200) {
+        log(name: "LOGIN USER API", "USER LOGGED IN SUCCESSFULLY");
+
+        return decodeCustomer(response);
+      } else {
+        log(name: "LOGIN USER API:", "RESPONSE FAILED: ${response.statusCode}");
+        throw "Response failed ${response.statusCode}";
+      }
+    } on Exception catch (e) {
+      log(name: "LOGIN USER API:", "EXCEPTION OCCURRED: $e ");
+      throw "Something went wrong.";
+    }
+  }
+
   static Future addVehicle(
       {required String vehicleNumber,
       required String vehicleType,}) async {

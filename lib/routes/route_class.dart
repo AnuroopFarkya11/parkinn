@@ -7,6 +7,8 @@ import 'package:parkinn/Screens/history_screen/history_binding.dart';
 import 'package:parkinn/Screens/history_screen/history_screen.dart';
 import 'package:parkinn/Screens/home_screen/home_binding.dart';
 import 'package:parkinn/Screens/home_screen/home_screen.dart';
+import 'package:parkinn/Screens/splash_screen/splash_screen.dart';
+import 'package:parkinn/Screens/splash_screen/splash_screen_binding.dart';
 import 'package:parkinn/Screens/transaction_qr_screen/transaction_qr_screen.dart';
 
 import '../Screens/transaction_qr_screen/transaction_qr_binding.dart';
@@ -32,6 +34,11 @@ class RouteClass {
     GetPage(
         name: '/transactionQr',
         page: () => TransactionQr(),
-        binding: SetTransactionQr())
+        binding: SetTransactionQr()),
+    GetPage(
+        name: '/splashScreen' ,
+        page: () => SplashScreen(),
+        binding: SetSplashBinding())
+
   ];
 }
