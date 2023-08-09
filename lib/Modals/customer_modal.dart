@@ -2,8 +2,8 @@ import 'package:parkinn/Modals/transaction_modal.dart';
 import 'package:parkinn/Modals/vehicle_modal.dart';
 
 class Customer {
-  final String? mobileNumber;
-  final String? customerId;
+  late final String? mobileNumber;
+  late final String? customerId;
   int? balance;
 
   // List<dynamic> vehicles = [];
