@@ -77,8 +77,7 @@ class AuthController extends GetxController {
           GlobalController.to.userID = customer.customerId!;
           GlobalController.to.userNumber = customer.mobileNumber!;
 
-
-
+          SharedService.setStatus(status: true);
 
           Get.offAllNamed('/homeScreen');
         });

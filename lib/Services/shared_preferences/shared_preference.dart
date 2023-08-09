@@ -47,7 +47,7 @@ class SharedService {
     } on Exception catch (e) {
       log(name: "SHARED SERVICE", "CUSTOMER IS FAILED $e");
     }
-    return null;
+    return customerCredential;
   }
 
   static void setStatus({bool status = false}) {
