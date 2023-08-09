@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:parkinn/Modals/vehicle_modal.dart';
 import 'package:parkinn/Services/API/api_paths.dart';
+import 'package:parkinn/Services/global_controller.dart';
 
 import '../../Modals/customer_modal.dart';
 
@@ -36,13 +37,16 @@ class API {
 
   static Future addVehicle(
       {required String vehicleNumber,
-      required String vehicleType,
-      required String mobileNumber,
-      required customerId}) async {
+      required String vehicleType,}) async {
+
+
+
+
     try {
       Response response = await client.post(apiPath.addVehicle, body: {
-        "mobileNumber": mobileNumber,
-        "customerId": customerId,
+        // todo do check these field must not be null
+        "mobileNumber": GlobalController.to.userNumber,
+        "customerId": GlobalController.to.userID,
         "vehicleNumber": vehicleNumber,
         "vehicleType": vehicleType
       });

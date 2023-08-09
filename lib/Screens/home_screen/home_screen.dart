@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
 import '../../Modals/vehicle_modal.dart';
+import '../../Services/API/api_services.dart';
 import '../../Services/global_controller.dart';
 import '../../Utils/sizes.dart';
 import '../../Utils/text_styles.dart';
@@ -30,38 +30,102 @@ class HomeScreen extends GetView<HomeController> {
       endDrawer: ParkInDrawer(),
       body: SafeArea(
         child: CustomScrollView(
-          // physics: NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           slivers: [
-            
-            ParkInBar(bottomWidget: Column(
+            ParkInBar(
+                bottomWidget: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Select Vehicle",style: TextStyle(
-                    color: BrandColors.subTitleColor,
-                    fontSize: CustomSizes.height * 0.06 * 0.5),),
+                Text(
+                  "Select Vehicle",
+                  style: TextStyle(
+                      color: BrandColors.subTitleColor,
+                      fontSize: CustomSizes.height * 0.06 * 0.5),
+                ),
               ],
             )),
-            
-            // const ParkInBar(
-            //   // actionCheck: true,
-            //   subTitle: "Select vehicle",
-            // ),
+            Obx(() {
+              return SliverVisibility(
+                  visible: controller.clickAdd.value,
+                  // maintainAnimation: true,
+                  // maintainState: true,
+                  // maintainAnimation: true,
+                  sliver: SliverToBoxAdapter(
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("All vehicles"),
+                          Container(
+                            constraints:
+                                BoxConstraints(maxHeight: 200, minHeight: 100),
+                            child: Obx(
+                              () {
+                                if (controller.allVehicleList.isEmpty) {
+                                  return Container(
+                                    height: 100,
+                                    child: Center(
+                                      child: Text("No Vehicle added"),
+                                    ),
+                                  );
+                                }
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: controller.allVehicleList.length,
+                                  itemBuilder: (context, index) {
+                                    return ParkInnCard("Ramji", "4 wheeler");
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  replacementSliver: SliverToBoxAdapter(
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            constraints:
+                                BoxConstraints(maxHeight: 250, minHeight: 100),
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: 10,
+                              itemBuilder: (context, index) {
+                                return ParkInnCard("Ramji", "4 wheeler");
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    controller.clickAdd.value = true;
+                                  },
+                                  child: Text("New vehicle")),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {}, child: Text("Proceed")),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ));
+            })
 
-            /* SliverFixedExtentList(delegate: SliverChildBuilderDelegate(childCount: 12,(context,cnt){
-
-              return ParkInnCard("MP 09 DA 1107", "2 wheeler");
- log(name:"Home Screen",GlobalController.to.userID);
-
-    return Scaffold(
-      endDrawer: ParkInDrawer(),
-      body: SafeArea(
-        child: CustomScrollView(
-          // physics: NeverScrollableScrollPhysics(),
-          slivers: [
-
-            }), itemExtent: 100)*/
-            true?SliverFillRemaining(
+            /*       SliverFillRemaining(
               // hasScrollBody: false,
               child: Container(
                 padding: EdgeInsets.all(12),
@@ -122,103 +186,158 @@ class HomeScreen extends GetView<HomeController> {
                   ],
                 ),
               ),
-            ):const SliverToBoxAdapter(),
-
-            true?SliverToBoxAdapter(
-              child: Container(
-                padding: EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("All vehicles"),
-                    Container(
-                      constraints:
-                      BoxConstraints(maxHeight: 200, minHeight: 100),
-                      child: Obx(
-                            () {
-                          if(controller.allVehicleList.isEmpty)
-                          {
-                            return Container(height: 100,child: Center(child: Text("No Vehicle added"),),);
-                          }
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: controller.allVehicleList.length,
-                            itemBuilder: (context, index) {
-                              return ParkInnCard("Ramji", "4 wheeler");
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ):const SliverToBoxAdapter(),
-            true?SliverFillRemaining(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Vehicle Details"),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ParkInField(
-                        labelText: "Vehicle Number",
-                        formKey: controller.vNumKey,
-                        controller: controller.vNumController),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Form(
-                        child: DropdownButtonFormField(
-                            decoration:
-                            InputDecoration(labelText: "Vehicle Type"),
-                            // hint: Text("Vehicle Type"),
-                            alignment: Alignment.bottomCenter,
-                            items: <String>["2 Wheeler", "4 Wheeler"]
-                                .map<DropdownMenuItem<String>>(
-                                    (e) => DropdownMenuItem<String>(
-                                  child: Text(e),
-                                  value: e,
-                                ))
-                                .toList(),
-                            onChanged: (value) {})),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              Vehicle vehicle = Vehicle();
-                              controller.allVehicleList.add(vehicle);
-                              log("${controller.allVehicleList.length}");
-                            },
-                            child: Text("Add")),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Cancel",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ):const SliverToBoxAdapter()
+            )*/
           ],
         ),
       ),
     );
   }
 }
+
+/*
+*
+*  SliverToBoxAdapter(
+             child: Container(
+               padding: EdgeInsets.all(12),
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Text("All vehicles"),
+                   Container(
+                     constraints:
+                     BoxConstraints(maxHeight: 200, minHeight: 100),
+                     child: Obx(
+                           () {
+                         if (controller.allVehicleList.isEmpty) {
+                           return Container(height: 100,
+                             child: Center(child: Text("No Vehicle added"),),);
+                         }
+                         return ListView.builder(
+                           shrinkWrap: true,
+                           itemCount: controller.allVehicleList.length,
+                           itemBuilder: (context, index) {
+                             return ParkInnCard("Ramji", "4 wheeler");
+                           },
+                         );
+                       },
+                     ),
+                   ),
+                 ],
+               ),
+             ),
+           ),
+           SliverFillRemaining(
+             hasScrollBody: false,
+             child: Container(
+               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Text("Vehicle Details"),
+                   SizedBox(
+                     height: 20,
+                   ),
+                   ParkInField(
+
+                     // todo key formatters in terms ki MP 09 CG 1124
+                       labelText: "Vehicle Number",
+                       formKey: controller.vNumKey,
+                       validator: (value) {
+                         if (value!.isEmpty) {
+                           return "Please enter your vehicle number.";
+                         }
+                         return null;
+                       },
+                       controller: controller.vNumController),
+                   SizedBox(
+                     height: 20,
+                   ),
+                   Form(
+                       // key: controller.vTypeKey,
+                       child: DropdownButtonFormField(
+                           validator: (String? value) {
+                             if (value == null) {
+                               return "Please choose vehicle type.";
+                             }
+                             return null;
+                           },
+                           decoration:
+                           InputDecoration(labelText: "Vehicle Type"),
+                           // hint: Text("Vehicle Type"),
+                           alignment: Alignment.bottomCenter,
+                           items: <String>["2 Wheeler", "4 Wheeler"]
+                               .map<DropdownMenuItem<String>>(
+                                   (String type) =>
+                                   DropdownMenuItem<String>(
+                                     value: type,
+                                     child: Text(type),
+                                   ))
+                               .toList(),
+                           onChanged: (String? type) {
+                             // todo check a better way to access value
+                             log(name: "ADD VEHICLE", "Vehicle type : $type");
+                             controller.vType = type;
+                           })),
+                   SizedBox(
+                     height: 20,
+                   ),
+                   Row(
+                     children: [
+                       Obx(
+                             ()=>ElevatedButton(
+                             onPressed: () async {
+                               /*Vehicle vehicle = Vehicle();
+                                controller.allVehicleList.add(vehicle);
+                                log("${controller.allVehicleList.length}");*/
+
+
+                               if (controller.vNumKey.currentState!.validate() &&
+                                   controller.vTypeKey.currentState!
+                                       .validate()) {
+                                 log(name: "ADD VEHICLE", "Adding Vehicle");
+                                 controller.isAdding.value = true;
+
+                                 try {
+                                   await API.addVehicle(
+                                       vehicleNumber: controller.vNumController
+                                           .text, vehicleType: controller.vType!)
+                                       .then((value) {
+                                     log(name:"ADD VEHICLE","${value.toString()}");
+                                     controller.isAdding.value = false;
+                                     controller.vNumController.clear();
+
+
+                                     Get.snackbar("Vehicle Status", "Vehicle added successfully");
+
+
+                                   });
+                                 } catch (e) {
+                                   log(name: "ADD VEHICLE", "EXCEPTION $e");
+                                 }
+                               }
+                             },
+                             child: controller.isAdding.value ? SizedBox(
+                               height: 15,
+                               width: 15,
+                               child: CircularProgressIndicator(color: Colors.white,strokeWidth: 2.0),) : Text(
+                                 "Add")),
+                       ),
+                       SizedBox(
+                         width: 20,
+                       ),
+                       ElevatedButton(
+                         onPressed: () {},
+                         child: Text(
+                           "Cancel",
+                           style: TextStyle(color: Colors.black),
+                         ),
+                         style: ElevatedButton.styleFrom(
+                           backgroundColor: Colors.white,
+                         ),
+                       ),
+                     ],
+                   ),
+                 ],
+               ),
+             ),
+           )*/
