@@ -60,7 +60,7 @@ class API {
 
   // todo daksh: create a decoder class and implement decoding method
   // todo anuroop: you will use this method to implement feature of adding vehicle
-  static Future addVehicle(
+  static Future<Customer?>addVehicle(
       {required String vehicleNumber,
       required String vehicleType,}) async {
 
@@ -70,8 +70,8 @@ class API {
     try {
       Response response = await client.post(apiPath.addVehicle, body: {
         // todo do check these field must not be null
-        "mobileNumber": GlobalController.to.userNumber,
-        "customerId": GlobalController.to.userID,
+        "mobileNumber": GlobalController.to.customer!.mobileNumber,
+        "customerId": GlobalController.to.customer!.customerId,
         "vehicleNumber": vehicleNumber,
         "vehicleType": vehicleType
       });

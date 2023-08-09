@@ -1,20 +1,13 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/home_screen/home_controller.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
-import 'package:parkinn/Widgets/app_bar/new_bar.dart';
 import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
-
-import '../../Modals/vehicle_modal.dart';
-import '../../Services/API/api_services.dart';
 import '../../Services/global_controller.dart';
 import '../../Utils/sizes.dart';
-import '../../Utils/text_styles.dart';
 import '../../Widgets/form_textfield/formfield.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -32,7 +25,7 @@ class HomeScreen extends GetView<HomeController> {
     log(name:"Home Screen","${GlobalController.to.customer!.customerId}");
 
     return Scaffold(
-      endDrawer: ParkInDrawer(),
+      endDrawer: const ParkInDrawer(),
       body: SafeArea(
         child: CustomScrollView(
           physics: NeverScrollableScrollPhysics(),
@@ -54,9 +47,6 @@ class HomeScreen extends GetView<HomeController> {
               //todo anuroop
               return SliverVisibility(
                   visible: controller.clickAdd.value,
-                  // maintainAnimation: true,
-                  // maintainState: true,
-                  // maintainAnimation: true,
                   sliver: SliverToBoxAdapter(
                     child: Container(
                       padding: EdgeInsets.all(12),
@@ -87,6 +77,78 @@ class HomeScreen extends GetView<HomeController> {
                               },
                             ),
                           ),
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Vehicle Details"),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                ParkInField(
+
+                                  // todo key formatters in terms ki MP 09 CG 1124
+                                    labelText: "Vehicle Number",
+                                    formKey: controller.vNumKey,
+                                    validator:controller.vehicleNumValidator,
+                                    controller: controller.vNumController),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Form(
+                                  // key: controller.vTypeKey,
+                                    child: DropdownButtonFormField(
+                                        validator:controller.menuValidator,
+                                        decoration:
+                                        InputDecoration(labelText: "Vehicle Type"),
+                                        // hint: Text("Vehicle Type"),
+                                        alignment: Alignment.bottomCenter,
+                                        items: <String>["2 Wheeler", "4 Wheeler"]
+                                            .map<DropdownMenuItem<String>>(
+                                                (String type) =>
+                                                DropdownMenuItem<String>(
+                                                  value: type,
+                                                  child: Text(type),
+                                                ))
+                                            .toList(),
+                                        onChanged: controller.menuOnChanged)),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [
+                                    Obx(
+                                          ()=>ElevatedButton(
+                                          onPressed: controller.onAddPressed,
+                                          child: controller.isAdding.value ? SizedBox(
+                                            height: 15,
+                                            width: 15,
+                                            child: CircularProgressIndicator(color: Colors.white,strokeWidth: 2.0),) : Text(
+                                              "Add")),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: controller.onCancelPressed,
+                                      child: Text(
+                                        "Cancel",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+
+
                         ],
                       ),
                     ),
@@ -231,8 +293,8 @@ class HomeScreen extends GetView<HomeController> {
                  ],
                ),
              ),
-           ),
-           SliverFillRemaining(
+           ),*/
+   /*        SliverFillRemaining(
              hasScrollBody: false,
              child: Container(
                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
@@ -292,9 +354,9 @@ class HomeScreen extends GetView<HomeController> {
                        Obx(
                              ()=>ElevatedButton(
                              onPressed: () async {
-                               /*Vehicle vehicle = Vehicle();
+                               *//*Vehicle vehicle = Vehicle();
                                 controller.allVehicleList.add(vehicle);
-                                log("${controller.allVehicleList.length}");*/
+                                log("${controller.allVehicleList.length}");*//*
 
 
                                if (controller.vNumKey.currentState!.validate() &&
@@ -346,4 +408,5 @@ class HomeScreen extends GetView<HomeController> {
                  ],
                ),
              ),
-           )*/
+           )
+*/

@@ -30,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
           user = SharedService.getCustomerId();
           if(user!.isNotEmpty)
             {
+
               GlobalController.to.userID = user!['customerId']!;
               GlobalController.to.userNumber = user!['mobileNumber']!;
               try {
