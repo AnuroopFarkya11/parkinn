@@ -35,7 +35,7 @@ class API {
     }
   }
 
-  static Future<Customer> loginUser(
+  static Future<Customer?> loginUser(
       String mobileNumber, String customerId) async {
     try {
       Response response = await client.post(apiPath.loginUser,
@@ -45,6 +45,7 @@ class API {
         log(name: "LOGIN USER API", "USER LOGGED IN SUCCESSFULLY");
 
         return decodeCustomer(response);
+
       } else {
         log(name: "LOGIN USER API:", "RESPONSE FAILED: ${response.statusCode}");
         throw "Response failed ${response.statusCode}";
@@ -55,6 +56,10 @@ class API {
     }
   }
 
+
+
+  // todo daksh: create a decoder class and implement decoding method
+  // todo anuroop: you will use this method to implement feature of adding vehicle
   static Future addVehicle(
       {required String vehicleNumber,
       required String vehicleType,}) async {
@@ -82,6 +87,10 @@ class API {
       throw "Response failed";
     }
   }
+
+
+
+  // todo daksh integrate create current transaction api and delete current transaction
 
   //                 decoding methods
   static List<Vehicle> decodeVehicleList({required List<dynamic> list}) {

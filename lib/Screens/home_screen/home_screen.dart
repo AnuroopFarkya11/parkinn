@@ -24,8 +24,13 @@ class HomeScreen extends GetView<HomeController> {
   *
   *
   * */
+
+
   @override
   Widget build(BuildContext context) {
+
+    log(name:"Home Screen","${GlobalController.to.customer!.customerId}");
+
     return Scaffold(
       endDrawer: ParkInDrawer(),
       body: SafeArea(
@@ -46,6 +51,7 @@ class HomeScreen extends GetView<HomeController> {
               ],
             )),
             Obx(() {
+              //todo anuroop
               return SliverVisibility(
                   visible: controller.clickAdd.value,
                   // maintainAnimation: true,
@@ -94,9 +100,9 @@ class HomeScreen extends GetView<HomeController> {
                           Container(
                             constraints:
                                 BoxConstraints(maxHeight: 250, minHeight: 100),
-                            child: ListView.builder(
+                            child: GlobalController.to.customer!.vehicles!.length==0?Center(child: Text("No vehicles."),):ListView.builder(
                               shrinkWrap: true,
-                              itemCount: 10,
+                              itemCount: GlobalController.to.customer!.vehicles!.length,
                               itemBuilder: (context, index) {
                                 return ParkInnCard("Ramji", "4 wheeler");
                               },
