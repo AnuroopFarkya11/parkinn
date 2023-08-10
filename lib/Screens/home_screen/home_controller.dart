@@ -46,7 +46,9 @@ class HomeController extends GetxController{
       {
         // call create transaction api and navigate to transaction screen
 
-        API.createTransaction(GlobalController.to.customer!.vehicles[selectedTileIndex.obs].vehicleType!, vehicleNumber)
+        // API.createTransaction(GlobalController.to.customer!.vehicles[selectedTileIndex.obs].vehicleType!, vehicleNumber)
+
+
       }
 
 
