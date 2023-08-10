@@ -14,19 +14,43 @@ class HomeController extends GetxController{
   GlobalKey<FormState> vNumKey = GlobalKey<FormState>();
   GlobalKey<FormState> vTypeKey = GlobalKey<FormState>();
 
+  late int vehicleIndex;
   late String? vType;
   late RxBool isAdding;
   late RxBool clickAdd;
-
+  late Rx selectedTileIndex;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    vehicleIndex = -1;
     allVehicleList = [].obs;
     isAdding = false.obs;
     clickAdd = false.obs;
+    selectedTileIndex = 9999.obs;
   }
 
+  // HOME SCREEN
+
+  bool validateVehicleIndex(){
+    if(vehicleIndex<0)
+      {
+        return false;
+      }
+    return true;
+  }
+
+  void onProceedTap(){
+
+    if(validateVehicleIndex())
+      {
+        // call create transaction api and navigate to transaction screen
+
+        API.createTransaction(GlobalController.to.customer!.vehicles[selectedTileIndex.obs].vehicleType!, vehicleNumber)
+      }
+
+
+  }
 
 
 // SCREEN 2
