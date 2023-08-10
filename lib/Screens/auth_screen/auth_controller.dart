@@ -21,6 +21,7 @@ class AuthController extends GetxController {
 
   late Rx<bool> otpCheck;
   late Rx<bool> isLoading;
+  Customer? customer;
 
   @override
   void onInit() {
@@ -68,21 +69,24 @@ class AuthController extends GetxController {
       isLoading.value = true;
 
       try {
-        await API
+        customer = await API
             .createUser(numberController.text, otpController.text)
-            .then((Customer? customer) {
-          SharedService.setCustomerId(
-              customer!.mobileNumber!, customer.customerId!);
+            .then(
+          (customer) {
+            SharedService.setCustomerId(
+                customer!.mobileNumber!, customer.customerId!);
 
-          GlobalController.to.customer!.customerId = customer.customerId!;
-          GlobalController.to.customer!.mobileNumber = customer.mobileNumber!;
+            GlobalController.to.customer!.customerId = customer.customerId;
+            GlobalController.to.customer!.mobileNumber = customer.mobileNumber;
 
-          SharedService.setStatus(status: true);
+            SharedService.setStatus(status: true);
 
-          Get.offAllNamed('/homeScreen');
-        });
+            Get.offAllNamed('/homeScreen');
+          },
+        );
       } on Exception catch (e) {
         // TODO Anuroop ERror handling will be done
+        log(name: "AUTH SCREEN", "$e");
       }
     }
   }

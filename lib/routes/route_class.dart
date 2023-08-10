@@ -7,10 +7,12 @@ import 'package:parkinn/Screens/history_screen/history_binding.dart';
 import 'package:parkinn/Screens/history_screen/history_screen.dart';
 import 'package:parkinn/Screens/home_screen/home_binding.dart';
 import 'package:parkinn/Screens/home_screen/home_screen.dart';
+import 'package:parkinn/Screens/profile_screen/profile_screen.dart';
 import 'package:parkinn/Screens/splash_screen/splash_screen.dart';
 import 'package:parkinn/Screens/splash_screen/splash_screen_binding.dart';
 import 'package:parkinn/Screens/transaction_qr_screen/transaction_qr_screen.dart';
 
+import '../Screens/profile_screen/profile_binding.dart';
 import '../Screens/transaction_qr_screen/transaction_qr_binding.dart';
 
 class RouteClass {
@@ -29,16 +31,19 @@ class RouteClass {
         binding: SetAddVehicleController()),
     GetPage(
         name: '/historyScreen',
-        page: () => History(),
+        page: () => const History(),
         binding: SetHistoryBinding()),
     GetPage(
         name: '/transactionQr',
-        page: () => TransactionQr(),
+        page: () => const TransactionQr(),
         binding: SetTransactionQr()),
     GetPage(
-        name: '/splashScreen' ,
-        page: () => SplashScreen(),
-        binding: SetSplashBinding())
-
+        name: '/splashScreen',
+        page: () => const SplashScreen(),
+        binding: SetSplashBinding()),
+    GetPage(
+        name: "/profileScreen",
+        page: () => const ProfileScreen(),
+        binding: SetProfileBinding())
   ];
 }

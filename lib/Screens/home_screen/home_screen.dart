@@ -22,7 +22,7 @@ class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
 
-    log(name:"Home Screen","${GlobalController.to.customer!.customerId}");
+   log(name:"Home Screen","${GlobalController.to.customer!.customerId}");
 
     return Scaffold(
       endDrawer: const ParkInDrawer(),

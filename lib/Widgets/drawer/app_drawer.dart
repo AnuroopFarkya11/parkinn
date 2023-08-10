@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
@@ -35,6 +34,13 @@ class ParkInDrawer extends StatelessWidget {
                 title: Text("History"),
                 leading: Icon(Icons.history),
                 onTap: () {},
+              ),
+              ListTile(
+                onTap: () {
+                  Get.toNamed("/profileScreen");
+                },
+                title: Text("Your Profile"),
+                leading: Icon(Icons.person),
               ),
               ListTile(
                 onTap: () {
