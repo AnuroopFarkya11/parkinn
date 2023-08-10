@@ -57,7 +57,7 @@ class API {
   }
 
   // todo anuroop: you will use this method to implement feature of adding vehicle
-  static Future addVehicle({
+  static Future<Customer?> addVehicle({
     required String vehicleNumber,
     required String vehicleType,
   }) async {

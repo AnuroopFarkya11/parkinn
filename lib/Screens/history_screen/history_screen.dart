@@ -66,7 +66,8 @@ class History extends GetView<HistoryController> {
                   shrinkWrap: true,
                   itemCount: 15,
                   itemBuilder: (context, index) {
-                    return ParkInnCard("Ramji", "4 wheeler");
+                    return Container();
+                    // return ParkInnCard("Ramji", "4 wheeler");
                   },
                 ),
               ),

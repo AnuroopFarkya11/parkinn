@@ -9,7 +9,16 @@ import 'package:parkinn/Widgets/card_layout/card_controller.dart';
 import 'package:parkinn/Widgets/test_widget.dart';
 import 'package:parkinn/routes/route_class.dart';
 
-
+/*
+* TODO
+*
+* ADD A PROFILE SCREEN
+*
+* ADD PACKAGE FOR INTERNET CONNECTION
+*
+*
+*
+* */
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
