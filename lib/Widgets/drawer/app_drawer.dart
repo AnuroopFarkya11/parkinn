@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,6 +52,7 @@ class ParkInDrawer extends StatelessWidget {
                 onTap: () {
                   SharedService.setStatus(status: false);
                   SharedService.setCustomerId(" ", " ");
+                  // GlobalController.to.dispose();
                   Get.offNamed('/authScreen');
                 },
                 title: Text("Logout"),

@@ -6,6 +6,7 @@ import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
+import '../../Services/API/api_services.dart';
 import '../../Services/global_controller.dart';
 import '../../Utils/sizes.dart';
 import '../../Widgets/form_textfield/formfield.dart';
@@ -66,20 +67,29 @@ class HomeScreen extends GetView<HomeController> {
                                       ),
                                     )
                                   : ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: GlobalController
-                                    .to.customer!.allVehicles!.length,
-                                itemBuilder: (context, index) {
-                                  return ParkInnCard(
-                                    vehicle: GlobalController
-                                        .to.customer!.allVehicles![index],
-                                    isVehicleSelected: index == controller.selectedTileIndex,
-                                    onTap: (){
-                                      controller.selectedTileIndex.value = index;
+                                      shrinkWrap: true,
+                                      itemCount: GlobalController
+                                          .to.customer!.allVehicles!.length,
+                                      itemBuilder: (context, index) {
+                                        return ParkInnCard(
+                                          vehicle: GlobalController
+                                              .to.customer!.vehicles![index],
+                                          isVehicleSelected: index ==
+                                              controller.selectedTileIndex,
+                                          onTap: () {
+                                            controller.selectedTileIndex.value =
+                                                index;
+                                          },
+                                          trailingOnTap: ()async{
+
+                                            await API.removeVehicle(GlobalController
+                                                .to.customer!.vehicles![index]).then((value){
+                                                  GlobalController.to.customer = value;
+                                            });
+                                          },
+                                        );
                                       },
-                                  );
-                                },
-                              )),
+                                    )),
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 10),
@@ -173,27 +183,29 @@ class HomeScreen extends GetView<HomeController> {
                             constraints:
                                 BoxConstraints(maxHeight: 250, minHeight: 100),
                             child: GlobalController
-                                        .to.customer!.vehicles!.length == 0
+                                        .to.customer!.vehicles!.length ==
+                                    0
                                 ? Center(
                                     child: Text("No vehicles."),
                                   )
                                 : ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: GlobalController
-                                  .to.customer!.vehicles!.length,
-                              itemBuilder: (context, index) {
-                                return ParkInnCard(
-                                  vehicle: GlobalController
-                                      .to.customer!.vehicles![index],
-                                  isVehicleSelected:false,
-                                  onTap: () {
-                                    controller.vehicleIndex = index;
+                                    shrinkWrap: true,
+                                    itemCount: GlobalController
+                                        .to.customer!.vehicles!.length,
+                                    itemBuilder: (context, index) {
+                                      return ParkInnCard(
+                                        vehicle: GlobalController
+                                            .to.customer!.vehicles![index],
+                                        isVehicleSelected: false,
+                                        onTap: () {
+                                          controller.vehicleIndex = index;
 
-                                    controller.selectedTileIndex.value = index;
-                                  },
-                                );
-                              },
-                            ),
+                                          controller.selectedTileIndex.value =
+                                              index;
+                                        },
+                                      );
+                                    },
+                                  ),
                           ),
                           SizedBox(
                             height: 20,
@@ -209,7 +221,8 @@ class HomeScreen extends GetView<HomeController> {
                                 width: 10,
                               ),
                               ElevatedButton(
-                                  onPressed: controller.onProceedTap, child: Text("Proceed")),
+                                  onPressed: controller.onProceedTap,
+                                  child: Text("Proceed")),
                             ],
                           ),
                         ],
