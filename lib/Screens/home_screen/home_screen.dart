@@ -28,7 +28,7 @@ class HomeScreen extends GetView<HomeController> {
       endDrawer: const ParkInDrawer(),
       body: SafeArea(
         child: CustomScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           slivers: [
             ParkInBar(
                 bottomWidget: Column(
@@ -57,7 +57,7 @@ class HomeScreen extends GetView<HomeController> {
                           Container(
                             constraints:
                                 BoxConstraints(maxHeight: 200, minHeight: 100),
-                            child:GlobalController.to.customer!.allVehicles!.length==0?
+                            child:GlobalController.to.customer!.allVehicles!.isEmpty?
                                   Container(
                                     height: 100,
                                     child: Center(
