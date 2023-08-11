@@ -189,7 +189,7 @@ class HomeScreen extends GetView<HomeController> {
                                   onTap: () {
                                     controller.vehicleIndex = index;
 
-                                    // controller.selectedTileIndex.value = index;
+                                    controller.selectedTileIndex.value = index;
                                   },
                                 );
                               },
@@ -209,7 +209,7 @@ class HomeScreen extends GetView<HomeController> {
                                 width: 10,
                               ),
                               ElevatedButton(
-                                  onPressed: () {}, child: Text("Proceed")),
+                                  onPressed: controller.onProceedTap, child: Text("Proceed")),
                             ],
                           ),
                         ],

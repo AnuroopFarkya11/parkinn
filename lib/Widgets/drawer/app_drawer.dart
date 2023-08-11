@@ -26,22 +26,27 @@ class ParkInDrawer extends StatelessWidget {
                 ),
               ))),
               ListTile(
-                title: Text("Home"),
-                leading: Icon(Icons.home),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text("History"),
-                leading: Icon(Icons.history),
-                onTap: () {},
-              ),
-              ListTile(
                 onTap: () {
                   Get.toNamed("/profileScreen");
                 },
                 title: Text("Your Profile"),
                 leading: Icon(Icons.person),
               ),
+              ListTile(
+                title: Text("Home"),
+                leading: Icon(Icons.home),
+                onTap: () {
+                  Get.offAllNamed('homeScreen');
+                },
+              ),
+              ListTile(
+                title: Text("History"),
+                leading: Icon(Icons.history),
+                onTap: () {
+                  Get.offAllNamed('historyScreen');
+                },
+              ),
+
               ListTile(
                 onTap: () {
                   SharedService.setStatus(status: false);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
+import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -10,12 +11,14 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String?, String?>? user = SharedService.getCustomerId();
     return Scaffold(
+      endDrawer: ParkInDrawer(),
       body: CustomScrollView(
         slivers: [
           const ParkInBar(
               bottomWidget:
                   Text("Your Profile", style: TextStyle(fontSize: 20))),
           SliverFillRemaining(
+            hasScrollBody: false,
             child: Container(
               color: Colors.white,
               child: Column(
