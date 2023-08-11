@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-
-//import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/history_screen/history_controller.dart';
 import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
-
 import '../../Utils/brand_color.dart';
-import '../../Widgets/card_layout/card_layout.dart';
 
 class History extends GetView<HistoryController> {
   const History({super.key});
@@ -62,11 +58,11 @@ class History extends GetView<HistoryController> {
             SliverFillRemaining(
               child: Container(
                 padding: EdgeInsets.all(12),
-                child: ListView.builder(
+                child: controller.customer!.history!.isEmpty?Center(child: Text("No Transaction Record"),):ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 15,
+                  itemCount: controller.customer!.history!.length,
                   itemBuilder: (context, index) {
-                    return Container();
+                    return Container(color: Colors.black,);
                     // return ParkInnCard("Ramji", "4 wheeler");
                   },
                 ),

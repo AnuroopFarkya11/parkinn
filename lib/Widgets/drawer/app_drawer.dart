@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,16 +27,6 @@ class ParkInDrawer extends StatelessWidget {
                 ),
               ))),
               ListTile(
-                title: Text("Home"),
-                leading: Icon(Icons.home),
-                onTap: () {},
-              ),
-              ListTile(
-                title: Text("History"),
-                leading: Icon(Icons.history),
-                onTap: () {},
-              ),
-              ListTile(
                 onTap: () {
                   Get.toNamed("/profileScreen");
                 },
@@ -43,9 +34,25 @@ class ParkInDrawer extends StatelessWidget {
                 leading: Icon(Icons.person),
               ),
               ListTile(
+                title: Text("Home"),
+                leading: Icon(Icons.home),
+                onTap: () {
+                  Get.offAllNamed('homeScreen');
+                },
+              ),
+              ListTile(
+                title: Text("History"),
+                leading: Icon(Icons.history),
+                onTap: () {
+                  Get.offAllNamed('historyScreen');
+                },
+              ),
+
+              ListTile(
                 onTap: () {
                   SharedService.setStatus(status: false);
                   SharedService.setCustomerId(" ", " ");
+                  // GlobalController.to.dispose();
                   Get.offNamed('/authScreen');
                 },
                 title: Text("Logout"),

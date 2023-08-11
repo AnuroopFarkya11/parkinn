@@ -8,11 +8,14 @@ import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
+import '../../Services/API/api_services.dart';
+
 class TransactionQr extends GetView<TransactionQrController> {
   const TransactionQr({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       endDrawer: ParkInDrawer(),
       backgroundColor: Colors.white,
@@ -23,13 +26,13 @@ class TransactionQr extends GetView<TransactionQrController> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             tileColor: BrandColors.primaryColor,
-            title: Text("Vehicle Number"),
-            subtitle: Text("Vehicle type"),
+            title: Text(controller.customer!.currentTransaction!.vehicleData!.vehicleNumber!,style: TextStyle(fontWeight: FontWeight.w900),),
+            subtitle: Text(controller.customer!.currentTransaction!.vehicleData!.vehicleType!),
             trailing: TextButton(
-              onPressed: () {},
+              onPressed:controller.onChangePressed,
               child: Text("Change Vehicle"),
               style:
-                  TextButton.styleFrom(backgroundColor: BrandColors.brandWhite),
+                  TextButton.styleFrom(backgroundColor: BrandColors.brandWhite,foregroundColor: Colors.black),
             ),
           )),
           SliverFillRemaining(

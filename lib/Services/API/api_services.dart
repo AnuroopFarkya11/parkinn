@@ -82,6 +82,35 @@ class API {
     }
   }
 
+  static Future<Customer?> removeVehicle(Vehicle vehicle) async {
+    Customer customer;
+
+    Map<String,String> requestBody = {
+
+      "mobileNumber": GlobalController.to.customer!.mobileNumber!,
+      "customerId": GlobalController.to.customer!.customerId!,
+      "vehicleType": vehicle.vehicleType!,
+      "vehicleNumber": vehicle.vehicleNumber!
+
+    };
+
+    log(name: "Remove Vehicle","CALLED");
+    try {
+      Response response = await http.post(apiPath.removeVehicle, body: requestBody);
+      try {
+        customer = ApiDecoding.decodeCustomer(response);
+        return customer;
+      } catch (e) {
+        log(name: "Remove Vehicle","EXCEPTION :$e");
+      }
+    } on Exception catch (e) {
+      throw "Something went wrong";
+    }
+    return null;
+  }
+
+
+
   // todo daksh integrate create current transaction api and delete current transaction
 
   static Future<Customer> createTransaction(
