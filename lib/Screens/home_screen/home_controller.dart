@@ -9,6 +9,7 @@ import '../../Modals/customer_modal.dart';
 import '../../Services/API/api_services.dart';
 
 class HomeController extends GetxController {
+  late Rx<Customer> customer;
   late RxList vehicleList;
   late RxInt vehicleListLen;
   late RxList allVehicleList;
@@ -27,16 +28,16 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
+    // TODO CHECK FOR EMPTY CUSTOMER
+    customer = GlobalController.to.customer!.obs;
     vehicleIndex = -1;
-    vehicleList = GlobalController
-        .to.customer!.vehicles!.obs;
-    vehicleListLen = GlobalController
-        .to.customer!.vehicles!.length.obs;
+    vehicleList = customer.value.vehicles!.obs;
+    vehicleListLen = customer.value.vehicles!.length.obs;
 
-    allVehicleList = GlobalController.to.customer!.allVehicles!.obs;
-    allVehicleListLen = GlobalController.to.customer!.allVehicles!.length.obs;
+    allVehicleList = customer.value.allVehicles!.obs;
+    allVehicleListLen = customer.value.allVehicles!.length.obs;
+
     isAdding = false.obs;
     clickAdd = false.obs;
     selectedTileIndex = 9999.obs;
@@ -117,13 +118,25 @@ class HomeController extends GetxController {
       try {
         await API
             .addVehicle(vehicleNumber: vNumController.text, vehicleType: vType!)
-            .then((Customer? customer) {
-          if (customer != null) {
-            GlobalController.to.customer = customer;
+            .then((Customer? value) {
+          if (value != null) {
+            GlobalController.to.customer = value;
+            customer.value=value;
             vNumController.clear();
-            vehicleList.value = customer.vehicles!;
-            vehicleList.refresh();
-            vehicleListLen.refresh();
+
+
+
+
+            selectedTileIndex.value=customer.value.vehicles!.length-1;
+            // customer.reactive;
+            // vehicleList.reactive;
+            // vehicleListLen.reactive;
+            // customer.refresh();
+            // vehicleList.refresh();
+            // vehicleListLen.refresh();
+            // TODO THINK OF AN OPTIMIZE SOLN
+            // vehicleList.value = customer.value.vehicles!;
+            // vehicleListLen.value = customer.value.vehicles!.length;
 
 
             Get.snackbar("Vehicle Status", "Vehicle added successfully");
@@ -131,7 +144,7 @@ class HomeController extends GetxController {
             isAdding.value = false;
             clickAdd.value = false;
           } else {
-            Get.snackbar("Vehicle Status", "Something ");
+            Get.snackbar("Vehicle Status", "Something Went Wrong ");
           }
         });
       } catch (e) {

@@ -12,14 +12,14 @@ import 'package:parkinn/routes/route_class.dart';
 /*
 * TODO
 *
-* ADD A PROFILE SCREEN
+*
 *
 * ADD PACKAGE FOR INTERNET CONNECTION
 *
 *
 * IN HOME SCREEN THERE MUST BE A SECTION WHERE WE CAN LIST CURRENT TRANSACTION
 *
-*
+* there must be 2 different tabs for vehicle type
 *
 * */
 

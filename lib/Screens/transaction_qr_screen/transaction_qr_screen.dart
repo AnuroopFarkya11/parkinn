@@ -25,24 +25,26 @@ class TransactionQr extends GetView<TransactionQrController> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             tileColor: BrandColors.primaryColor,
-            title: Text(controller,
+            title: Text(controller.currentTransaction.vehicleData!.vehicleNumber!,
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
-            subtitle: Text("HELLO"),
-            trailing: TextButton(
-              onPressed: controller.onChangePressed,
-              child: controller.change.value
-                  ? SizedBox(
-                      height: 15,
-                      width: 15,
-                      child: CircularProgressIndicator(
-                        color: Colors.black,
-                      ),
-                    )
-                  : Text("Change Vehicle"),
-              style: TextButton.styleFrom(
-                  backgroundColor: BrandColors.brandWhite,
-                  foregroundColor: Colors.black),
+            subtitle: Text(controller.currentTransaction.vehicleData!.vehicleType!),
+            trailing: Obx(
+    ()=>TextButton(
+                onPressed: controller.onChangePressed,
+                child: controller.change.value
+                    ? SizedBox(
+                        height: 15,
+                        width: 15,
+                        child: CircularProgressIndicator(
+                          color: Colors.black,
+                        ),
+                      )
+                    : Text("Change Vehicle"),
+                style: TextButton.styleFrom(
+                    backgroundColor: BrandColors.brandWhite,
+                    foregroundColor: Colors.black),
+              ),
             ),
           )),
           SliverFillRemaining(

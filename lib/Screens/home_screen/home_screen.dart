@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/home_screen/home_controller.dart';
@@ -40,6 +41,8 @@ class HomeScreen extends GetView<HomeController> {
 
               return SliverVisibility(
                   visible: controller.clickAdd.value,
+
+                  // ADD VEHICLES
                   sliver: SliverToBoxAdapter(
                     child: Container(
                       padding: EdgeInsets.all(12),
@@ -169,9 +172,8 @@ class HomeScreen extends GetView<HomeController> {
                     ),
                   ),
 
-                  
+                  // HOME SCREEN
                   replacementSliver: SliverToBoxAdapter(
-                    // HOME SCREEN
                     child: Container(
                       padding: EdgeInsets.all(12),
                       child: Column(
@@ -180,34 +182,39 @@ class HomeScreen extends GetView<HomeController> {
                           Container(
                             constraints:
                                 BoxConstraints(maxHeight: 250, minHeight: 100),
-                            child: controller.vehicleList.isEmpty
-                                ? Center(
-                                    child: Text("No vehicles."),
-                                  )
-                                :
-                              Obx(
-                                ()=>ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: controller.vehicleListLen.value,
-                                        reverse: true,
-                                        itemBuilder: (context, index) {
-                                          return Obx(
-                                            ()=>ParkInnCard(
-                                              vehicle: controller.vehicleList[index],
-                                              isVehicleSelected: controller.selectedTileIndex.value == index,
-                                              onTap: () {
-                                                controller.vehicleIndex = index;
-                                                log(name:"HOME SCREEN","RES:${controller.selectedTileIndex.value =
-                                                    index}");
-                                                controller.selectedTileIndex.value =
-                                                    index;
-                                                controller.selectedTileIndex.refresh();
-                                              },
-                                            ),
-                                          );
-                                        },
-                                      ),
-                              ),
+                            child: Obx(
+                                ()=>controller.vehicleList.isEmpty
+                                  ? Center(
+                                      child: Text("No vehicles."),
+                                    )
+                                  :
+                                Obx(
+                                  ()=> ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: controller.customer.value.vehicles!.length,
+                                            reverse: true,
+                                            physics: const BouncingScrollPhysics(),
+                                            addAutomaticKeepAlives: true,
+                                            itemBuilder: (context, index) {
+                                              return Obx(
+                                                ()=>ParkInnCard(
+                                                  vehicle: controller.customer.value.vehicles![index],
+                                                  isVehicleSelected: controller.selectedTileIndex.value == index,
+                                                  onTap: () {
+                                                    controller.vehicleIndex = index;
+                                                    log(name:"HOME SCREEN","RES:${controller.selectedTileIndex.value =
+                                                        index}");
+                                                    controller.selectedTileIndex.value =
+                                                        index;
+                                                    controller.selectedTileIndex.refresh();
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                ),
+                            ),
+
 
                           ),
                           SizedBox(
