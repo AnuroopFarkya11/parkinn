@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:parkinn/Modals/vehicle_modal.dart';
@@ -10,7 +9,10 @@ import '../../Modals/customer_modal.dart';
 import '../../Services/API/api_services.dart';
 
 class HomeController extends GetxController {
+  late RxList vehicleList;
+  late RxInt vehicleListLen;
   late RxList allVehicleList;
+  late RxInt allVehicleListLen;
   TextEditingController vNumController = TextEditingController();
   GlobalKey<FormState> vNumKey = GlobalKey<FormState>();
   GlobalKey<FormState> vTypeKey = GlobalKey<FormState>();
@@ -22,12 +24,19 @@ class HomeController extends GetxController {
   late RxBool proceed;
   late Rx selectedTileIndex;
 
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     vehicleIndex = -1;
-    allVehicleList = [].obs;
+    vehicleList = GlobalController
+        .to.customer!.vehicles!.obs;
+    vehicleListLen = GlobalController
+        .to.customer!.vehicles!.length.obs;
+
+    allVehicleList = GlobalController.to.customer!.allVehicles!.obs;
+    allVehicleListLen = GlobalController.to.customer!.allVehicles!.length.obs;
     isAdding = false.obs;
     clickAdd = false.obs;
     selectedTileIndex = 9999.obs;
@@ -46,6 +55,8 @@ class HomeController extends GetxController {
 
   void onProceedTap() async {
     // todo DAKSH add a circular progress indicator to this button
+
+
 
     if (validateVehicleIndex()) {
       // call create transaction api and navigate to transaction screen
@@ -66,9 +77,12 @@ class HomeController extends GetxController {
 
           Get.toNamed('/transactionQr');
         });
+
+
       } catch (e) {
         // TODO
         Get.snackbar("Transaction", "Transaction Failed");
+
       }
     }
   }
@@ -107,7 +121,13 @@ class HomeController extends GetxController {
           if (customer != null) {
             GlobalController.to.customer = customer;
             vNumController.clear();
+            vehicleList.value = customer.vehicles!;
+            vehicleList.refresh();
+            vehicleListLen.refresh();
+
+
             Get.snackbar("Vehicle Status", "Vehicle added successfully");
+
             isAdding.value = false;
             clickAdd.value = false;
           } else {
