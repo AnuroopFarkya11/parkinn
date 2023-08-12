@@ -44,7 +44,7 @@ class HomeScreen extends GetView<HomeController> {
               ],
             )),
             Obx(() {
-              //todo anuroop
+
               return SliverVisibility(
                   visible: controller.clickAdd.value,
                   sliver: SliverToBoxAdapter(
@@ -68,17 +68,17 @@ class HomeScreen extends GetView<HomeController> {
                                     )
                                   : ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: GlobalController
-                                          .to.customer!.allVehicles!.length,
+                                      itemCount: controller.allVehicleListLen.value,
                                       itemBuilder: (context, index) {
                                         return ParkInnCard(
-                                          vehicle: GlobalController
-                                              .to.customer!.vehicles![index],
+                                          vehicle: controller.allVehicleList[index],
                                           isVehicleSelected: index ==
-                                              controller.selectedTileIndex,
+                                              controller.selectedTileIndex.value,
                                           onTap: () {
                                             controller.selectedTileIndex.value =
                                                 index;
+                                            log(name:"Selected tile","Res:${controller.selectedTileIndex.value =
+                                                index}");
                                           },
                                           trailingOnTap: ()async{
 
@@ -171,9 +171,10 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                     ),
                   ),
+
+                  
                   replacementSliver: SliverToBoxAdapter(
                     // HOME SCREEN
-
                     child: Container(
                       padding: EdgeInsets.all(12),
                       child: Column(
@@ -182,30 +183,35 @@ class HomeScreen extends GetView<HomeController> {
                           Container(
                             constraints:
                                 BoxConstraints(maxHeight: 250, minHeight: 100),
-                            child: GlobalController
-                                        .to.customer!.vehicles!.length ==
-                                    0
+                            child: controller.vehicleList.isEmpty
                                 ? Center(
                                     child: Text("No vehicles."),
                                   )
-                                : ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: GlobalController
-                                        .to.customer!.vehicles!.length,
-                                    itemBuilder: (context, index) {
-                                      return ParkInnCard(
-                                        vehicle: GlobalController
-                                            .to.customer!.vehicles![index],
-                                        isVehicleSelected: false,
-                                        onTap: () {
-                                          controller.vehicleIndex = index;
-
-                                          controller.selectedTileIndex.value =
-                                              index;
+                                :
+                              Obx(
+                                ()=>ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: controller.vehicleListLen.value,
+                                        reverse: true,
+                                        itemBuilder: (context, index) {
+                                          return Obx(
+                                            ()=>ParkInnCard(
+                                              vehicle: controller.vehicleList[index],
+                                              isVehicleSelected: controller.selectedTileIndex.value == index,
+                                              onTap: () {
+                                                controller.vehicleIndex = index;
+                                                log(name:"HOME SCREEN","RES:${controller.selectedTileIndex.value =
+                                                    index}");
+                                                controller.selectedTileIndex.value =
+                                                    index;
+                                                controller.selectedTileIndex.refresh();
+                                              },
+                                            ),
+                                          );
                                         },
-                                      );
-                                    },
-                                  ),
+                                      ),
+                              ),
+
                           ),
                           SizedBox(
                             height: 20,

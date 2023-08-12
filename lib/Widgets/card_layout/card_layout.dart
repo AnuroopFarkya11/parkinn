@@ -27,7 +27,9 @@ class ParkInnCard extends StatelessWidget {
     return  Card(
         elevation: 3,
         margin: EdgeInsets.symmetric(vertical: 10),
+        color: isVehicleSelected ? BrandColors.primaryColor : Colors.white,
         child: ListTile(
+
           title: Text(
             vehicle.vehicleNumber!,
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -44,8 +46,9 @@ class ParkInnCard extends StatelessWidget {
                   iconSize: 20),
             ],
           ),
-          tileColor:
-              isVehicleSelected ? BrandColors.primaryColor : Colors.transparent,
+          // selected: isVehicleSelected,
+          // tileColor:
+          //     isVehicleSelected ? BrandColors.primaryColor : Colors.transparent,
           onTap: onTap,
         ),
       );

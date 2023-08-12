@@ -17,6 +17,9 @@ import 'package:parkinn/routes/route_class.dart';
 * ADD PACKAGE FOR INTERNET CONNECTION
 *
 *
+* IN HOME SCREEN THERE MUST BE A SECTION WHERE WE CAN LIST CURRENT TRANSACTION
+*
+*
 *
 * */
 
