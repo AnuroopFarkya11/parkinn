@@ -12,13 +12,6 @@ import '../../Utils/sizes.dart';
 import '../../Widgets/form_textfield/formfield.dart';
 
 class HomeScreen extends GetView<HomeController> {
-  /*
-  * todo : daksh
-  *
-  *
-  *
-  * */
-
   @override
   Widget build(BuildContext context) {
     log(name: "Home Screen", "${GlobalController.to.customer!.customerId}");
@@ -80,11 +73,15 @@ class HomeScreen extends GetView<HomeController> {
                                             controller.selectedTileIndex.value =
                                                 index;
                                           },
-                                          trailingOnTap: ()async{
-
-                                            await API.removeVehicle(GlobalController
-                                                .to.customer!.vehicles![index]).then((value){
-                                                  GlobalController.to.customer = value;
+                                          trailingOnTap: () async {
+                                            await API
+                                                .removeVehicle(GlobalController
+                                                    .to
+                                                    .customer!
+                                                    .vehicles![index])
+                                                .then((value) {
+                                              GlobalController.to.customer =
+                                                  value;
                                             });
                                           },
                                         );
@@ -222,7 +219,16 @@ class HomeScreen extends GetView<HomeController> {
                               ),
                               ElevatedButton(
                                   onPressed: controller.onProceedTap,
-                                  child: Text("Proceed")),
+                                  child: controller.proceed.value
+                                      ? SizedBox(
+                                          height: 15,
+                                          width: 15,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                            strokeWidth: 3.0,
+                                          ),
+                                        )
+                                      : Text("Proceed")),
                             ],
                           ),
                         ],

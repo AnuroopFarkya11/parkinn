@@ -7,16 +7,18 @@ import '../../Services/API/api_services.dart';
 class TransactionQrController extends GetxController{
 
   late Customer? customer;
+  late RxBool change;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     customer = GlobalController.to.customer;
+    change = false.obs;
   }
 
   Future onChangePressed () async{
-
+    change.value = true;
     try {
 
       await API.deleteTransaction();
@@ -28,11 +30,5 @@ class TransactionQrController extends GetxController{
     }
 
   }
-
-
-
-
-
-
 
 }

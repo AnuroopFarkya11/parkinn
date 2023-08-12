@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:parkinn/Modals/vehicle_modal.dart';
@@ -18,6 +19,7 @@ class HomeController extends GetxController {
   late String? vType;
   late RxBool isAdding;
   late RxBool clickAdd;
+  late RxBool proceed;
   late Rx selectedTileIndex;
 
   @override
@@ -29,6 +31,7 @@ class HomeController extends GetxController {
     isAdding = false.obs;
     clickAdd = false.obs;
     selectedTileIndex = 9999.obs;
+    proceed = false.obs;
   }
 
   // HOME SCREEN
@@ -44,10 +47,9 @@ class HomeController extends GetxController {
   void onProceedTap() async {
     // todo DAKSH add a circular progress indicator to this button
 
-
-
     if (validateVehicleIndex()) {
       // call create transaction api and navigate to transaction screen
+      proceed.value = true;
       Vehicle vehicle =
           GlobalController.to.customer!.vehicles![selectedTileIndex.value];
       log(
@@ -55,20 +57,18 @@ class HomeController extends GetxController {
           "Selected Vehicle Index $selectedTileIndex ");
       try {
         // todo add check for balance
-        await API.createTransaction(
-            vehicle.vehicleType!, vehicle.vehicleNumber!).then((Customer value){
-              GlobalController.to.customer = value;
-              Get.snackbar("Transaction", "Transaction Created Successfully");
+        await API
+            .createTransaction(vehicle.vehicleType!, vehicle.vehicleNumber!)
+            .then((Customer value) {
+              proceed.value = false;
+          GlobalController.to.customer = value;
+          Get.snackbar("Transaction", "Transaction Created Successfully");
 
-              Get.toNamed('/transactionQr');
-
+          Get.toNamed('/transactionQr');
         });
-
-
       } catch (e) {
         // TODO
         Get.snackbar("Transaction", "Transaction Failed");
-
       }
     }
   }

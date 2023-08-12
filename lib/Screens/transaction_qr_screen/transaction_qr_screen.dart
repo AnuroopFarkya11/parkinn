@@ -15,7 +15,6 @@ class TransactionQr extends GetView<TransactionQrController> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       endDrawer: ParkInDrawer(),
       backgroundColor: Colors.white,
@@ -26,13 +25,24 @@ class TransactionQr extends GetView<TransactionQrController> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             tileColor: BrandColors.primaryColor,
-            title: Text(controller.customer!.currentTransaction!.vehicleData!.vehicleNumber!,style: TextStyle(fontWeight: FontWeight.w900),),
-            subtitle: Text(controller.customer!.currentTransaction!.vehicleData!.vehicleType!),
+            title: Text(controller,
+              style: TextStyle(fontWeight: FontWeight.w900),
+            ),
+            subtitle: Text("HELLO"),
             trailing: TextButton(
-              onPressed:controller.onChangePressed,
-              child: Text("Change Vehicle"),
-              style:
-                  TextButton.styleFrom(backgroundColor: BrandColors.brandWhite,foregroundColor: Colors.black),
+              onPressed: controller.onChangePressed,
+              child: controller.change.value
+                  ? SizedBox(
+                      height: 15,
+                      width: 15,
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    )
+                  : Text("Change Vehicle"),
+              style: TextButton.styleFrom(
+                  backgroundColor: BrandColors.brandWhite,
+                  foregroundColor: Colors.black),
             ),
           )),
           SliverFillRemaining(
@@ -46,7 +56,8 @@ class TransactionQr extends GetView<TransactionQrController> {
                     Container(
                       margin: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        border: Border.all(color: BrandColors.subTitleColor,width:2),
+                        border: Border.all(
+                            color: BrandColors.subTitleColor, width: 2),
                       ),
                       child: Image.network(
                         "https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png",
@@ -59,9 +70,20 @@ class TransactionQr extends GetView<TransactionQrController> {
                 )),
                 ListTile(
                   tileColor: BrandColors.brandWhite,
-                  title: Text("Balance",style: TextStyle(fontSize: 13,color: BrandColors.subTitleColor),),
-                  subtitle: Text("Rs.400",style: TextStyle(fontSize: 20,color: BrandColors.brandBlack),),
-                  trailing: ElevatedButton(onPressed: (){},child: Text("Recharge"),),
+                  title: Text(
+                    "Balance",
+                    style: TextStyle(
+                        fontSize: 13, color: BrandColors.subTitleColor),
+                  ),
+                  subtitle: Text(
+                    "Rs.400",
+                    style:
+                        TextStyle(fontSize: 20, color: BrandColors.brandBlack),
+                  ),
+                  trailing: ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Recharge"),
+                  ),
                 )
               ],
             ),
