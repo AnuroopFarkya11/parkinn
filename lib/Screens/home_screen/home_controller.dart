@@ -58,7 +58,7 @@ class HomeController extends GetxController {
 
   bool validateVehicleIndex() {
     if (selectedTileIndex == 9999) {
-      Get.snackbar("Transaction", "Please select a vehicle");
+      Get.snackbar("Transaction", "Please select a vehicle",snackPosition: SnackPosition.BOTTOM);
       return false;
     }
     return true;
@@ -82,9 +82,8 @@ class HomeController extends GetxController {
         await API
             .createTransaction(vehicle.vehicleType!, vehicle.vehicleNumber!)
             .then((Customer value) {
-              proceed.value = false;
           GlobalController.to.customer = value;
-          Get.snackbar("Transaction", "Transaction Created Successfully");
+          Get.snackbar("Transaction", "Transaction Created Successfully",snackPosition: SnackPosition.BOTTOM);
 
           Get.toNamed('/transactionQr');
         });
@@ -92,10 +91,13 @@ class HomeController extends GetxController {
 
       } catch (e) {
         // TODO
-        Get.snackbar("Transaction", "Transaction Failed");
+        Get.snackbar("Transaction", "Transaction Failed",snackPosition: SnackPosition.BOTTOM);
 
       }
+
     }
+    proceed.value = false;
+
   }
 
 // SCREEN 2
@@ -148,15 +150,16 @@ class HomeController extends GetxController {
             // vehicleListLen.value = customer.value.vehicles!.length;
 
 
-            Get.snackbar("Vehicle Status", "Vehicle added successfully");
+            Get.snackbar("Vehicle Status", "Vehicle added successfully",snackPosition: SnackPosition.BOTTOM);
 
             isAdding.value = false;
             clickAdd.value = false;
             scrollToTop();
 
           } else {
-            Get.snackbar("Vehicle Status", "Something Went Wrong ");
+            Get.snackbar("Vehicle Status", "Something Went Wrong",snackPosition: SnackPosition.BOTTOM);
           }
+
         });
       } catch (e) {
         log(name: "ADD VEHICLE", "EXCEPTION $e");
