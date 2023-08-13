@@ -25,6 +25,8 @@ class HomeController extends GetxController {
   late RxBool proceed;
   late Rx selectedTileIndex;
 
+  ScrollController scrollController=ScrollController();
+
 
   @override
   void onInit() {
@@ -42,6 +44,14 @@ class HomeController extends GetxController {
     clickAdd = false.obs;
     selectedTileIndex = 9999.obs;
     proceed = false.obs;
+    scrollToTop();
+  }
+
+
+  void scrollToTop(){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.jumpTo(scrollController.position.maxScrollExtent);
+    });
   }
 
   // HOME SCREEN
@@ -114,7 +124,6 @@ class HomeController extends GetxController {
     if (vNumKey.currentState!.validate() && vTypeKey.currentState!.validate()) {
       log(name: "ADD VEHICLE", "Adding Vehicle");
       isAdding.value = true; // circular indicator
-
       try {
         await API
             .addVehicle(vehicleNumber: vNumController.text, vehicleType: vType!)
@@ -143,6 +152,8 @@ class HomeController extends GetxController {
 
             isAdding.value = false;
             clickAdd.value = false;
+            scrollToTop();
+
           } else {
             Get.snackbar("Vehicle Status", "Something Went Wrong ");
           }
@@ -154,6 +165,13 @@ class HomeController extends GetxController {
   }
 
   void onCancelPressed() {
+
+    // Future.delayed(Duration(seconds: 1),(){
+    //   WidgetsBinding.instance.addPostFrameCallback((_) {
+    //     scrollController.jumpTo(scrollController.position.maxScrollExtent);});
+    // });
+    scrollToTop();
     clickAdd.value = false;
+
   }
 }
