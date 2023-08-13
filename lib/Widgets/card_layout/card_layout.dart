@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Utils/brand_color.dart';
@@ -10,7 +12,7 @@ class ParkInnCard extends StatelessWidget {
   final CardController controller = Get.put(CardController());
   late final Vehicle vehicle;
   late final Function() onTap;
-  late final Function()? trailingOnTap;
+  late void Function() trailingOnTap;
   final bool isVehicleSelected;
 
   // ParkInnCard(this.vehicleNumber, this.vehicleType, {super.key});
@@ -20,7 +22,7 @@ class ParkInnCard extends StatelessWidget {
       required this.vehicle,
       required this.isVehicleSelected,
       required this.onTap,
-      this.trailingOnTap});
+      required this.trailingOnTap});
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +42,10 @@ class ParkInnCard extends StatelessWidget {
             children: [
               // Text(vehicle.vehicleType!),
               IconButton(
-                  onPressed: trailingOnTap,
+                  onPressed: trailingOnTap!,
                   icon: Icon(Icons.delete),
                   color: Colors.black,
-                  iconSize: 20),
+                  iconSize: 25),
             ],
           ),
           // selected: isVehicleSelected,

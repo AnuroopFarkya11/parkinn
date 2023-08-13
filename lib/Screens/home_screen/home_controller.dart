@@ -99,6 +99,28 @@ class HomeController extends GetxController {
     proceed.value = false;
 
   }
+  Future<void> onDeleteTap (int index) async {
+
+    Vehicle tempVehicle = customer.value.vehicles![index];
+    log(name:"DELETE VEHICLE","DELETING VEHICLE: $index");
+    try {
+      await API
+          .removeVehicle(tempVehicle)
+          .then((value) {
+        GlobalController.to.customer =
+            value;
+        customer.value = value!;
+      });
+
+      Get.snackbar("Vehicle Deleted Successfully", "${tempVehicle.vehicleNumber}");
+    } on Exception catch (e) {
+      Get.snackbar("Vehicle Deleted Failed", "");
+    }
+  }
+
+
+
+
 
 // SCREEN 2
 

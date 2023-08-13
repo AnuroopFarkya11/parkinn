@@ -54,8 +54,16 @@ class HomeScreen extends GetView<HomeController> {
                         children: [
                           Text("All vehicles"),
                           Container(
+                            padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
                               constraints: BoxConstraints(
                                   maxHeight: 200, minHeight: 100),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey,width: 0.50),
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+
+
+
                               child: GlobalController
                                           .to.customer!.allVehicles!.length ==
                                       0
@@ -65,38 +73,35 @@ class HomeScreen extends GetView<HomeController> {
                                         child: Text("No Vehicle added"),
                                       ),
                                     )
-                                  : ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount:
-                                          controller.allVehicleListLen.value,
-                                      itemBuilder: (context, index) {
-                                        return ParkInnCard(
-                                          vehicle:
-                                              controller.allVehicleList[index],
-                                          isVehicleSelected: index ==
-                                              controller
-                                                  .selectedTileIndex.value,
-                                          onTap: () {
-                                            controller.selectedTileIndex.value =
-                                                index;
-                                            log(
-                                                name: "Selected tile",
-                                                "Res:${controller.selectedTileIndex.value = index}");
-                                          },
-                                          trailingOnTap: () async {
-                                            await API
-                                                .removeVehicle(GlobalController
-                                                    .to
-                                                    .customer!
-                                                    .vehicles![index])
-                                                .then((value) {
-                                              GlobalController.to.customer =
-                                                  value;
-                                            });
-                                          },
-                                        );
-                                      },
-                                    )),
+                                  : Scrollbar(
+                                thumbVisibility: true,
+                                    // controller: ScrollController().po,
+                                // todo
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount:
+                                            controller.allVehicleListLen.value,
+                                        itemBuilder: (context, index) {
+                                          return ParkInnCard(
+                                            vehicle:
+                                                controller.allVehicleList[index],
+                                            isVehicleSelected: index ==
+                                                controller
+                                                    .selectedTileIndex.value,
+                                            onTap: () {
+                                              controller.selectedTileIndex.value =
+                                                  index;
+                                              log(
+                                                  name: "Selected tile",
+                                                  "Res:${controller.selectedTileIndex.value = index}");
+                                            },
+                                            trailingOnTap:(){
+                                              log("Tapped");
+                                            }
+                                          );
+                                        },
+                                      ),
+                                  )),
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 10),
@@ -232,6 +237,7 @@ class HomeScreen extends GetView<HomeController> {
                                                     controller.selectedTileIndex
                                                         .refresh();
                                                   },
+                                                  trailingOnTap: ()=>controller.onDeleteTap(index),
                                                 ),
                                               );
                                             },
