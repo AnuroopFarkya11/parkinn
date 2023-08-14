@@ -70,7 +70,10 @@ class HomeController extends GetxController {
   void onProceedTap() async {
     // todo DAKSH add a circular progress indicator to this button
 
-    if (validateVehicleIndex()) {
+    if (vehicleListLen == 0) {
+      Get.snackbar("Vehicles Status", "No vehicles added",
+          snackPosition: SnackPosition.TOP);
+    } else if (validateVehicleIndex()) {
       // call create transaction api and navigate to transaction screen
       proceed.value = true;
       Vehicle vehicle =
@@ -86,6 +89,7 @@ class HomeController extends GetxController {
           GlobalController.to.customer = value;
           Get.snackbar("Transaction", "Transaction Created Successfully",
               snackPosition: SnackPosition.BOTTOM);
+          proceed.value = false;
 
           Get.toNamed('/transactionQr');
         });
