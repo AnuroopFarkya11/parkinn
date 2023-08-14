@@ -2,20 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parkinn/Screens/home_screen/home_controller.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Widgets/card_layout/card_controller.dart';
 
 import '../../Modals/vehicle_modal.dart';
 import '../../Services/API/api_services.dart';
 
-class ParkInnCard extends StatelessWidget {
-  final CardController controller = Get.put(CardController());
+class ParkInnCard extends StatefulWidget {
   late final Vehicle vehicle;
   late final Function() onTap;
   late void Function() trailingOnTap;
   final bool isVehicleSelected;
-
-  // ParkInnCard(this.vehicleNumber, this.vehicleType, {super.key});
 
   ParkInnCard(
       {super.key,
@@ -25,35 +23,52 @@ class ParkInnCard extends StatelessWidget {
       required this.trailingOnTap});
 
   @override
-  Widget build(BuildContext context) {
-    return  Card(
-        elevation: 3,
-        margin: EdgeInsets.symmetric(vertical: 10),
-        color: isVehicleSelected ? BrandColors.primaryColor : Colors.white,
-        child: ListTile(
+  State<ParkInnCard> createState() => _ParkInnCardState();
+}
 
-          title: Text(
-            vehicle.vehicleNumber!,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text(vehicle.vehicleType!),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Text(vehicle.vehicleType!),
-              IconButton(
-                  onPressed: trailingOnTap!,
-                  icon: Icon(Icons.delete),
+class _ParkInnCardState extends State<ParkInnCard> {
+  final HomeController iconController = Get.put(HomeController());
+  final CardController controller = Get.put(CardController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      color: widget.isVehicleSelected ? BrandColors.primaryColor : Colors.white,
+      child: ListTile(
+        title: Text(
+          widget.vehicle.vehicleNumber!,
+          style:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(widget.vehicle.vehicleType!),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Text(vehicle.vehicleType!),
+            Obx(
+              () => IconButton(
+                  onPressed: widget.trailingOnTap,
+                  icon: iconController.deleteTap.value
+                      ? SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 3,
+                          ))
+                      : Icon(Icons.delete),
                   color: Colors.black,
                   iconSize: 25),
-            ],
-          ),
-          // selected: isVehicleSelected,
-          // tileColor:
-          //     isVehicleSelected ? BrandColors.primaryColor : Colors.transparent,
-          onTap: onTap,
+            ),
+          ],
         ),
-      );
-
+        // selected: isVehicleSelected,
+        // tileColor:
+        //     isVehicleSelected ? BrandColors.primaryColor : Colors.transparent,
+        onTap: widget.onTap,
+      ),
+    );
   }
 }

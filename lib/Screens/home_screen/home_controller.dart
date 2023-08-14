@@ -4,11 +4,14 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:parkinn/Modals/vehicle_modal.dart';
 import 'package:parkinn/Services/global_controller.dart';
+import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 
 import '../../Modals/customer_modal.dart';
 import '../../Services/API/api_services.dart';
 
 class HomeController extends GetxController {
+  //late Rx<ParkInnCard> parkInnCard;
+  late RxBool deleteTap;
   late Rx<Customer> customer;
   late RxList vehicleList;
   late RxInt vehicleListLen;
@@ -25,8 +28,7 @@ class HomeController extends GetxController {
   late RxBool proceed;
   late Rx selectedTileIndex;
 
-  ScrollController scrollController=ScrollController();
-
+  ScrollController scrollController = ScrollController();
 
   @override
   void onInit() {
@@ -44,11 +46,11 @@ class HomeController extends GetxController {
     clickAdd = false.obs;
     selectedTileIndex = 9999.obs;
     proceed = false.obs;
+    deleteTap = false.obs;
     scrollToTop();
   }
 
-
-  void scrollToTop(){
+  void scrollToTop() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollController.jumpTo(scrollController.position.maxScrollExtent);
     });
@@ -58,7 +60,8 @@ class HomeController extends GetxController {
 
   bool validateVehicleIndex() {
     if (selectedTileIndex == 9999) {
-      Get.snackbar("Transaction", "Please select a vehicle",snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar("Transaction", "Please select a vehicle",
+          snackPosition: SnackPosition.BOTTOM);
       return false;
     }
     return true;
@@ -66,8 +69,6 @@ class HomeController extends GetxController {
 
   void onProceedTap() async {
     // todo DAKSH add a circular progress indicator to this button
-
-
 
     if (validateVehicleIndex()) {
       // call create transaction api and navigate to transaction screen
@@ -83,44 +84,39 @@ class HomeController extends GetxController {
             .createTransaction(vehicle.vehicleType!, vehicle.vehicleNumber!)
             .then((Customer value) {
           GlobalController.to.customer = value;
-          Get.snackbar("Transaction", "Transaction Created Successfully",snackPosition: SnackPosition.BOTTOM);
+          Get.snackbar("Transaction", "Transaction Created Successfully",
+              snackPosition: SnackPosition.BOTTOM);
 
           Get.toNamed('/transactionQr');
         });
-
-
       } catch (e) {
         // TODO
-        Get.snackbar("Transaction", "Transaction Failed",snackPosition: SnackPosition.BOTTOM);
-
+        Get.snackbar("Transaction", "Transaction Failed",
+            snackPosition: SnackPosition.BOTTOM);
       }
-
     }
     proceed.value = false;
-
   }
-  Future<void> onDeleteTap (int index) async {
 
+  Future<void> onDeleteTap(int index) async {
+    //  parkInnCard.value.deleteTap.value = true;
+    deleteTap.value = true;
     Vehicle tempVehicle = customer.value.vehicles![index];
-    log(name:"DELETE VEHICLE","DELETING VEHICLE: $index");
+    log(name: "DELETE VEHICLE", "DELETING VEHICLE: $index");
     try {
-      await API
-          .removeVehicle(tempVehicle)
-          .then((value) {
-        GlobalController.to.customer =
-            value;
+      await API.removeVehicle(tempVehicle).then((value) {
+        GlobalController.to.customer = value;
         customer.value = value!;
+        vehicleList.value = customer.value.vehicles!;
+        deleteTap.value = false;
       });
 
-      Get.snackbar("Vehicle Deleted Successfully", "${tempVehicle.vehicleNumber}");
+      Get.snackbar(
+          "Vehicle Deleted Successfully", "${tempVehicle.vehicleNumber}");
     } on Exception catch (e) {
       Get.snackbar("Vehicle Deleted Failed", "");
     }
   }
-
-
-
-
 
 // SCREEN 2
 
@@ -154,13 +150,11 @@ class HomeController extends GetxController {
             .then((Customer? value) {
           if (value != null) {
             GlobalController.to.customer = value;
-            customer.value=value;
+            customer.value = value;
             vNumController.clear();
+            vehicleList.value = customer.value.vehicles!;
 
-
-
-
-            selectedTileIndex.value=customer.value.vehicles!.length-1;
+            selectedTileIndex.value = customer.value.vehicles!.length - 1;
             // customer.reactive;
             // vehicleList.reactive;
             // vehicleListLen.reactive;
@@ -171,17 +165,16 @@ class HomeController extends GetxController {
             // vehicleList.value = customer.value.vehicles!;
             // vehicleListLen.value = customer.value.vehicles!.length;
 
-
-            Get.snackbar("Vehicle Status", "Vehicle added successfully",snackPosition: SnackPosition.BOTTOM);
+            Get.snackbar("Vehicle Status", "Vehicle added successfully",
+                snackPosition: SnackPosition.BOTTOM);
 
             isAdding.value = false;
             clickAdd.value = false;
             scrollToTop();
-
           } else {
-            Get.snackbar("Vehicle Status", "Something Went Wrong",snackPosition: SnackPosition.BOTTOM);
+            Get.snackbar("Vehicle Status", "Something Went Wrong",
+                snackPosition: SnackPosition.BOTTOM);
           }
-
         });
       } catch (e) {
         log(name: "ADD VEHICLE", "EXCEPTION $e");
@@ -190,13 +183,11 @@ class HomeController extends GetxController {
   }
 
   void onCancelPressed() {
-
     // Future.delayed(Duration(seconds: 1),(){
     //   WidgetsBinding.instance.addPostFrameCallback((_) {
     //     scrollController.jumpTo(scrollController.position.maxScrollExtent);});
     // });
     scrollToTop();
     clickAdd.value = false;
-
   }
 }

@@ -13,10 +13,6 @@ import '../../Utils/sizes.dart';
 import '../../Widgets/form_textfield/formfield.dart';
 
 class HomeScreen extends GetView<HomeController> {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     log(name: "Home Screen", "${GlobalController.to.customer!.customerId}");
@@ -54,16 +50,14 @@ class HomeScreen extends GetView<HomeController> {
                         children: [
                           Text("All vehicles"),
                           Container(
-                            padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 10),
                               constraints: BoxConstraints(
                                   maxHeight: 200, minHeight: 100),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey,width: 0.50),
-                                borderRadius: BorderRadius.circular(12)
-                              ),
-
-
-
+                                  border: Border.all(
+                                      color: Colors.grey, width: 0.50),
+                                  borderRadius: BorderRadius.circular(12)),
                               child: GlobalController
                                           .to.customer!.allVehicles!.length ==
                                       0
@@ -74,34 +68,34 @@ class HomeScreen extends GetView<HomeController> {
                                       ),
                                     )
                                   : Scrollbar(
-                                thumbVisibility: true,
-                                    // controller: ScrollController().po,
-                                // todo
-                                    child: ListView.builder(
+                                      thumbVisibility: true,
+                                      // controller: ScrollController().po,
+                                      // todo
+                                      child: ListView.builder(
+                                        physics: BouncingScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount:
                                             controller.allVehicleListLen.value,
                                         itemBuilder: (context, index) {
                                           return ParkInnCard(
-                                            vehicle:
-                                                controller.allVehicleList[index],
-                                            isVehicleSelected: index ==
-                                                controller
-                                                    .selectedTileIndex.value,
-                                            onTap: () {
-                                              controller.selectedTileIndex.value =
-                                                  index;
-                                              log(
-                                                  name: "Selected tile",
-                                                  "Res:${controller.selectedTileIndex.value = index}");
-                                            },
-                                            trailingOnTap:(){
-                                              log("Tapped");
-                                            }
-                                          );
+                                              vehicle: controller
+                                                  .allVehicleList[index],
+                                              isVehicleSelected: index ==
+                                                  controller
+                                                      .selectedTileIndex.value,
+                                              onTap: () {
+                                                controller.selectedTileIndex
+                                                    .value = index;
+                                                log(
+                                                    name: "Selected tile",
+                                                    "Res:${controller.selectedTileIndex.value = index}");
+                                              },
+                                              trailingOnTap: () {
+                                                log("Tapped");
+                                              },);
                                         },
                                       ),
-                                  )),
+                                    )),
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 10),
@@ -192,11 +186,12 @@ class HomeScreen extends GetView<HomeController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey,width: 0.5),
-                              borderRadius: BorderRadius.circular(12)
-                            ),
+                                border:
+                                    Border.all(color: Colors.grey, width: 0.5),
+                                borderRadius: BorderRadius.circular(12)),
                             constraints:
                                 BoxConstraints(maxHeight: 250, minHeight: 100),
                             child: Obx(
@@ -205,45 +200,46 @@ class HomeScreen extends GetView<HomeController> {
                                       child: Text("No vehicles."),
                                     )
                                   : Obx(
-                                      () =>  Scrollbar(
-                                          controller: controller.scrollController,
-                                          thumbVisibility: true,
-                                          child: ListView.builder(
-                                            shrinkWrap: false,
-                                            itemCount: controller
-                                                .customer.value.vehicles!.length,
-                                            reverse: true,
-                                            physics:
-                                                const BouncingScrollPhysics(),
-                                            controller:controller.scrollController ,
-                                            addAutomaticKeepAlives: true,
-                                            itemBuilder: (context, index) {
-                                              return Obx(
-                                                () => ParkInnCard(
-                                                  vehicle: controller.customer
-                                                      .value.vehicles![index],
-                                                  isVehicleSelected: controller
-                                                          .selectedTileIndex
-                                                          .value ==
-                                                      index,
-                                                  onTap: () {
-                                                    controller.vehicleIndex =
-                                                        index;
-                                                    log(
-                                                        name: "HOME SCREEN",
-                                                        "RES:${controller.selectedTileIndex.value = index}");
-                                                    controller.selectedTileIndex
-                                                        .value = index;
-                                                    controller.selectedTileIndex
-                                                        .refresh();
-                                                  },
-                                                  trailingOnTap: ()=>controller.onDeleteTap(index),
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                      () => Scrollbar(
+                                        controller: controller.scrollController,
+                                        thumbVisibility: true,
+                                        child: ListView.builder(
+                                          shrinkWrap: false,
+                                          itemCount: controller
+                                              .customer.value.vehicles!.length,
+                                          reverse: true,
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          controller:
+                                              controller.scrollController,
+                                          addAutomaticKeepAlives: true,
+                                          itemBuilder: (context, index) {
+                                            return Obx(
+                                              () => ParkInnCard(
+                                                vehicle: controller.customer
+                                                    .value.vehicles![index],
+                                                isVehicleSelected: controller
+                                                        .selectedTileIndex
+                                                        .value ==
+                                                    index,
+                                                onTap: () {
+                                                  controller.vehicleIndex =
+                                                      index;
+                                                  log(
+                                                      name: "HOME SCREEN",
+                                                      "RES:${controller.selectedTileIndex.value = index}");
+                                                  controller.selectedTileIndex
+                                                      .value = index;
+                                                  controller.selectedTileIndex
+                                                      .refresh();
+                                                },
+                                                trailingOnTap: () => controller
+                                                    .onDeleteTap(index),
+                                              ),
+                                            );
+                                          },
                                         ),
-
+                                      ),
                                     ),
                             ),
                           ),
