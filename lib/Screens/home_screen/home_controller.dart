@@ -91,7 +91,7 @@ class HomeController extends GetxController {
               snackPosition: SnackPosition.BOTTOM);
           proceed.value = false;
 
-          Get.toNamed('/transactionQr');
+          Get.offNamed('/transactionQr');
         });
       } catch (e) {
         // TODO

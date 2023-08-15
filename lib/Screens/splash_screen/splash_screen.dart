@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -35,7 +37,14 @@ class _SplashScreenState extends State<SplashScreen> {
             try {
               GlobalController.to.customer =
                   await API.loginUser(userNumber, userID);
-              Get.offNamed('/homeScreen');
+              log(
+                  name: "TRANSAction status",
+                  "${GlobalController.to.customer!.currentTransaction}");
+              if (GlobalController.to.customer!.currentTransaction == null) {
+                Get.offNamed('/homeScreen');
+              } else {
+                Get.offNamed('/transactionQr');
+              }
             } on Exception catch (e) {
               // TODO
             }
