@@ -25,12 +25,14 @@ class TransactionQr extends GetView<TransactionQrController> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             tileColor: BrandColors.primaryColor,
-            title: Text(controller.currentTransaction.vehicleData!.vehicleNumber!,
-              style: TextStyle(fontWeight: FontWeight.w900,fontSize: 14),
+            title: Text(
+              controller.currentTransaction.vehicleData!.vehicleNumber!,
+              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
             ),
-            subtitle: Text(controller.currentTransaction.vehicleData!.vehicleType!),
+            subtitle:
+                Text(controller.currentTransaction.vehicleData!.vehicleType!),
             trailing: Obx(
-    ()=>TextButton(
+              () => TextButton(
                 onPressed: controller.onChangePressed,
                 child: controller.change.value
                     ? SizedBox(
