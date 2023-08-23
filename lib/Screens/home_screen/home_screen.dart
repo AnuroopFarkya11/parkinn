@@ -22,7 +22,7 @@ class HomeScreen extends GetView<HomeController> {
       endDrawer: const ParkInDrawer(),
       body: SafeArea(
         child: CustomScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          // physics: NeverScrollableScrollPhysics(),
           slivers: [
             ParkInBar(
                 bottomWidget: Column(
@@ -37,6 +37,76 @@ class HomeScreen extends GetView<HomeController> {
                 ),
               ],
             )),
+
+        SliverToBoxAdapter(
+          child:Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+                border:
+                Border.all(color: Colors.grey, width: 0.5),
+                borderRadius: BorderRadius.circular(12)),
+            constraints:
+            BoxConstraints(maxHeight: 250, minHeight: 100),
+            child: Obx(
+                  () => controller.vehicleList.isEmpty
+                  ? Center(
+                child: Text("No vehicles."),
+              )
+                  : Obx(
+                    () => Scrollbar(
+                  controller: controller.scrollController,
+                  thumbVisibility: true,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller
+                        .customer.value.vehicles!.length,
+                    reverse: true,
+                    physics:
+                    const BouncingScrollPhysics(),
+                    controller:
+                    controller.scrollController,
+                    addAutomaticKeepAlives: true,
+                    itemBuilder: (context, index) {
+                      return Obx(
+                            () => ParkInnCard(
+                          vehicle: controller.customer
+                              .value.vehicles![index],
+                          isVehicleSelected: controller
+                              .selectedTileIndex
+                              .value ==
+                              index,
+                          onTap: () {
+                            controller.vehicleIndex =
+                                index;
+                            log(
+                                name: "HOME SCREEN",
+                                "RES:${controller.selectedTileIndex.value = index}");
+                            controller.selectedTileIndex
+                                .value = index;
+                            controller.selectedTileIndex
+                                .refresh();
+                          },
+                          trailingOnTap: () => controller
+                              .onDeleteTap(index),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          )  ,
+        ),
+
+                 /* SizedBox(
+                  height: 20,
+                  ),*/
+
+
+
+
+
             Obx(() {
               return SliverVisibility(
                   visible: controller.clickAdd.value,
@@ -49,7 +119,7 @@ class HomeScreen extends GetView<HomeController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("All vehicles"),
-                          Container(
+                        /*  Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 10),
                               constraints: BoxConstraints(
@@ -95,7 +165,7 @@ class HomeScreen extends GetView<HomeController> {
                                               },);
                                         },
                                       ),
-                                    )),
+                                    )),*/
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 10),
@@ -185,7 +255,7 @@ class HomeScreen extends GetView<HomeController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                        /*  Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
@@ -204,7 +274,7 @@ class HomeScreen extends GetView<HomeController> {
                                         controller: controller.scrollController,
                                         thumbVisibility: true,
                                         child: ListView.builder(
-                                          shrinkWrap: false,
+                                          shrinkWrap: true,
                                           itemCount: controller
                                               .customer.value.vehicles!.length,
                                           reverse: true,
@@ -245,7 +315,7 @@ class HomeScreen extends GetView<HomeController> {
                           ),
                           SizedBox(
                             height: 20,
-                          ),
+                          ),*/
                           Row(
                             children: [
                               ElevatedButton(

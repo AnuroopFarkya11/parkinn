@@ -113,8 +113,9 @@ class API {
 
   // todo daksh integrate create current transaction api and delete current transaction
 
-  static Future<Customer> createTransaction(
-      String vehicleType, String vehicleNumber) async {
+  static Future<Customer> createTransaction(String vehicleType, String vehicleNumber) async {
+    // String url = "54.66.147.216:8080"+"/api/transaction/create";
+    // Uri api = Uri.parse(url);
     try {
       Response response = await client.post(apiPath.createTransaction, body: {
         "mobileNumber": GlobalController.to.customer!.mobileNumber,

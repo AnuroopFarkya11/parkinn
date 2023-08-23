@@ -55,7 +55,7 @@ class _ParkInnCardState extends State<ParkInnCard> {
                           width: 18,
                           height: 18,
                           child: CircularProgressIndicator(
-                            color: Colors.white,
+                            color: Colors.black,
                             strokeWidth: 3,
                           ))
                       : Icon(Icons.delete),

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/auth_screen/auth_controller.dart';
@@ -17,9 +18,40 @@ import 'package:parkinn/routes/route_class.dart';
 * ADD PACKAGE FOR INTERNET CONNECTION
 *
 *
-* IN HOME SCREEN THERE MUST BE A SECTION WHERE WE CAN LIST CURRENT TRANSACTION
+*
 *
 * there must be 2 different tabs for vehicle type
+*
+*
+*
+*
+* Create two modals for startParking object and endParking object
+*
+*
+* on parking start , widget should update with current time and location  , also "change vehicle" button should be disabled
+*
+*
+* on parking ended,navigate to home screen
+*
+*
+* on history screen: global customer must get updated
+*
+*
+* q)IN HOME SCREEN THERE MUST BE A SECTION WHERE WE CAN LIST CURRENT TRANSACTION
+* if current transaction is null then navigate to mainHomeScreen else navigate to qr screen
+*
+*
+* update Customer model with socketId
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
 *
 * */
 
@@ -41,13 +73,25 @@ void main() async {
 
 class ParkInn extends StatelessWidget {
   const ParkInn({Key? key}) : super(key: key);
+  
+  
+  ThemeData getTheme()
+  {
+    
+    if(SharedService.getThemeStatus()==null)
+      {
+        return AppTheme.lightTheme;
+      }
 
+    return SharedService.getThemeStatus()!?AppTheme.lightTheme:AppTheme.darkTheme;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "ParkInn",
-      theme: AppTheme.appTheme,
+      theme: getTheme(),
       initialRoute: '/splashScreen',
       getPages: RouteClass.routes,
       // home: AuthScreen(),

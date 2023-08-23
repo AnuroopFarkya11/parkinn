@@ -1,39 +1,140 @@
 import 'dart:developer';
-
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:parkinn/Modals/customer_modal.dart';
 import 'package:parkinn/Modals/transaction_modal.dart';
+import 'package:parkinn/Services/API/api_decoding_methods.dart';
 import 'package:parkinn/Services/global_controller.dart';
+import 'package:parkinn/Services/web_socket_services/web_socket.dart';
 
 import '../../Services/API/api_services.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:parkinn/Services/API/api_paths.dart';
 
+
+enum ParkingStatus{
+  initial,
+  started,
+  ended
+}
 class TransactionQrController extends GetxController {
+
   late Customer? customer;
   late Transaction currentTransaction;
   late RxBool change;
+  late Rx<ParkingStatus> status;
+  late String startTime;
+  late String location;
+  late  String endTime;
+  late String qrUrl;
+
+
 
   @override
   void onInit() {
     super.onInit();
+    customer = GlobalController.to.customer;
+    currentTransaction = customer!.currentTransaction!;
+    status = ParkingStatus.initial.obs;
+    startTime="";
+    endTime="";
+    location="";
+    qrUrl = GlobalController.to.customer!.currentTransaction!.parkingQr!;
+
+    if(currentTransaction.startTime!=null)
+      {
+        startTime = DateFormat('hh:mm a').format(currentTransaction.startTime!);
+        log(name:"TRANSACTION DATA","START TIME: $startTime");
+        status.value = ParkingStatus.started;
+      }
+    else{
+      log(name:"TRANSACTION DATA","START TIME :NULL ");
+    }
+    if(currentTransaction.locationId!=null)
+      {
+        location = currentTransaction.locationId!;
+        log(name:"TRANSACTION DATA","LOCATION: $location");
+
+      }
+    else{
+      log(name:"TRANSACTION DATA","LOCATION: null");
+    }
+
+
+    if(currentTransaction.endTime!=null)
+      {
+        endTime = DateFormat('hh:mm a').format(currentTransaction.endTime!);
+        log(name:"TRANSACTION DATA","END TIME: $endTime");
+        status.value = ParkingStatus.ended;
+      }
+    else{
+      log(name:"TRANSACTION DATA","END TIME :NULL ");
+
+    }
+
+
+
     try {
-      customer = GlobalController.to.customer;
-      currentTransaction = customer!.currentTransaction!;
-      IO.Socket socket = IO.io('http://54.66.147.216:8080', <String, dynamic>{
+      log(name: "Socket connection ", "Hitting socket");
+
+      //'http://54.66.147.216:80'
+      //'https://aquamarine-turkey-gear.cyclic.cloud/api'
+
+      IO.Socket socket=IO.io(ApiPath.defaultUrl, <String, dynamic>{
         'transports': ['websocket'],
-        'autoConnect': false,
+        'autoConnect': true,
       });
+
       socket.connect();
       socket.onConnect((_) {
-        log(name: "SOCKET CONNECTION", "SUCCESSFUL CONNECTION");
+        log(name: "SOCKET CONNECTION", "SUCCESSFUL CONNECTION $_");
       });
 
-      socket.emit('Credentials', {
-        'customerId': customer!.customerId,
-        'mobileNumber': customer!.mobileNumber
-      });
+
+    socket.emit('Credentials', {
+      'customerId': customer!.customerId!,
+      'mobileNumber': customer!.mobileNumber!
+    });
+
+
+
+      // WebSocketService.connect();
+
+      // WebSocketService.emit(customerID: customer!.customerId!, mobileNumber: customer!.mobileNumber!);
 
       socket.on('ParkingStatus', (data) {
+        //{parking: started, startTime: 2023-08-19T20:36:08.000Z, locationId: 123's Location}
+        // should i update this to customer object
+
+        if (data != null) {
+          if (data['parking'].toString() == "started") {
+
+            status.value=ParkingStatus.started;
+            DateTime? istTime = ApiDecoding.decodeTime(time: data["startTime"]);
+            startTime = DateFormat('hh:mm a').format(istTime!);
+            location = data["locationId"];
+            log(name:"WEB SOCKET DATA","START TIME: $startTime");
+            Get.snackbar("Parking Status", "Parking started successfully");
+
+
+
+          } else if (data['parking'].toString() == "ended") {
+            status.value = ParkingStatus.ended;
+            DateTime? istTime = ApiDecoding.decodeTime(time: data["endTime"]);
+            endTime = DateFormat('hh:mm a').format(istTime!);
+            log(name:"WEB SOCKET DATA","END TIME: $endTime");
+            GlobalController.to.customer!.currentTransaction=null;
+            Get.snackbar("Parking Status", "Parking ended");
+
+
+          }
+        } else {
+          Get.snackbar("Parking Status", "Unable to fetch data");
+          log(name:"SOCKET DATA","No data");
+        }
+        // todo catch the dynamic data and convert it to proper datatype
+
+        // this data is dynamic, coinsist of 3 feilds startTime , locationId , endtIME
 
         //todo rebuild of widget parking time
 
@@ -42,12 +143,14 @@ class TransactionQrController extends GetxController {
 
       socket.on(
         'disconnect',
-        (data) {
+            (data) {
           log(name: "SOCKET CONNECTION", "CONNECTION CLOSED $data");
         },
       );
-    } on Exception catch (e) {
-      // TODO
+      // WebSocketService.disconnect();
+
+    } catch (e) {
+      log(name: "SOCKET CONNECTION", "CONNECTION FAILED $e");
     }
 
     change = false.obs;

@@ -26,6 +26,6 @@ class Customer {
     this.vehicles,
     this.allVehicles,
     this.history,
-    this.createDate
+    this.createDate,
   });
 }

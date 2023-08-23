@@ -4,7 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../Utils/brand_color.dart';
 
 class AppTheme {
-  static ThemeData appTheme = ThemeData(
+  static ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
+    useMaterial3: true,
       textTheme: GoogleFonts.poppinsTextTheme(),
     /*  appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
@@ -31,4 +33,14 @@ class AppTheme {
 
 
   );
+
+  static ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    useMaterial3: true,
+    scaffoldBackgroundColor: Colors.grey.shade900
+
+  );
+
+
+
 }

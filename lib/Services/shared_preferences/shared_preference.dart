@@ -71,4 +71,38 @@ class SharedService {
 
     return status;
   }
+  static void setThemeStatus({required bool status})
+  {
+    // true means light
+    // false means dark
+    try {
+      log(name: "SHARED SERVICE", "Theme Status : $status");
+      shared!.setBool("appTheme", status);
+    } on Exception catch (e) {
+      // TODO
+      log(name: "SHARED SERVICE", "LOG STATUS FAILED $e");
+    }
+
+  }
+
+
+
+  static bool? getThemeStatus()
+  {
+    bool? themeStatus;
+
+
+    try {
+      themeStatus = shared!.getBool("appTheme");
+      log(name: "ThemeGet Status","Status: $themeStatus");
+
+
+    } on Exception catch (e) {
+      log(name: "ThemeGet Status","Exception: $e");
+    }
+
+    return themeStatus;
+
+
+  }
 }

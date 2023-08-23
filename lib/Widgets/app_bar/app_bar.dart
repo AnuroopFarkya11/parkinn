@@ -24,7 +24,7 @@ class ParkInBar extends GetView<ParkInnBarController> {
     return SliverAppBar(
       automaticallyImplyLeading: false,
       pinned: true,
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       actionsIconTheme: const IconThemeData(color: Colors.black),
       title: const Text("ParkInn"),
       titleTextStyle: TextStyle(

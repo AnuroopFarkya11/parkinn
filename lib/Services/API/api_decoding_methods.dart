@@ -9,7 +9,6 @@ import '../../Modals/transaction_modal.dart';
 import '../../Modals/vehicle_modal.dart';
 
 class ApiDecoding {
-
   static Customer decodeCustomer(Response response) {
     Map<dynamic, dynamic> data = json.decode(response.body);
 
@@ -18,19 +17,18 @@ class ApiDecoding {
     }
 
     return Customer(
-        mobileNumber: data['mobileNumber'],
-        customerId: data['customerId'],
-        balance: data['balance'],
-        currentTransaction:decodeTransaction(transaction: data["currentTransaction"]),
-        vehicles: decodeVehicleList(list: data['vehicles']),
-        allVehicles: decodeVehicleList(list: data['allVehicles']),
-        history: null,
-        createDate:decodeTime(time: data['createDate'])
-
+      mobileNumber: data['mobileNumber'],
+      customerId: data['customerId'],
+      balance: data['balance'],
+      currentTransaction:data["currentTransaction"]!=null?decodeTransaction(transaction: data["currentTransaction"]):null,
+      vehicles: decodeVehicleList(list: data['vehicles']),
+      allVehicles: decodeVehicleList(list: data['allVehicles']),
+      history: null,
+      createDate: decodeTime(time: data['createDate']),
     );
   }
 
-  static Vehicle decodeVehicle({required vehicle}){
+  static Vehicle decodeVehicle({required vehicle}) {
     return Vehicle(
         vehicleNumber: vehicle['vehicleNumber'],
         vehicleType: vehicle['vehicleType'],
@@ -45,38 +43,34 @@ class ApiDecoding {
     return vehicleList;
   }
 
-  static Transaction? decodeTransaction({required transaction}){
-    if(transaction==null)
-    {
+  static Transaction? decodeTransaction({required transaction}) {
+    if (transaction == null) {
       return null;
     }
 
-
-    log(name:"DECODE TRANSACTION",transaction.toString());
+    log(name: "DECODE TRANSACTION", transaction.toString());
     return Transaction(
         transactionId: transaction["transactionId"],
-        vehicleData:decodeVehicle(vehicle: transaction["vehicle"]),
-        startTime: transaction["startTime"],
-        endTime: transaction["endTime"],
+        vehicleData: decodeVehicle(vehicle: transaction["vehicle"]),
+        startTime: transaction["startTime"]!=null?ApiDecoding.decodeTime(time: transaction["startTime"]):null,
+        endTime: transaction["endTime"]!=null?ApiDecoding.decodeTime(time: transaction["endTime"]):null,
         locationId: transaction["locationId"],
         amount: transaction["amount"],
         closingBalance: transaction["closingBalance"],
-        createDate: true?transaction["createDate"]:decodeTime(time: transaction["createDate"])
-
-    );
-
+        createDate: true
+            ? transaction["createDate"]
+            : decodeTime(time: transaction["createDate"]),
+        parkingQr: transaction['parkingQr']);
   }
 
-  static DateTime? decodeTime({required  time}){
-
-    log(name:"DECODE DATE TIME","TTC TIME $time");
+  static DateTime? decodeTime({required time}) {
+    log(name: "DECODE DATE TIME", "TTC TIME $time");
     DateTime utcTime = DateTime.parse(time);
 
-    DateTime istTime = utcTime.add(const Duration(hours: 5,minutes: 30));
+    DateTime istTime = utcTime.add(const Duration(hours: 5, minutes: 30));
 
     String formattedIST = DateFormat('yyyy-MM-dd hh:mm:ss a').format(istTime);
 
     return istTime;
-
   }
 }
