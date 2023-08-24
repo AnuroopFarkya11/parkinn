@@ -32,7 +32,7 @@ class ParkInDrawer extends StatelessWidget {
               ))),
               ListTile(
                 onTap: () {
-                  GlobalController.to.currentRoute==ParkYnRoute.profileScreen?Get.toNamed(ParkYnRoute.profileScreen):Navigator.pop(context);
+                  GlobalController.to.currentRoute!=ParkYnRoute.profileScreen?Get.toNamed(ParkYnRoute.profileScreen):Navigator.pop(context);
                 },
                 title: Text("Your Profile"),
                 leading: Icon(Icons.person),

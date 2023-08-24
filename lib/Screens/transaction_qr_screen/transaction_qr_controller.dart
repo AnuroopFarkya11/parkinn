@@ -119,7 +119,7 @@ class TransactionQrController extends GetxController {
             startTime?.value = DateFormat('hh:mm a').format(istTime!);
             location = data["locationId"];
             log(name:"WEB SOCKET DATA","START TIME: $startTime");
-            Get.snackbar("Parking Status", "Parking started successfully");
+            Get.snackbar("Parking Status", "Parking started successfully",snackPosition: SnackPosition.BOTTOM);
 
 
 
@@ -129,12 +129,14 @@ class TransactionQrController extends GetxController {
             endTime = DateFormat('hh:mm a').format(istTime!);
             log(name:"WEB SOCKET DATA","END TIME: $endTime");
             GlobalController.to.customer!.currentTransaction=null;
-            Get.snackbar("Parking Status", "Parking ended");
+            Get.snackbar("Parking Status", "Parking ended",snackPosition: SnackPosition.BOTTOM);
+
+
 
 
           }
         } else {
-          Get.snackbar("Parking Status", "Unable to fetch data");
+          Get.snackbar("Parking Status", "Unable to fetch data",snackPosition: SnackPosition.BOTTOM);
           log(name:"SOCKET DATA","No data");
         }
         // todo catch the dynamic data and convert it to proper datatype
@@ -165,10 +167,10 @@ class TransactionQrController extends GetxController {
     change.value = true;
     try {
       await API.deleteTransaction();
-      Get.snackbar("Transaction", "Current Transaction Deleted");
+      Get.snackbar("Transaction", "Current Transaction Deleted",snackPosition: SnackPosition.BOTTOM);
       Get.offAllNamed('homeScreen');
     } catch (e) {
-      Get.snackbar("Transaction", "Failed to delete transaction");
+      Get.snackbar("Transaction", "Failed to delete transaction",snackPosition: SnackPosition.BOTTOM);
     }
   }
 }
