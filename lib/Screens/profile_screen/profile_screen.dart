@@ -3,9 +3,23 @@ import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
+import 'package:parkinn/routes/route_name.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    GlobalController.to.currentRoute = ParkYnRoute.profileScreen;
+  }
 
   @override
   Widget build(BuildContext context) {

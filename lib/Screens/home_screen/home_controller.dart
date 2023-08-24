@@ -8,6 +8,8 @@ import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 
 import '../../Modals/customer_modal.dart';
 import '../../Services/API/api_services.dart';
+import '../../Widgets/drawer/app_drawer.dart';
+import '../../routes/route_name.dart';
 
 class HomeController extends GetxController {
   //late Rx<ParkInnCard> parkInnCard;
@@ -33,6 +35,8 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    GlobalController.to.currentRoute=ParkYnRoute.homeScreen;
+    log(name:"Current Route",GlobalController.to.currentRoute!);
     // TODO CHECK FOR EMPTY CUSTOMER
     customer = GlobalController.to.customer!.obs;
     vehicleIndex = -1;

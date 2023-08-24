@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:parkinn/Screens/home_screen/home_screen.dart';
 import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
+import 'package:parkinn/Widgets/drawer/app_drawer.dart';
+import 'package:parkinn/routes/route_name.dart';
 
 import '../../Modals/customer_modal.dart';
 import '../../Services/API/api_services.dart';
@@ -26,6 +28,7 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    GlobalController.to.currentRoute=ParkYnRoute.authScreen;
     otpCheck = false.obs;
     isLoading = false.obs;
   }

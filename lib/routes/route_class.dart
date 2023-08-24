@@ -11,6 +11,7 @@ import 'package:parkinn/Screens/profile_screen/profile_screen.dart';
 import 'package:parkinn/Screens/splash_screen/splash_screen.dart';
 import 'package:parkinn/Screens/splash_screen/splash_screen_binding.dart';
 import 'package:parkinn/Screens/transaction_qr_screen/transaction_qr_screen.dart';
+import 'package:parkinn/routes/route_name.dart';
 
 import '../Screens/profile_screen/profile_binding.dart';
 import '../Screens/transaction_qr_screen/transaction_qr_binding.dart';
@@ -18,31 +19,31 @@ import '../Screens/transaction_qr_screen/transaction_qr_binding.dart';
 class RouteClass {
   static List<GetPage> routes = [
     GetPage(
-        name: '/authScreen',
+        name: ParkYnRoute.authScreen,
         page: () => const AuthScreen(),
         binding: SetAuthBinding()),
     GetPage(
-        name: '/homeScreen',
+        name: ParkYnRoute.homeScreen,
         page: () => HomeScreen(),
         binding: SetHomeBinding()),
     GetPage(
-        name: '/addScreen',
+        name: ParkYnRoute.addVehicleScreen,
         page: () => AddVehicleScreen(),
         binding: SetAddVehicleController()),
     GetPage(
-        name: '/historyScreen',
+        name: ParkYnRoute.historyScreen,
         page: () => const History(),
         binding: SetHistoryBinding()),
     GetPage(
-        name: '/transactionQr',
+        name: ParkYnRoute.transactionScreen,
         page: () => const TransactionQr(),
         binding: SetTransactionQr()),
     GetPage(
-        name: '/splashScreen',
+        name: ParkYnRoute.splashScreen,
         page: () => const SplashScreen(),
         binding: SetSplashBinding()),
     GetPage(
-        name: "/profileScreen",
+        name: ParkYnRoute.profileScreen,
         page: () => const ProfileScreen(),
         binding: SetProfileBinding())
   ];

@@ -14,5 +14,6 @@ class GlobalController extends GetxController{
 
 
   Customer? customer;
+  String? currentRoute;
 
 }
