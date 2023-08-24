@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
 import 'package:parkinn/Theme/app_theme.dart';
+import 'package:parkinn/routes/route_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Utils/brand_color.dart';
 
 class ParkInDrawer extends StatelessWidget {
-  static String currentRoute = "";
+
 
   const ParkInDrawer({Key? key}) : super(key: key);
 
@@ -31,14 +32,7 @@ class ParkInDrawer extends StatelessWidget {
               ))),
               ListTile(
                 onTap: () {
-                  if(currentRoute=='/profileScreen')
-                  {
-                    Navigator.pop(context);
-                  }
-                  Get.toNamed("/profileScreen");
-                  currentRoute = "/profileScreen";
-
-
+                  GlobalController.to.currentRoute==ParkYnRoute.profileScreen?Get.toNamed(ParkYnRoute.profileScreen):Navigator.pop(context);
                 },
                 title: Text("Your Profile"),
                 leading: Icon(Icons.person),
@@ -47,15 +41,14 @@ class ParkInDrawer extends StatelessWidget {
                 title: Text("Home"),
                 leading: Icon(Icons.home),
                 onTap: () {
-                  currentRoute="homeScreen";
                   if (GlobalController.to.customer!.currentTransaction ==
                       null) {
-                    currentRoute != "homeScreen"
-                        ? Get.offAllNamed('homeScreen')
+                    GlobalController.to.currentRoute != ParkYnRoute.homeScreen
+                        ? Get.offAllNamed(ParkYnRoute.homeScreen)
                         : Navigator.pop(context);
                   } else {
-                    currentRoute != "transactionQr"
-                        ? Get.offAllNamed('transactionQr')
+                    GlobalController.to.currentRoute != ParkYnRoute.transactionScreen
+                        ? Get.offAllNamed(ParkYnRoute.transactionScreen)
                         : Navigator.pop(context);
                   }
                 },
@@ -64,11 +57,13 @@ class ParkInDrawer extends StatelessWidget {
                 title: Text("History"),
                 leading: Icon(Icons.history),
                 onTap: () {
-                  if(currentRoute=='historyScreen');
+                  if(GlobalController.to.currentRoute==ParkYnRoute.historyScreen)
                   {
                     Navigator.pop(context);
                   }
-                  Get.offAllNamed('historyScreen');
+                  else{
+                  Get.offAllNamed(ParkYnRoute.historyScreen);
+                  }
                 },
               ),
               ListTile(
@@ -93,7 +88,7 @@ class ParkInDrawer extends StatelessWidget {
                   SharedService.setStatus(status: false);
                   SharedService.setCustomerId(" ", " ");
                   // GlobalController.to.dispose();
-                  Get.offNamed('/authScreen');
+                  Get.offNamed(ParkYnRoute.authScreen);
                 },
                 title: Text("Logout"),
                 leading: Icon(Icons.logout),

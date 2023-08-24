@@ -35,23 +35,33 @@ class TransactionQr extends GetView<TransactionQrController> {
             ),
             subtitle:
                 Text(controller.currentTransaction.vehicleData!.vehicleType!),
-            trailing: controller.startTime.length<2?Obx(
-              () => TextButton(
-                onPressed: controller.onChangePressed,
-                child: controller.change.value
-                    ? SizedBox(
-                        height: 15,
-                        width: 15,
-                        child: CircularProgressIndicator(
-                          color: Colors.black,
-                        ),
-                      )
-                    : Text("Change Vehicle"),
-                style: TextButton.styleFrom(
-                    backgroundColor: BrandColors.brandWhite,
-                    foregroundColor: Colors.black),
-              ),
-            ):Text("Parking Started"),
+            trailing: Obx(
+                (){
+                  if(controller.status.value == ParkingStatus.started)
+                    {
+                      return Text("Parking Started");
+                    }
+                  else{
+                    return Obx(
+                          () => TextButton(
+                        onPressed: controller.onChangePressed,
+                        style: TextButton.styleFrom(
+                            backgroundColor: BrandColors.brandWhite,
+                            foregroundColor: Colors.black),
+                        child: controller.change.value
+                            ? SizedBox(
+                          height: 15,
+                          width: 15,
+                          child: CircularProgressIndicator(
+                            color: Colors.black,
+                          ),
+                        )
+                            : Text("Change Vehicle"),
+                      ),
+                    );
+                  }
+                }
+            ),
           )),
           SliverToBoxAdapter(
             // hasScrollBody: false,

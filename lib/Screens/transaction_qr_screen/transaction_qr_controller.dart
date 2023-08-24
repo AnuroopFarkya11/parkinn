@@ -6,10 +6,13 @@ import 'package:parkinn/Modals/transaction_modal.dart';
 import 'package:parkinn/Services/API/api_decoding_methods.dart';
 import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/web_socket_services/web_socket.dart';
+import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
 import '../../Services/API/api_services.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:parkinn/Services/API/api_paths.dart';
+
+import '../../routes/route_name.dart';
 
 
 enum ParkingStatus{
@@ -23,7 +26,7 @@ class TransactionQrController extends GetxController {
   late Transaction currentTransaction;
   late RxBool change;
   late Rx<ParkingStatus> status;
-  late String startTime;
+  RxString? startTime;
   late String location;
   late  String endTime;
   late String qrUrl;
@@ -33,17 +36,19 @@ class TransactionQrController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    GlobalController.to.currentRoute = ParkYnRoute.transactionScreen;
     customer = GlobalController.to.customer;
     currentTransaction = customer!.currentTransaction!;
     status = ParkingStatus.initial.obs;
-    startTime="";
+    startTime = "".obs;
+    // startTime="".obs;
     endTime="";
     location="";
     qrUrl = GlobalController.to.customer!.currentTransaction!.parkingQr!;
 
     if(currentTransaction.startTime!=null)
       {
-        startTime = DateFormat('hh:mm a').format(currentTransaction.startTime!);
+        startTime?.value = DateFormat('hh:mm a').format(currentTransaction.startTime!);
         log(name:"TRANSACTION DATA","START TIME: $startTime");
         status.value = ParkingStatus.started;
       }
@@ -111,7 +116,7 @@ class TransactionQrController extends GetxController {
 
             status.value=ParkingStatus.started;
             DateTime? istTime = ApiDecoding.decodeTime(time: data["startTime"]);
-            startTime = DateFormat('hh:mm a').format(istTime!);
+            startTime?.value = DateFormat('hh:mm a').format(istTime!);
             location = data["locationId"];
             log(name:"WEB SOCKET DATA","START TIME: $startTime");
             Get.snackbar("Parking Status", "Parking started successfully");
