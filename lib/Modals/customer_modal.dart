@@ -10,7 +10,7 @@ class Customer {
   List<Vehicle>? vehicles = [];
   // List<dynamic> allVehicles = [];
   List<Vehicle>? allVehicles = [];
-  List<dynamic>? history;
+  List<Transaction?>? history;
   // todo convert this transaction type
   Transaction? currentTransaction;
   // String? createDate;

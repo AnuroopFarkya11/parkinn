@@ -51,14 +51,14 @@ class _ParkInnCardState extends State<ParkInnCard> {
               () => IconButton(
                   onPressed: widget.trailingOnTap,
                   icon: iconController.deleteTap.value
-                      ? SizedBox(
+                      ? const SizedBox(
                           width: 18,
                           height: 18,
                           child: CircularProgressIndicator(
                             color: Colors.black,
                             strokeWidth: 3,
                           ))
-                      : Icon(Icons.delete),
+                      : const Icon(Icons.delete),
                   color: Colors.black,
                   iconSize: 25),
             ),

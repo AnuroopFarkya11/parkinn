@@ -23,7 +23,7 @@ class ApiDecoding {
       currentTransaction:data["currentTransaction"]!=null?decodeTransaction(transaction: data["currentTransaction"]):null,
       vehicles: decodeVehicleList(list: data['vehicles']),
       allVehicles: decodeVehicleList(list: data['allVehicles']),
-      history: null,
+      history: decodeTransactionList(list: data['history']),
       createDate: decodeTime(time: data['createDate']),
     );
   }
@@ -42,6 +42,14 @@ class ApiDecoding {
 
     return vehicleList;
   }
+
+  static List<Transaction?> decodeTransactionList({required List<dynamic> list}){
+    List<Transaction?> transactionList = list.map((tempTransactionList){
+      return decodeTransaction(transaction: tempTransactionList);
+    }).toList();
+
+    return transactionList;
+   }
 
   static Transaction? decodeTransaction({required transaction}) {
     if (transaction == null) {

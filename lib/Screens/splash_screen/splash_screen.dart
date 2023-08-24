@@ -38,8 +38,8 @@ class _SplashScreenState extends State<SplashScreen> {
               GlobalController.to.customer =
                   await API.loginUser(userNumber, userID);
               log(
-                  name: "TRANSAction status",
-                  "${GlobalController.to.customer!.currentTransaction}");
+                  name: "HISTORY",
+                  "${GlobalController.to.customer!.history!.map((e) => e!.transactionId)}");
               if (GlobalController.to.customer!.currentTransaction == null) {
                 Get.offNamed('/homeScreen');
               } else {
