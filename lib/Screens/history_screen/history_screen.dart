@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parkinn/Screens/history_screen/history_controller.dart';
+import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
+import 'package:parkinn/Widgets/card_layout/history_card.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 import '../../Utils/brand_color.dart';
 
@@ -17,6 +19,7 @@ class History extends GetView<HistoryController> {
   * */
   @override
   Widget build(BuildContext context) {
+    //  Map<String, String> map = GlobalController.to.customer!.history!.asMap().cast<String, String>();
     return Scaffold(
       backgroundColor: Colors.white,
       endDrawer: ParkInDrawer(),
@@ -46,26 +49,35 @@ class History extends GetView<HistoryController> {
                             color: BrandColors.subTitleColor, width: 2.5),
                       ),
                       child: Text("All vehicles",
-                          style:
-                              TextStyle(color: BrandColors.subTitleColor)),
+                          style: TextStyle(color: BrandColors.subTitleColor)),
                     )
                   ],
                 ),
               ],
             )),
-          
-
             SliverFillRemaining(
               child: Container(
                 padding: EdgeInsets.all(12),
-                child: controller.customer!.history!.isEmpty?Center(child: Text("No Transaction Record"),):ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: controller.customer!.history!.length,
-                  itemBuilder: (context, index) {
-                    return Container(color: Colors.black,);
-                    // return ParkInnCard("Ramji", "4 wheeler");
-                  },
-                ),
+                child: controller.customer!.history!.isEmpty
+                    ? Center(
+                        child: Text("No Transaction Record"),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.customer!.history!.length,
+                        itemBuilder: (context, index) {
+                          return HistoryCard(
+                            vehicleNumber: controller
+                                .history![index]!.vehicleData!.vehicleNumber!,
+                            vehicleType: controller.history![index]!.vehicleData!.vehicleType!,
+                            location: controller.history![index]!.locationId!,
+                            //todo Pass the original values
+                            closingBalance: "360",
+                            amount: '60',
+                          );
+                          // return ParkInnCard("Ramji", "4 wheeler");
+                        },
+                      ),
               ),
             )
           ],
