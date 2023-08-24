@@ -35,7 +35,7 @@ class _HistoryCardState extends State<HistoryCard> {
                 overflow: TextOverflow.ellipsis,
             ),
             Text(
-              widget.amount,
+              "- ${widget.amount}",
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
             ),
