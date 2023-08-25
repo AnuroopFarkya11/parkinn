@@ -29,6 +29,7 @@ class HomeController extends GetxController {
   late RxBool clickAdd;
   late RxBool proceed;
   late Rx selectedTileIndex;
+  late Rx deleteTileIndex;
 
   ScrollController scrollController = ScrollController();
 
@@ -51,6 +52,7 @@ class HomeController extends GetxController {
     selectedTileIndex = 9999.obs;
     proceed = false.obs;
     deleteTap = false.obs;
+    deleteTileIndex = 9999.obs;
     scrollToTop();
   }
 
@@ -108,9 +110,11 @@ class HomeController extends GetxController {
 
   Future<void> onDeleteTap(int index) async {
     //  parkInnCard.value.deleteTap.value = true;
+    deleteTileIndex.value = index;
     deleteTap.value = true;
     Vehicle tempVehicle = customer.value.vehicles![index];
     log(name: "DELETE VEHICLE", "DELETING VEHICLE: $index");
+
     try {
       await API.removeVehicle(tempVehicle).then((value) {
         GlobalController.to.customer = value;
@@ -120,9 +124,10 @@ class HomeController extends GetxController {
       });
 
       Get.snackbar(
-          "Vehicle Deleted Successfully", "${tempVehicle.vehicleNumber}");
+          "Vehicle Deleted Successfully", "${tempVehicle.vehicleNumber}",snackPosition: SnackPosition.BOTTOM);
     } on Exception catch (e) {
       Get.snackbar("Vehicle Deleted Failed", "");
+      deleteTileIndex.value=9999;
     }
   }
 

@@ -14,20 +14,22 @@ class ParkInnCard extends StatefulWidget {
   late final Function() onTap;
   late void Function() trailingOnTap;
   final bool isVehicleSelected;
+  final bool isDeleted;
 
   ParkInnCard(
       {super.key,
       required this.vehicle,
       required this.isVehicleSelected,
       required this.onTap,
-      required this.trailingOnTap});
+      required this.trailingOnTap,
+      required this.isDeleted});
 
   @override
   State<ParkInnCard> createState() => _ParkInnCardState();
 }
 
 class _ParkInnCardState extends State<ParkInnCard> {
-  final HomeController iconController = Get.put(HomeController());
+  // final HomeController iconController = Get.put(HomeController());
   final CardController controller = Get.put(CardController());
 
   @override
@@ -47,21 +49,19 @@ class _ParkInnCardState extends State<ParkInnCard> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Text(vehicle.vehicleType!),
-            Obx(
-              () => IconButton(
-                  onPressed: widget.trailingOnTap,
-                  icon: iconController.deleteTap.value
-                      ? const SizedBox(
-                          width: 18,
-                          height: 18,
-                          child: CircularProgressIndicator(
-                            color: Colors.black,
-                            strokeWidth: 3,
-                          ))
-                      : const Icon(Icons.delete),
-                  color: Colors.black,
-                  iconSize: 25),
-            ),
+            widget.isDeleted
+                ? IconButton(
+                    onPressed: widget.trailingOnTap,
+                    icon: const Icon(Icons.delete),
+                    color: Colors.black,
+                    iconSize: 25)
+                : const SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(
+                      color: Colors.black,
+                      strokeWidth: 3,
+                    )),
           ],
         ),
         // selected: isVehicleSelected,

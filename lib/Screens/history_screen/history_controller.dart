@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:parkinn/Modals/customer_modal.dart';
+import 'package:parkinn/routes/route_name.dart';
 
 import '../../Modals/transaction_modal.dart';
 import '../../Services/global_controller.dart';
@@ -18,6 +19,7 @@ class HistoryController extends GetxController{
     super.onInit();
     customer = GlobalController.to.customer;
     history = customer?.history;
+    GlobalController.to.currentRoute= ParkYnRoute.historyScreen;
   }
 
 }

@@ -37,75 +37,63 @@ class HomeScreen extends GetView<HomeController> {
                 ),
               ],
             )),
-
-        SliverToBoxAdapter(
-          child:Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-                border:
-                Border.all(color: Colors.grey, width: 0.5),
-                borderRadius: BorderRadius.circular(12)),
-            constraints:
-            BoxConstraints(maxHeight: 250, minHeight: 100),
-            child: Obx(
+            SliverToBoxAdapter(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 0.5),
+                    borderRadius: BorderRadius.circular(12)),
+                constraints: BoxConstraints(maxHeight: 250, minHeight: 100),
+                child: Obx(
                   () => controller.vehicleList.isEmpty
-                  ? Center(
-                child: Text("No vehicles."),
-              )
-                  : Obx(
-                    () => Scrollbar(
-                  controller: controller.scrollController,
-                  thumbVisibility: true,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: controller
-                        .customer.value.vehicles!.length,
-                    reverse: true,
-                    physics:
-                    const BouncingScrollPhysics(),
-                    controller:
-                    controller.scrollController,
-                    addAutomaticKeepAlives: true,
-                    itemBuilder: (context, index) {
-                      return Obx(
-                            () => ParkInnCard(
-                          vehicle: controller.customer
-                              .value.vehicles![index],
-                          isVehicleSelected: controller
-                              .selectedTileIndex
-                              .value ==
-                              index,
-                          onTap: () {
-                            controller.vehicleIndex =
-                                index;
-                            log(
-                                name: "HOME SCREEN",
-                                "RES:${controller.selectedTileIndex.value = index}");
-                            controller.selectedTileIndex
-                                .value = index;
-                            controller.selectedTileIndex
-                                .refresh();
-                          },
-                          trailingOnTap: () => controller
-                              .onDeleteTap(index),
+                      ? Center(
+                          child: Text("No vehicles."),
+                        )
+                      : Obx(
+                          () => Scrollbar(
+                            controller: controller.scrollController,
+                            thumbVisibility: true,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount:
+                                  controller.customer.value.vehicles!.length,
+                              reverse: true,
+                              physics: const BouncingScrollPhysics(),
+                              controller: controller.scrollController,
+                              addAutomaticKeepAlives: true,
+                              itemBuilder: (context, index) {
+                                return Obx(
+                                  () => ParkInnCard(
+                                    isDeleted: controller.deleteTileIndex.value!=index,
+                                    vehicle: controller
+                                        .customer.value.vehicles![index],
+                                    isVehicleSelected:
+                                        controller.selectedTileIndex.value ==
+                                            index,
+                                    onTap: () {
+                                      controller.vehicleIndex = index;
+                                      log(
+                                          name: "HOME SCREEN",
+                                          "RES:${controller.selectedTileIndex.value = index}");
+                                      controller.selectedTileIndex.value =
+                                          index;
+                                      controller.selectedTileIndex.refresh();
+                                    },
+                                    trailingOnTap: () =>
+                                        controller.onDeleteTap(index),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                         ),
-                      );
-                    },
-                  ),
                 ),
               ),
             ),
-          )  ,
-        ),
 
-                 /* SizedBox(
+            /* SizedBox(
                   height: 20,
                   ),*/
-
-
-
-
 
             Obx(() {
               return SliverVisibility(
@@ -119,7 +107,7 @@ class HomeScreen extends GetView<HomeController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("All vehicles"),
-                        /*  Container(
+                          /*  Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 10),
                               constraints: BoxConstraints(
@@ -255,7 +243,7 @@ class HomeScreen extends GetView<HomeController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                        /*  Container(
+                          /*  Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
