@@ -58,7 +58,8 @@ class HomeController extends GetxController {
 
   void scrollToTop() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      log(name: "Scroll Controller","${scrollController.hasClients}");
+      scrollController.hasClients?scrollController.jumpTo(scrollController.position.maxScrollExtent) :null;
     });
   }
 
