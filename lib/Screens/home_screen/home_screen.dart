@@ -19,6 +19,7 @@ class HomeScreen extends GetView<HomeController> {
     // int selectedTileIndex = -1;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       endDrawer: const ParkInDrawer(),
       body: SafeArea(
         child: CustomScrollView(
@@ -43,10 +44,10 @@ class HomeScreen extends GetView<HomeController> {
                 bottomWidget: Divider(color: Colors.black,height: 2,endIndent: 200,indent: 5,)),
             SliverToBoxAdapter(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 0.5),
-                    borderRadius: BorderRadius.circular(12)),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                // decoration: BoxDecoration(
+                //     border: Border.all(color: Colors.grey, width: 0.5),
+                //     borderRadius: BorderRadius.circular(12)),
                 constraints: BoxConstraints(maxHeight: 250, minHeight: 100),
                 child: Obx(
                   () => controller.vehicleList.isEmpty
@@ -67,24 +68,32 @@ class HomeScreen extends GetView<HomeController> {
                               addAutomaticKeepAlives: true,
                               itemBuilder: (context, index) {
                                 return Obx(
-                                  () => ParkInnCard(
-                                    isDeleted: controller.deleteTileIndex.value==index,
-                                    vehicle: controller
-                                        .customer.value.vehicles![index],
-                                    isVehicleSelected:
-                                        controller.selectedTileIndex.value ==
-                                            index,
-                                    onTap: () {
-                                      // controller.vehicleIndex = index;
-                                      log(
-                                          name: "HOME SCREEN",
-                                          "RES:${controller.selectedTileIndex.value = index}");
-                                      controller.selectedTileIndex.value =
-                                          index;
-                                      controller.selectedTileIndex.refresh();
-                                    },
-                                    trailingOnTap: () =>
-                                        controller.onDeleteTap(index),
+                                  () => Column(
+                                    children: [
+                                      ParkInnCard(
+                                        isDeleted: controller.deleteTileIndex.value==index,
+                                        vehicle: controller
+                                            .customer.value.vehicles![index],
+                                        isVehicleSelected:
+                                            controller.selectedTileIndex.value ==
+                                                index,
+                                        onTap: () {
+                                          // controller.vehicleIndex = index;
+                                          log(
+                                              name: "HOME SCREEN",
+                                              "RES:${controller.selectedTileIndex.value = index}");
+                                          controller.selectedTileIndex.value =
+                                              index;
+                                          controller.selectedTileIndex.refresh();
+                                        },
+                                        trailingOnTap: () =>
+                                            controller.onDeleteTap(index),
+                                      ),
+                                      // Divider(height: 2,),
+                                      SizedBox(
+                                        height: 10,
+                                      )
+                                    ],
                                   ),
                                 );
                               },
