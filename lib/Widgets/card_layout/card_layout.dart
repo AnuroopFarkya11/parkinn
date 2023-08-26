@@ -36,7 +36,7 @@ class _ParkInnCardState extends State<ParkInnCard> {
   Widget build(BuildContext context) {
     return ListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      tileColor: widget.isVehicleSelected ? Colors.black : Colors.white,
+      tileColor: widget.isVehicleSelected ? Colors.black : Colors.transparent,
       title: Text(
         widget.vehicle.vehicleNumber!,
         style: TextStyle(
