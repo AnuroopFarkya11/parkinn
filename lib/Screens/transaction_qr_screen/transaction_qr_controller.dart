@@ -107,7 +107,7 @@ class TransactionQrController extends GetxController {
 
       // WebSocketService.emit(customerID: customer!.customerId!, mobileNumber: customer!.mobileNumber!);
 
-      socket.on('ParkingStatus', (data) {
+      socket.on('ParkingStatus', (data) async {
         //{parking: started, startTime: 2023-08-19T20:36:08.000Z, locationId: 123's Location}
         // should i update this to customer object
 
@@ -128,7 +128,8 @@ class TransactionQrController extends GetxController {
             DateTime? istTime = ApiDecoding.decodeTime(time: data["endTime"]);
             endTime = DateFormat('hh:mm a').format(istTime!);
             log(name:"WEB SOCKET DATA","END TIME: $endTime");
-            GlobalController.to.customer!.currentTransaction=null;
+            GlobalController.to.customer = await API.updateCustomer();
+            // GlobalController.to.customer!.currentTransaction=null;
             Get.snackbar("Parking Status", "Parking ended",snackPosition: SnackPosition.BOTTOM);
 
 

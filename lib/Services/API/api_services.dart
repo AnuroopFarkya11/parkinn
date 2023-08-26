@@ -150,4 +150,23 @@ class API {
       throw "Response failed";
     }
   }
+
+
+  static Future<Customer> updateCustomer()async{
+    try {
+      Response response = await client.post(apiPath.updateUser, body: {
+        "mobileNumber": GlobalController.to.customer!.mobileNumber,
+        "customerId": GlobalController.to.customer!.customerId
+      });
+
+      if (response.statusCode == 200) {
+        return ApiDecoding.decodeCustomer(response);
+      } else {
+        throw "Response failed ${response.statusCode}";
+      }
+    } on Exception catch (e) {
+      throw "Response failed";
+    }
+
+  }
 }
