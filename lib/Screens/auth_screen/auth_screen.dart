@@ -2,8 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
 import 'package:parkinn/Screens/auth_screen/auth_controller.dart';
 import 'package:parkinn/Screens/home_screen/home_screen.dart';
 import 'package:parkinn/Services/API/api_services.dart';

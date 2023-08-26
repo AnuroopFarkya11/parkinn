@@ -167,7 +167,7 @@ class TransactionQrController extends GetxController {
   Future onChangePressed() async {
     change.value = true;
     try {
-      await API.deleteTransaction();
+      GlobalController.to.customer = await API.deleteTransaction();
       Get.snackbar("Transaction", "Current Transaction Deleted",snackPosition: SnackPosition.BOTTOM);
       Get.offAllNamed('homeScreen');
     } catch (e) {
