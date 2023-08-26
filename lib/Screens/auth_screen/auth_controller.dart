@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:otp_text_field/otp_field.dart';
 import 'package:parkinn/Screens/home_screen/home_screen.dart';
 import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
@@ -18,7 +19,7 @@ class AuthController extends GetxController {
   GlobalKey<FormState> numberKey = GlobalKey<FormState>();
   TextEditingController numberController = TextEditingController();
   GlobalKey<FormState> otpKey = GlobalKey<FormState>();
-  TextEditingController otpController = TextEditingController();
+  OtpFieldController otpController = OtpFieldController();
   FocusNode numberFocus = FocusNode();
 
   late Rx<bool> otpCheck;
@@ -67,13 +68,13 @@ class AuthController extends GetxController {
 
   Future onVerifyOtp() async {
     //TODO:Error handling now done by anuroop
-
-    if (otpKey.currentState!.validate()) {
+    log(name:"otp","${otpController}");
+    // if (otpKey.currentState!.validate()) {
       isLoading.value = true;
 
       try {
         customer = await API
-            .createUser(numberController.text, otpController.text)
+            .createUser(numberController.text, otpController.toString())
             .then(
           (customer) {
             SharedService.setCustomerId(
@@ -83,13 +84,13 @@ class AuthController extends GetxController {
 
             SharedService.setStatus(status: true);
 
-            Get.offAllNamed('/homeScreen');
+            Get.offAllNamed(ParkYnRoute.homeScreen);
           },
         );
       } on Exception catch (e) {
         // TODO Anuroop ERror handling will be done
         log(name: "AUTH SCREEN", "$e");
       }
-    }
+
   }
 }

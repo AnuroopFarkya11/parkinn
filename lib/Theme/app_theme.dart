@@ -17,14 +17,15 @@ class AppTheme {
             fontSize: 20),
       ),*/
       inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide:
-                  BorderSide(color: BrandColors.primaryColor, width: 1)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide:
-                  BorderSide(color: BrandColors.primaryColor, width: 2)),
+          // border: OutlineInputBorder(
+          //     borderRadius: BorderRadius.circular(15),
+          //     borderSide:
+          //         BorderSide(color: BrandColors.primaryColor, width: 1)),
+          // focusedBorder: OutlineInputBorder(
+          //     borderRadius: BorderRadius.circular(15),
+          //     borderSide:
+          //         BorderSide(color: BrandColors.primaryColor, width: 2)),
+        border: UnderlineInputBorder(),
           labelStyle: TextStyle(color: BrandColors.brandBlack, fontSize: 15)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(backgroundColor: BrandColors.primaryColor)

@@ -25,16 +25,22 @@ class TransactionQr extends GetView<TransactionQrController> {
         // physics: NeverScrollableScrollPhysics(),
         slivers: [
           ParkInBar(
+            titleWidget: Row(
+              children: [
+                Text("Parkyn", style: TextStyle(color: BrandColors.primaryColor, fontWeight: FontWeight.bold, fontSize: 35),),
+                Text("Tag", style: TextStyle(color: Colors.black, fontSize: 35),)
+              ],
+            ),
               bottomWidget: ListTile(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-            tileColor: BrandColors.primaryColor,
+            tileColor: Colors.grey.shade300,
             title: Text(
               controller.currentTransaction.vehicleData!.vehicleNumber!,
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
             ),
             subtitle:
-                Text(controller.currentTransaction.vehicleData!.vehicleType!),
+                Text(controller.currentTransaction.vehicleData!.vehicleType!,),
             trailing: Obx(
                 (){
                   if(controller.status.value == ParkingStatus.started)
@@ -174,18 +180,19 @@ class TransactionQr extends GetView<TransactionQrController> {
         ],
       ),
       bottomNavigationBar: ListTile(
-        tileColor: Colors.white60,
+        tileColor: Colors.black,
         title: Text(
           "Balance",
-          style: TextStyle(fontSize: 13, color: BrandColors.subTitleColor),
+          style: TextStyle(fontSize: 13, color: Colors.white),
         ),
         subtitle: Text(
           "Rs.400",
-          style: TextStyle(fontSize: 20, color: BrandColors.brandBlack),
+          style: TextStyle(fontSize: 20, color: Colors.white),
         ),
         trailing: ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
           onPressed: () {},
-          child: Text("Recharge"),
+          child: Text("Recharge", style: TextStyle(color: Colors.black),),
         ),
       ),
     );

@@ -27,34 +27,34 @@ class History extends GetView<HistoryController> {
         child: CustomScrollView(
           slivers: [
             ParkInBar(
-                bottomWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                titleWidget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "History",
-                      style: TextStyle(
-                          color: BrandColors.subTitleColor,
-                          fontSize: CustomSizes.height * 0.06 * 0.5),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "History",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: CustomSizes.height * 0.06 * 0.5),
+                        ),
+                      ],
                     ),
-                    Container(
-                      padding: EdgeInsets.all(CustomSizes.height * 0.008),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                            color: BrandColors.subTitleColor, width: 2.5),
-                      ),
-                      child: Text("All vehicles",
-                          style: TextStyle(color: BrandColors.subTitleColor)),
-                    )
                   ],
                 ),
-              ],
-            )),
+                bottomWidget: Container(
+                  padding: EdgeInsets.all(CustomSizes.height * 0.008),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                        color: BrandColors.subTitleColor, width: 2.5),
+                  ),
+                  child: Text("All vehicles",
+                      style: TextStyle(color: BrandColors.subTitleColor)),
+                )),
             SliverFillRemaining(
               child: Container(
                 padding: EdgeInsets.all(12),
@@ -63,17 +63,24 @@ class History extends GetView<HistoryController> {
                         child: Text("No Transaction Record"),
                       )
                     : ListView.builder(
+                        // reverse: true,
                         shrinkWrap: true,
                         itemCount: controller.customer!.history!.length,
                         itemBuilder: (context, index) {
-                          return HistoryCard(
-                            vehicleNumber: controller
-                                .history![index]!.vehicleData!.vehicleNumber!,
-                            vehicleType: controller.history![index]!.vehicleData!.vehicleType!,
-                            location: controller.history![index]!.locationId!,
-                            //todo Pass the original values
-                            closingBalance: "360",
-                            amount: '60',
+                          return Column(
+                            children: [
+                              HistoryCard(
+                                vehicleNumber: controller
+                                    .history![index]!.vehicleData!.vehicleNumber!,
+                                vehicleType: controller
+                                    .history![index]!.vehicleData!.vehicleType!,
+                                location: controller.history![index]!.locationId!,
+                                //todo Pass the original values
+                                closingBalance: "360",
+                                amount: '60',
+                              ),
+                              Divider(height: 5,indent: 15,endIndent: 15,)
+                            ],
                           );
                           // return ParkInnCard("Ramji", "4 wheeler");
                         },

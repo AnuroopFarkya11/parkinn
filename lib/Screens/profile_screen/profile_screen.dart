@@ -13,7 +13,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -28,9 +27,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       endDrawer: ParkInDrawer(),
       body: CustomScrollView(
         slivers: [
-          const ParkInBar(
-              bottomWidget:
-                  Text("Your Profile", style: TextStyle(fontSize: 20))),
+          ParkInBar(
+              titleWidget: Text("Your Profile", style: TextStyle(fontSize: 20)),
+              bottomWidget: Container()),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Container(
