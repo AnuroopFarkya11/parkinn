@@ -37,14 +37,19 @@ class _ParkInnCardState extends State<ParkInnCard> {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 10),
-      color: widget.isVehicleSelected ? BrandColors.primaryColor : Colors.white,
+      color: widget.isVehicleSelected ? Colors.black : Colors.white,
       child: ListTile(
         title: Text(
           widget.vehicle.vehicleNumber!,
-          style:
-              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: widget.isVehicleSelected ? Colors.white : Colors.black,
+              fontWeight: FontWeight.bold),
         ),
-        subtitle: Text(widget.vehicle.vehicleType!),
+        subtitle: Text(
+          widget.vehicle.vehicleType!,
+          style: TextStyle(
+              color: widget.isVehicleSelected ? Colors.white : Colors.black),
+        ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -60,7 +65,8 @@ class _ParkInnCardState extends State<ParkInnCard> {
                 : IconButton(
                     onPressed: widget.trailingOnTap,
                     icon: const Icon(Icons.delete),
-                    color: Colors.black,
+                    color:
+                        widget.isVehicleSelected ? Colors.white : Colors.black,
                     iconSize: 25)
           ],
         ),

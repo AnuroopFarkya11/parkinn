@@ -12,27 +12,21 @@ class ParkInBar extends GetView<ParkInnBarController> {
   // final double? subtitleHeight;
   // final bool showContainer;
 
+  final Widget titleWidget;
+
   final Widget bottomWidget;
 
-  const ParkInBar({super.key, required this.bottomWidget});
+   ParkInBar({super.key, required this.bottomWidget,  required this.titleWidget});
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+
         automaticallyImplyLeading: false,
         pinned: true,
         // backgroundColor: Colors.white,
         actionsIconTheme: const IconThemeData(color: Colors.black),
-        title: Row(
-          children: [
-            Text("Parkyn", style: TextStyle(
-                color: BrandColors.primaryColor,
-                fontSize: 35,
-                fontWeight: FontWeight.w500),),
-            Image.asset("assets/icons/icon_full.png", height: 35, )
-          ],
-        ),
-
+        title:  titleWidget ,
         bottom: PreferredSize(
     preferredSize: Size.fromHeight(CustomSizes.height * 0.08),
     child: Container(

@@ -25,18 +25,22 @@ class HomeScreen extends GetView<HomeController> {
           // physics: NeverScrollableScrollPhysics(),
           slivers: [
             ParkInBar(
-                bottomWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Select Vehicle",
-                  style: TextStyle(
-                      color: BrandColors.subTitleColor,
-                      fontSize: CustomSizes.height * 0.06 * 0.5),
+                titleWidget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18),
+                      child: Text(
+                        "Select Vehicle",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: CustomSizes.height * 0.06 * 0.5),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            )),
+                bottomWidget: Divider(color: Colors.black,height: 2,endIndent: 200,indent: 5,)),
             SliverToBoxAdapter(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -202,6 +206,7 @@ class HomeScreen extends GetView<HomeController> {
                                     Obx(
                                       () => ElevatedButton(
                                           onPressed: controller.onAddPressed,
+                                          style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                                           child: controller.isAdding.value
                                               ? SizedBox(
                                                   height: 15,
@@ -211,7 +216,7 @@ class HomeScreen extends GetView<HomeController> {
                                                           color: Colors.white,
                                                           strokeWidth: 2.0),
                                                 )
-                                              : Text("Add")),
+                                              : Text("Add", style: TextStyle(color: Colors.white),)),
                                     ),
                                     SizedBox(
                                       width: 20,
@@ -220,10 +225,10 @@ class HomeScreen extends GetView<HomeController> {
                                       onPressed: controller.onCancelPressed,
                                       child: Text(
                                         "Cancel",
-                                        style: TextStyle(color: Colors.black),
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.white,
+                                        backgroundColor: Colors.black,
                                       ),
                                     ),
                                   ],
@@ -310,11 +315,13 @@ class HomeScreen extends GetView<HomeController> {
                                   onPressed: () {
                                     controller.clickAdd.value = true;
                                   },
-                                  child: Text("New vehicle")),
+                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                                  child: Text("New vehicle", style: TextStyle(color: Colors.white),)),
                               SizedBox(
                                 width: 10,
                               ),
                               ElevatedButton(
+                                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                                   onPressed: controller.onProceedTap,
                                   child: controller.proceed.value
                                       ? SizedBox(
@@ -325,7 +332,7 @@ class HomeScreen extends GetView<HomeController> {
                                             strokeWidth: 3.0,
                                           ),
                                         )
-                                      : Text("Proceed")),
+                                      : Text("Proceed", style: TextStyle(color: Colors.white),)),
                             ],
                           ),
                         ],

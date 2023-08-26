@@ -69,7 +69,7 @@ class AuthController extends GetxController {
   Future onVerifyOtp() async {
     //TODO:Error handling now done by anuroop
 
-    if (otpKey.currentState!.validate()) {
+    // if (otpKey.currentState!.validate()) {
       isLoading.value = true;
 
       try {
@@ -84,13 +84,13 @@ class AuthController extends GetxController {
 
             SharedService.setStatus(status: true);
 
-            Get.offAllNamed('/homeScreen');
+            Get.offAllNamed(ParkYnRoute.homeScreen);
           },
         );
       } on Exception catch (e) {
         // TODO Anuroop ERror handling will be done
         log(name: "AUTH SCREEN", "$e");
       }
-    }
+
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -25,6 +26,15 @@ class AuthScreen extends GetView<AuthController> {
           slivers: [
             // const ParkInBar(subTitle: "Simple parking.", isBold: true,subtitleHeight:CustomSizes.subLarge ),
             ParkInBar(
+              titleWidget: Row(
+                children: [
+                  Text("Parkyn", style: TextStyle(
+                      color: BrandColors.primaryColor,
+                      fontSize: 35,
+                      fontWeight: FontWeight.w500),),
+                  Image.asset("assets/icons/icon_full.png", height: 35, )
+                ],
+              ),
                 bottomWidget: Row(
               children: [
                 Text(
@@ -63,18 +73,29 @@ class AuthScreen extends GetView<AuthController> {
                       ),
                       Obx(() {
                         if (controller.otpCheck.value) {
-                          return OTPTextField(
-                            controller: controller.otpController,
-                            length: 5,
+
+                          return OtpTextField(
                             keyboardType: TextInputType.number,
-                            margin: EdgeInsets.all(4),
-                            width: CustomSizes.width * 0.5,
-                            fieldStyle: FieldStyle.underline,
-                            textFieldAlignment: MainAxisAlignment.spaceBetween,
-                            onCompleted: (value) {
-                              controller.onOtpValidation;
+                            numberOfFields: 5,
+                            // onCodeChanged: (value) {
+                            // },
+                            onSubmit: (value) {
+                              // controller.onOtpValidation(value);
                             },
                           );
+                          // return Otp(
+                          //   controller: controller.otpController,
+                          //   length: 5,
+                          //   keyboardType: TextInputType.number,
+                          //   margin: EdgeInsets.all(4),
+                          //   width: CustomSizes.width * 0.5,
+                          //   fieldStyle: FieldStyle.underline,
+                          //   textFieldAlignment: MainAxisAlignment.spaceBetween,
+                          //   onCompleted: (value) {
+                          //     controller.onOtpValidation;
+                          //   },
+                          //   key: controller.otpKey,
+                          // );
                           //
                           // );
                           // return ParkInField(
