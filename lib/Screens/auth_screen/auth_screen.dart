@@ -91,80 +91,103 @@ class AuthScreen extends GetView<AuthController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ParkInField(
-                          validator: controller.onNumberValidator,
-                          labelText: "Mobile Number",
-                          textInputType: TextInputType.number,
-                          formKey: controller.numberKey,
-                          focusNode: controller.numberFocus,
-                          controller: controller.numberController),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      // ParkInField(
+                      //     validator: controller.onNumberValidator,
+                      //     labelText: "Mobile Number",
+                      //     textInputType: TextInputType.number,
+                      //     formKey: controller.numberKey,
+                      //     focusNode: controller.numberFocus,
+                      //     controller: controller.numberController),
+
                       Obx(() {
                         if (controller.otpCheck.value) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Otp sent to +91${controller.numberController.text}"),
+                              SizedBox(height: CustomSizes.height*0.03,),
+                              Text("OTP",style: TextStyle(color: BrandColors.black,fontWeight: FontWeight.w900),),
+                              OtpTextField(
 
-                          return OtpTextField(
-                            keyboardType: TextInputType.number,
-                            numberOfFields: 5,
-                            // onCodeChanged: (value) {
-                            // },
-                            onSubmit: (value) {
-                              // controller.onOtpValidation(value);
-                            },
+                                cursorColor: BrandColors.black,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                keyboardType: TextInputType.number,
+                                numberOfFields: 5,
+                                onCodeChanged: (value) {
+                                  if(value.length<5)
+                                    {
+                                      controller.isSubmitEnabled.value=false;
+                                    }
+
+                                },
+                                onSubmit: (value) {
+                                  if(value.length==5) {
+                                    controller.isSubmitEnabled.value = true;
+                                    controller.otp = value;
+                                  }
+
+                                },
+                              ),
+                              SizedBox(height: CustomSizes.height*0.03,),
+                              Row(
+                                children: [
+                                  Obx(
+                                  ()=>ElevatedButton(
+
+                                      onPressed: controller.isSubmitEnabled.value?controller.onVerifyOtp:null,
+                                      child: controller.isLoading.value
+                                          ? const SizedBox(
+                                          height: 15,
+                                          width: 15,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                            strokeWidth: 3.0,
+                                          ))
+                                          :
+                                      const Text("Submit",
+                                          style: TextStyle(color: Colors.white)),
+                                    ),
+                                  ),
+                                  TextButton(onPressed: (){
+                                    controller.otpCheck.value = false;
+                                  }, child: Text("Back"))
+                                ],
+                              )
+                            ],
                           );
-                          // return Otp(
-                          //   controller: controller.otpController,
-                          //   length: 5,
-                          //   keyboardType: TextInputType.number,
-                          //   margin: EdgeInsets.all(4),
-                          //   width: CustomSizes.width * 0.5,
-                          //   fieldStyle: FieldStyle.underline,
-                          //   textFieldAlignment: MainAxisAlignment.spaceBetween,
-                          //   onCompleted: (value) {
-                          //     controller.onOtpValidation;
-                          //   },
-                          //   key: controller.otpKey,
-                          // );
-                          //
-                          // );
-                          // return ParkInField(
-                          //     labelText: "OTP",
-                          //     textInputType: TextInputType.number,
-                          //     formKey: controller.otpKey,
-                          //     validator: controller.onOtpValidation,
-                          //     controller: controller.otpController);
                         } else {
-                          return Container();
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ParkInField(
+                                  validator: controller.onNumberValidator,
+                                  labelText: "Mobile Number",
+                                  textInputType: TextInputType.number,
+                                  formKey: controller.numberKey,
+                                  focusNode: controller.numberFocus,
+                                  controller: controller.numberController),
+                              SizedBox(height: CustomSizes.height*0.03,),
+                              ElevatedButton(
+
+                                onPressed: controller.onGetOtp,
+                                child: controller.isLoading.value
+                                    ? const SizedBox(
+                                    height: 15,
+                                    width: 15,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 3.0,
+                                    ))
+                                    :
+                                    const Text("Get otp",
+                                    style: TextStyle(color: Colors.white)),
+                              )
+                            ],
+                          );
                         }
                       }),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Obx(
-                        () => ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black),
-                          onPressed: controller.otpCheck.value
-                              ? controller.onVerifyOtp
-                              : controller.onGetOtp,
-                          child: controller.isLoading.value
-                              ? const SizedBox(
-                                  height: 15,
-                                  width: 15,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                    strokeWidth: 3.0,
-                                  ))
-                              : controller.otpCheck.value
-                                  ? const Text(
-                                      "Verify otp",
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  : const Text("Get otp",
-                                      style: TextStyle(color: Colors.white)),
-                        ),
-                      ),
+                      SizedBox(height: CustomSizes.height*0.03,),
+
                     ],
                   ),
                 ),

@@ -111,7 +111,7 @@ class HomeController extends GetxController {
 
   Future<void> onDeleteTap(int index) async {
     //  parkInnCard.value.deleteTap.value = true;
-    deleteTileIndex.value = index;
+    // deleteTileIndex.value = index;
     // deleteTap.value = true;
     Vehicle tempVehicle = customer.value.vehicles![index];
     log(name: "DELETE VEHICLE", "DELETING VEHICLE: $index");

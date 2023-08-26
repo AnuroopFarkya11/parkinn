@@ -8,6 +8,7 @@ import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
+import 'package:parkinn/Widgets/app_bar/parkyn_bar.dart';
 import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
@@ -24,29 +25,29 @@ class TransactionQr extends GetView<TransactionQrController> {
       body: CustomScrollView(
         // physics: NeverScrollableScrollPhysics(),
         slivers: [
-          ParkInBar(
-            titleWidget: Row(
-              children: [
-                Text("Parkyn", style: TextStyle(color: BrandColors.primaryColor, fontWeight: FontWeight.bold, fontSize: 35),),
-                Text("Tag", style: TextStyle(color: Colors.black, fontSize: 35),)
-              ],
-            ),
-              bottomWidget: ListTile(
+
+          ParkynBar(titleWidget: Row(
+            children: [
+              Text("Parkyn", style: TextStyle(color: BrandColors.primaryColor, fontWeight: FontWeight.bold, fontSize: 35),),
+              Text("Tag", style: TextStyle(color: Colors.black, fontSize: 35),)
+            ],
+
+          ),expandedHeight: CustomSizes.height*0.1, bottomWidget:  ListTile(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             tileColor: Colors.grey.shade300,
             title: Text(
               controller.currentTransaction.vehicleData!.vehicleNumber!,
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
             ),
             subtitle:
-                Text(controller.currentTransaction.vehicleData!.vehicleType!,),
+            Text(controller.currentTransaction.vehicleData!.vehicleType!,),
             trailing: Obx(
-                (){
+                    (){
                   if(controller.status.value == ParkingStatus.started)
-                    {
-                      return Text("Parking Started");
-                    }
+                  {
+                    return Text("Parking Started");
+                  }
                   else{
                     return Obx(
                           () => TextButton(
@@ -69,6 +70,7 @@ class TransactionQr extends GetView<TransactionQrController> {
                 }
             ),
           )),
+
           SliverToBoxAdapter(
             // hasScrollBody: false,
             child: Column(

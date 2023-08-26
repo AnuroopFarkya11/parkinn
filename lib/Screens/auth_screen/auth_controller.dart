@@ -18,13 +18,14 @@ import '../../Services/shared_preferences/shared_preference.dart';
 class AuthController extends GetxController {
   GlobalKey<FormState> numberKey = GlobalKey<FormState>();
   TextEditingController numberController = TextEditingController();
-  GlobalKey<FormState> otpKey = GlobalKey<FormState>();
-  OtpFieldController otpController = OtpFieldController();
+
   FocusNode numberFocus = FocusNode();
 
   late Rx<bool> otpCheck;
   late Rx<bool> isLoading;
   Customer? customer;
+  late RxBool isSubmitEnabled;
+  late String? otp;
 
   @override
   void onInit() {
@@ -32,6 +33,8 @@ class AuthController extends GetxController {
     GlobalController.to.currentRoute=ParkYnRoute.authScreen;
     otpCheck = false.obs;
     isLoading = false.obs;
+    isSubmitEnabled = false.obs;
+
   }
 
   String? onNumberValidator(String? p0) {
@@ -45,6 +48,7 @@ class AuthController extends GetxController {
     return null;
   }
 
+/*
   String? onOtpValidation(String? otp) {
     if (otp!.isEmpty) {
       return "Please enter your otp";
@@ -54,6 +58,7 @@ class AuthController extends GetxController {
     }
     return null;
   }
+*/
 
   void onGetOtp() {
     if (numberKey.currentState!.validate()) {
@@ -68,13 +73,13 @@ class AuthController extends GetxController {
 
   Future onVerifyOtp() async {
     //TODO:Error handling now done by anuroop
-    log(name:"otp","${otpController}");
+
     // if (otpKey.currentState!.validate()) {
       isLoading.value = true;
 
       try {
         customer = await API
-            .createUser(numberController.text, otpController.toString())
+            .createUser(numberController.text, otp!)
             .then(
           (customer) {
             SharedService.setCustomerId(
