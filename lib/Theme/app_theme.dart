@@ -28,7 +28,8 @@ class AppTheme {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(7))),
       ),
-      dividerColor: BrandColors.brandBlack
+      dividerColor: BrandColors.brandBlack,
+    progressIndicatorTheme: ProgressIndicatorThemeData(color: BrandColors.black)
 
   );
 

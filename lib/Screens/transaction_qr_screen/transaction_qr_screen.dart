@@ -9,6 +9,7 @@ import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/app_bar/parkyn_bar.dart';
+import 'package:parkinn/Widgets/bottom_bar/bottom_bar.dart';
 import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 
@@ -37,7 +38,7 @@ class TransactionQr extends GetView<TransactionQrController> {
                   ),
                   Text(
                     "Tag",
-                    style: TextStyle(color: Colors.black, fontSize: 35),
+                    style: TextStyle(color: Colors.black, fontSize: 35,fontWeight: FontWeight.bold),
                   )
                 ],
               ),
@@ -83,19 +84,22 @@ class TransactionQr extends GetView<TransactionQrController> {
             child: Container(
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.all(25),
+                height: CustomSizes.height*0.45,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                      color: BrandColors.subTitleColor, width: 2),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: BrandColors.brandBlack)
                 ),
-                child: Image.network(
-                  // todo get the qr url
-
-                  GlobalController
-                      .to.customer!.currentTransaction!.parkingQr!,
-                  // "https://www.investopedia.com/thmb/hJrIBjjMBGfx0oa_bHAgZ9AWyn0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/qr-code-bc94057f452f4806af70fd34540f72ad.png",
+                child: CachedNetworkImage(imageUrl:GlobalController
+                    .to.customer!.currentTransaction!.parkingQr!,
                   fit: BoxFit.fill,
-                  height: CustomSizes.height * 0.4,
-                )),
+                  placeholder: (context,string)=>Center(child: CircularProgressIndicator()),
+                  errorWidget: (context,string,_)=>Center(child: Text("Something went wrong")),
+                )
+
+
+
+
+            ),
           ),
 
           Obx(
@@ -160,25 +164,7 @@ class TransactionQr extends GetView<TransactionQrController> {
           // )
         ],
       ),
-      bottomNavigationBar: ListTile(
-        tileColor: Colors.black,
-        title: Text(
-          "Balance",
-          style: TextStyle(fontSize: 13, color: Colors.white),
-        ),
-        subtitle: Text(
-          "Rs.400",
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-        trailing: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-          onPressed: () {},
-          child: Text(
-            "Recharge",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomBar(),
     );
   }
 }
