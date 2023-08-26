@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import 'package:parkinn/Screens/home_screen/home_controller.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
+import 'package:parkinn/Widgets/bottom_bar/bottom_bar.dart';
 import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 import '../../Services/API/api_services.dart';
 import '../../Services/global_controller.dart';
 import '../../Utils/sizes.dart';
+import '../../Widgets/app_bar/parkyn_bar.dart';
 import '../../Widgets/form_textfield/formfield.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -19,30 +21,51 @@ class HomeScreen extends GetView<HomeController> {
     // int selectedTileIndex = -1;
 
     return Scaffold(
+
       endDrawer: const ParkInDrawer(),
       body: SafeArea(
         child: CustomScrollView(
           // physics: NeverScrollableScrollPhysics(),
           slivers: [
-            ParkInBar(
-                bottomWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Select Vehicle",
-                  style: TextStyle(
-                      color: BrandColors.subTitleColor,
-                      fontSize: CustomSizes.height * 0.06 * 0.5),
+
+            ParkynBar(
+              titleWidget:Text(
+                "Select Vehicle",
+                style: TextStyle(
+
+                    fontSize: CustomSizes.height * 0.025,
+                  color: BrandColors.brandBlack
+
                 ),
-              ],
-            )),
+
+              ), bottomWidget: Divider(height: 2,endIndent: 210,indent: 1,),
+
+
+
+            ),
+           /* ParkInBar(
+                titleWidget: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+                    Text(
+                      "Select Vehicle",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: CustomSizes.height * 0.025),
+
+                    ),
+                    Divider(color: Colors.black,height: 2,endIndent: 220,indent: 1,)
+                  ],
+                ),
+              bottomWidget: Container(),
+                ),*/
             SliverToBoxAdapter(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 0.5),
-                    borderRadius: BorderRadius.circular(12)),
+                padding: EdgeInsets.symmetric(horizontal: CustomSizes.width*0.01, vertical: 5),
+                // decoration: BoxDecoration(
+                //     border: Border.all(color: Colors.grey, width: 0.5),
+                //     borderRadius: BorderRadius.circular(12)),
                 constraints: BoxConstraints(maxHeight: 250, minHeight: 100),
                 child: Obx(
                   () => controller.vehicleList.isEmpty
@@ -54,12 +77,14 @@ class HomeScreen extends GetView<HomeController> {
                             controller: controller.scrollController,
                             thumbVisibility: true,
                             child: ListView.builder(
+
                               shrinkWrap: true,
                               itemCount:
                                   controller.customer.value.vehicles!.length,
                               reverse: true,
                               physics: const BouncingScrollPhysics(),
                               controller: controller.scrollController,
+                              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 15),
                               addAutomaticKeepAlives: true,
                               itemBuilder: (context, index) {
                                 return Obx(
@@ -106,54 +131,7 @@ class HomeScreen extends GetView<HomeController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("All vehicles"),
-                          /*  Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              constraints: BoxConstraints(
-                                  maxHeight: 200, minHeight: 100),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.grey, width: 0.50),
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: GlobalController
-                                          .to.customer!.allVehicles!.length ==
-                                      0
-                                  ? Container(
-                                      height: 100,
-                                      child: Center(
-                                        child: Text("No Vehicle added"),
-                                      ),
-                                    )
-                                  : Scrollbar(
-                                      thumbVisibility: true,
-                                      // controller: ScrollController().po,
-                                      // todo
-                                      child: ListView.builder(
-                                        physics: BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount:
-                                            controller.allVehicleListLen.value,
-                                        itemBuilder: (context, index) {
-                                          return ParkInnCard(
-                                              vehicle: controller
-                                                  .allVehicleList[index],
-                                              isVehicleSelected: index ==
-                                                  controller
-                                                      .selectedTileIndex.value,
-                                              onTap: () {
-                                                controller.selectedTileIndex
-                                                    .value = index;
-                                                log(
-                                                    name: "Selected tile",
-                                                    "Res:${controller.selectedTileIndex.value = index}");
-                                              },
-                                              trailingOnTap: () {
-                                                log("Tapped");
-                                              },);
-                                        },
-                                      ),
-                                    )),*/
+
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 10),
@@ -174,26 +152,29 @@ class HomeScreen extends GetView<HomeController> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Form(
-                                    key: controller.vTypeKey,
-                                    child: DropdownButtonFormField(
-                                        validator: controller.menuValidator,
-                                        decoration: InputDecoration(
-                                            labelText: "Vehicle Type"),
-                                        // hint: Text("Vehicle Type"),
-                                        alignment: Alignment.bottomCenter,
-                                        items: <String>[
-                                          "2 Wheeler",
-                                          "4 Wheeler"
-                                        ]
-                                            .map<DropdownMenuItem<String>>(
-                                                (String type) =>
-                                                    DropdownMenuItem<String>(
-                                                      value: type,
-                                                      child: Text(type),
-                                                    ))
-                                            .toList(),
-                                        onChanged: controller.menuOnChanged)),
+                                SizedBox(
+                                  width: CustomSizes.width*0.6,
+                                  child: Form(
+                                      key: controller.vTypeKey,
+                                      child: DropdownButtonFormField(
+                                          validator: controller.menuValidator,
+                                          decoration: InputDecoration(
+                                              labelText: "Vehicle Type"),
+                                          // hint: Text("Vehicle Type"),
+                                          alignment: Alignment.bottomCenter,
+                                          items: <String>[
+                                            "2 Wheeler",
+                                            "4 Wheeler"
+                                          ]
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String type) =>
+                                                      DropdownMenuItem<String>(
+                                                        value: type,
+                                                        child: Text(type),
+                                                      ))
+                                              .toList(),
+                                          onChanged: controller.menuOnChanged)),
+                                ),
                                 SizedBox(
                                   height: 20,
                                 ),
@@ -202,6 +183,7 @@ class HomeScreen extends GetView<HomeController> {
                                     Obx(
                                       () => ElevatedButton(
                                           onPressed: controller.onAddPressed,
+                                          style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                                           child: controller.isAdding.value
                                               ? SizedBox(
                                                   height: 15,
@@ -211,20 +193,17 @@ class HomeScreen extends GetView<HomeController> {
                                                           color: Colors.white,
                                                           strokeWidth: 2.0),
                                                 )
-                                              : Text("Add")),
+                                              : Text("Add", style: TextStyle(color: Colors.white),)),
                                     ),
                                     SizedBox(
                                       width: 20,
                                     ),
-                                    ElevatedButton(
+                                    TextButton(
                                       onPressed: controller.onCancelPressed,
                                       child: Text(
                                         "Cancel",
-                                        style: TextStyle(color: Colors.black),
                                       ),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.white,
-                                      ),
+
                                     ),
                                   ],
                                 ),
@@ -243,78 +222,20 @@ class HomeScreen extends GetView<HomeController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          /*  Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 0.5),
-                                borderRadius: BorderRadius.circular(12)),
-                            constraints:
-                                BoxConstraints(maxHeight: 250, minHeight: 100),
-                            child: Obx(
-                              () => controller.vehicleList.isEmpty
-                                  ? Center(
-                                      child: Text("No vehicles."),
-                                    )
-                                  : Obx(
-                                      () => Scrollbar(
-                                        controller: controller.scrollController,
-                                        thumbVisibility: true,
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: controller
-                                              .customer.value.vehicles!.length,
-                                          reverse: true,
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          controller:
-                                              controller.scrollController,
-                                          addAutomaticKeepAlives: true,
-                                          itemBuilder: (context, index) {
-                                            return Obx(
-                                              () => ParkInnCard(
-                                                vehicle: controller.customer
-                                                    .value.vehicles![index],
-                                                isVehicleSelected: controller
-                                                        .selectedTileIndex
-                                                        .value ==
-                                                    index,
-                                                onTap: () {
-                                                  controller.vehicleIndex =
-                                                      index;
-                                                  log(
-                                                      name: "HOME SCREEN",
-                                                      "RES:${controller.selectedTileIndex.value = index}");
-                                                  controller.selectedTileIndex
-                                                      .value = index;
-                                                  controller.selectedTileIndex
-                                                      .refresh();
-                                                },
-                                                trailingOnTap: () => controller
-                                                    .onDeleteTap(index),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),*/
+
                           Row(
                             children: [
                               ElevatedButton(
                                   onPressed: () {
                                     controller.clickAdd.value = true;
                                   },
-                                  child: Text("New vehicle")),
+                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                                  child: Text("New vehicle", style: TextStyle(color: Colors.white),)),
                               SizedBox(
                                 width: 10,
                               ),
                               ElevatedButton(
+                                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                                   onPressed: controller.onProceedTap,
                                   child: controller.proceed.value
                                       ? SizedBox(
@@ -325,7 +246,7 @@ class HomeScreen extends GetView<HomeController> {
                                             strokeWidth: 3.0,
                                           ),
                                         )
-                                      : Text("Proceed")),
+                                      : Text("Proceed", style: TextStyle(color: Colors.white),)),
                             ],
                           ),
                         ],
@@ -399,6 +320,7 @@ class HomeScreen extends GetView<HomeController> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomBar(),
     );
   }
 }

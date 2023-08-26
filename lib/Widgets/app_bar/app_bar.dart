@@ -12,12 +12,12 @@ class ParkInBar extends GetView<ParkInnBarController> {
   // final double? subtitleHeight;
   // final bool showContainer;
 
-  final Widget bottomWidget;
+  final Widget titleWidget;
 
-  const ParkInBar(
-      {super.key,
-        required this.bottomWidget
-      });
+  Widget bottomWidget;
+  final bool isBottomEnabled;
+
+  ParkInBar({super.key, required this.bottomWidget, required this.titleWidget,this.isBottomEnabled=false});
 
   @override
   Widget build(BuildContext context) {
@@ -26,30 +26,16 @@ class ParkInBar extends GetView<ParkInnBarController> {
       pinned: true,
       // backgroundColor: Colors.white,
       actionsIconTheme: const IconThemeData(color: Colors.black),
-      title: const Text("ParkInn"),
-      titleTextStyle: TextStyle(
-          color: BrandColors.primaryColor,
-          fontSize: 35,
-          fontWeight: FontWeight.w500),
+      title: titleWidget,
+      expandedHeight: 0,
 
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(CustomSizes.height * 0.08),
-        child: Container(
-          // color: Colors.black,
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-          constraints: BoxConstraints(
-            minHeight:Size.fromHeight(CustomSizes.height *0.05).height,
-            maxHeight: Size.fromHeight(CustomSizes.height *0.08).height
-          ),
-          // height: Size.fromHeight(Get.height * 0.06).height,
-          width: Get.width,
-          child: bottomWidget,
-        ),
-      ),
+      bottom: isBottomEnabled?PreferredSize(
+        preferredSize: Size.fromHeight(CustomSizes.height * 0.07),
+        child: bottomWidget,
+      ):null,
     );
   }
 }
-
 
 /*
 * Row(

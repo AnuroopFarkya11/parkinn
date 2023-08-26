@@ -20,36 +20,31 @@ class HistoryCard extends StatefulWidget {
 class _HistoryCardState extends State<HistoryCard> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(side: BorderSide(color: Colors.black26), borderRadius: BorderRadius.circular(8)),
-      elevation: 3,
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: ListTile(
-        tileColor: Colors.white,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              widget.vehicleNumber,
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                overflow: TextOverflow.ellipsis,
-            ),
-            Text(
-              "- ${widget.amount}",
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+    return ListTile(
+      tileColor: Colors.white,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            widget.vehicleNumber,
+            style: TextStyle(color: BrandColors.brandBlack, fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-        subtitle: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("${widget.vehicleType} | ${widget.location}", style: TextStyle(fontSize: 12),overflow: TextOverflow.ellipsis,),
-            Text("Closing balance - Rs ${widget.closingBalance}", style: TextStyle(fontSize: 12),overflow: TextOverflow.ellipsis)
-          ],
-        ),
-
+          ),
+          Text(
+            "- ${widget.amount}",
+            style: TextStyle(color: BrandColors.brandBlack, fontWeight: FontWeight.bold),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
+      subtitle: Row(
+         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("${widget.vehicleType} | ${widget.location}", style: TextStyle(fontSize: 12,color: BrandColors.brandBlack),overflow: TextOverflow.ellipsis,),
+          Text("Closing balance - Rs ${widget.closingBalance}", style: TextStyle(fontSize: 12,color: BrandColors.brandBlack),overflow: TextOverflow.ellipsis)
+        ],
+      ),
+
     );
   }
 }

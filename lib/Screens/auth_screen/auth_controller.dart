@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:otp_text_field/otp_field.dart';
 import 'package:parkinn/Screens/home_screen/home_screen.dart';
 import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Services/shared_preferences/shared_preference.dart';
@@ -17,13 +18,15 @@ import '../../Services/shared_preferences/shared_preference.dart';
 class AuthController extends GetxController {
   GlobalKey<FormState> numberKey = GlobalKey<FormState>();
   TextEditingController numberController = TextEditingController();
-  GlobalKey<FormState> otpKey = GlobalKey<FormState>();
-  TextEditingController otpController = TextEditingController();
+
   FocusNode numberFocus = FocusNode();
 
   late Rx<bool> otpCheck;
   late Rx<bool> isLoading;
   Customer? customer;
+  late RxBool isSubmitEnabled;
+  late RxBool isGetOtpEnabled;
+  late String? otp;
 
   @override
   void onInit() {
@@ -31,28 +34,23 @@ class AuthController extends GetxController {
     GlobalController.to.currentRoute=ParkYnRoute.authScreen;
     otpCheck = false.obs;
     isLoading = false.obs;
+    isSubmitEnabled = false.obs;
+    isGetOtpEnabled = false.obs;
   }
 
   String? onNumberValidator(String? p0) {
     if (p0!.isEmpty) {
       return "Please enter a mobile number";
     }
-    if (p0.isNotEmpty && p0.length < 10 && p0.length > 10) {
+    else if (p0.isNotEmpty && p0.length != 10) {
       return "Please enter a valid number";
     }
-
-    return null;
-  }
-
-  String? onOtpValidation(String? otp) {
-    if (otp!.isEmpty) {
-      return "Please enter your otp";
-    }
-    if (otp.length < 5 || otp.length > 5) {
-      return "Please enter a valid OTP.";
+    else{
+      isGetOtpEnabled.value = true;
     }
     return null;
   }
+
 
   void onGetOtp() {
     if (numberKey.currentState!.validate()) {
@@ -68,12 +66,12 @@ class AuthController extends GetxController {
   Future onVerifyOtp() async {
     //TODO:Error handling now done by anuroop
 
-    if (otpKey.currentState!.validate()) {
+    // if (otpKey.currentState!.validate()) {
       isLoading.value = true;
 
       try {
         customer = await API
-            .createUser(numberController.text, otpController.text)
+            .createUser(numberController.text, otp!)
             .then(
           (customer) {
             SharedService.setCustomerId(
@@ -83,13 +81,13 @@ class AuthController extends GetxController {
 
             SharedService.setStatus(status: true);
 
-            Get.offAllNamed('/homeScreen');
+            Get.offAllNamed(ParkYnRoute.homeScreen);
           },
         );
       } on Exception catch (e) {
         // TODO Anuroop ERror handling will be done
         log(name: "AUTH SCREEN", "$e");
       }
-    }
+
   }
 }

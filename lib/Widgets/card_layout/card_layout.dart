@@ -34,41 +34,44 @@ class _ParkInnCardState extends State<ParkInnCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      color: widget.isVehicleSelected ? BrandColors.primaryColor : Colors.white,
-      child: ListTile(
-        title: Text(
-          widget.vehicle.vehicleNumber!,
-          style:
-              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        subtitle: Text(widget.vehicle.vehicleType!),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Text(vehicle.vehicleType!),
-            widget.isDeleted
-                ? const SizedBox(
-                    width: 18,
-                    height: 18,
-                    child: CircularProgressIndicator(
-                      color: Colors.black,
-                      strokeWidth: 3,
-                    ))
-                : IconButton(
-                    onPressed: widget.trailingOnTap,
-                    icon: const Icon(Icons.delete),
-                    color: Colors.black,
-                    iconSize: 25)
-          ],
-        ),
-        // selected: isVehicleSelected,
-        // tileColor:
-        //     isVehicleSelected ? BrandColors.primaryColor : Colors.transparent,
-        onTap: widget.onTap,
+    return ListTile(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      tileColor: widget.isVehicleSelected ? Colors.black : Colors.transparent,
+      title: Text(
+        widget.vehicle.vehicleNumber!,
+        style: TextStyle(
+            color: widget.isVehicleSelected ? Colors.white : Colors.black,
+            fontWeight: FontWeight.bold),
       ),
+      subtitle: Text(
+        widget.vehicle.vehicleType!,
+        style: TextStyle(
+            color: widget.isVehicleSelected ? Colors.white : Colors.black),
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Text(vehicle.vehicleType!),
+          widget.isDeleted
+              ? const SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                    strokeWidth: 3,
+                  ))
+              : IconButton(
+                  onPressed: widget.trailingOnTap,
+                  icon: const Icon(Icons.delete),
+                  color:
+                      widget.isVehicleSelected ? Colors.white : Colors.black,
+                  iconSize: 25)
+        ],
+      ),
+      // selected: isVehicleSelected,
+      // tileColor:
+      //     isVehicleSelected ? BrandColors.primaryColor : Colors.transparent,
+      onTap: widget.onTap,
     );
   }
 }
