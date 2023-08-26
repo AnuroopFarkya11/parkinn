@@ -29,7 +29,9 @@ class AppTheme {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(7))),
       ),
       dividerColor: BrandColors.brandBlack,
-    progressIndicatorTheme: ProgressIndicatorThemeData(color: BrandColors.black)
+    progressIndicatorTheme: ProgressIndicatorThemeData(color: BrandColors.black),
+
+
 
   );
 
