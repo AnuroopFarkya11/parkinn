@@ -24,7 +24,7 @@ class HomeController extends GetxController {
   GlobalKey<FormState> vTypeKey = GlobalKey<FormState>();
 
   final RegExp _vehicleNumberRegExp =
-  RegExp(r'^[A-Z]{2}[0-9]{1,2}(?:[A-Z])?(?:[A-Z]*)?[0-9]{4}$');
+  RegExp(r'^[A-Z]{2}\s?[0-9]{1,2}\s?(?:[A-Z])?\s?(?:[A-Z]*)?\s?[0-9]{4}$');
 
   late int vehicleIndex;
   late String? vType;
