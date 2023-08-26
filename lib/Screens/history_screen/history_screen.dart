@@ -63,6 +63,7 @@ class History extends GetView<HistoryController> {
                         child: Text("No Transaction Record"),
                       )
                     : ListView.builder(
+                        // reverse: true,
                         shrinkWrap: true,
                         itemCount: controller.customer!.history!.length,
                         itemBuilder: (context, index) {
