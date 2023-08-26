@@ -146,7 +146,17 @@ class AuthScreen extends GetView<AuthController> {
                                   textInputType: TextInputType.number,
                                   formKey: controller.numberKey,
                                   focusNode: controller.numberFocus,
-                                  controller: controller.numberController),
+                                  controller: controller.numberController,
+                                onchanged: (value){
+                                    if(value.length<10)
+                                      {
+                                        controller.isGetOtpEnabled.value = false;
+                                      }
+                                    else{
+                                      controller.isGetOtpEnabled.value = true;
+                                    }
+                                },
+                              ),
                               SizedBox(
                                 height: CustomSizes.height * 0.03,
                               ),
