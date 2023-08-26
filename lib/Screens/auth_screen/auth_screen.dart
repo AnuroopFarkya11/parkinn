@@ -13,6 +13,7 @@ import 'package:parkinn/Widgets/app_bar/app_bar.dart';
 import 'package:parkinn/Widgets/form_textfield/formfield.dart';
 import '../../Modals/customer_modal.dart';
 import '../../Utils/brand_color.dart';
+import '../../Widgets/app_bar/parkyn_bar.dart';
 
 class AuthScreen extends GetView<AuthController> {
   const AuthScreen({Key? key}) : super(key: key);
@@ -24,40 +25,69 @@ class AuthScreen extends GetView<AuthController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
+
+            ParkynBar(titleWidget:Row(
+            children: [
+              Text("Parkyn", style: TextStyle(
+                  color: BrandColors.primaryColor,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w500),),
+              Image.asset("assets/icons/icon_full.png", height: 35,)
+            ],
+          ),
+              expandedHeight: CustomSizes.height*0.07,
+              bottomWidget: Row(
+                  children: [
+                    Text(
+                      'Get a ',
+                      style: TextStyle(
+                          color: Colors.black, fontSize: CustomSizes.height * 0.040),
+                    ),
+                    Text(
+                      ' Parkyn Tag.',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: CustomSizes.height* 0.040,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+
+            ),
             // const ParkInBar(subTitle: "Simple parking.", isBold: true,subtitleHeight:CustomSizes.subLarge ),
-            ParkInBar(
-              titleWidget: Row(
-                children: [
-                  Text("Parkyn", style: TextStyle(
-                      color: BrandColors.primaryColor,
-                      fontSize: 35,
-                      fontWeight: FontWeight.w500),),
-                  Image.asset("assets/icons/icon_full.png", height: 35, )
-                ],
-              ),
-                bottomWidget: Row(
-              children: [
-                Text(
-                  'Get a ',
-                  style: TextStyle(
-                      color: Colors.black, fontSize: CustomSizes.width * 0.10),
-                ),
-                Text(
-                  ' Parkyn Tag.',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: CustomSizes.width * 0.10,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            )),
+            // ParkInBar(
+            //   titleWidget: Row(
+            //     children: [
+            //       Text("Parkyn", style: TextStyle(
+            //           color: BrandColors.primaryColor,
+            //           fontSize: 35,
+            //           fontWeight: FontWeight.w500),),
+            //       Image.asset("assets/icons/icon_full.png", height: 35,)
+            //     ],
+            //   ),
+            //     bottomWidget: Row(
+            //   children: [
+            //     Text(
+            //       'Get a ',
+            //       style: TextStyle(
+            //           color: Colors.black, fontSize: CustomSizes.width * 0.10),
+            //     ),
+            //     Text(
+            //       ' Parkyn Tag.',
+            //       style: TextStyle(
+            //           color: Colors.black,
+            //           fontSize: CustomSizes.width * 0.10,
+            //           fontWeight: FontWeight.bold),
+            //     ),
+            //   ],
+            // )),
             SliverPadding(
               padding: EdgeInsets.only(top: CustomSizes.height * 0.04),
               sliver: SliverFillRemaining(
                 hasScrollBody: false,
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

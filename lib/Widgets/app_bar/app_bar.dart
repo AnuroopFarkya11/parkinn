@@ -14,32 +14,25 @@ class ParkInBar extends GetView<ParkInnBarController> {
 
   final Widget titleWidget;
 
-  final Widget bottomWidget;
+  Widget bottomWidget;
+  final bool isBottomEnabled;
 
-   ParkInBar({super.key, required this.bottomWidget,  required this.titleWidget});
+  ParkInBar({super.key, required this.bottomWidget, required this.titleWidget,this.isBottomEnabled=false});
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
+      pinned: true,
+      // backgroundColor: Colors.white,
+      actionsIconTheme: const IconThemeData(color: Colors.black),
+      title: titleWidget,
+      expandedHeight: 0,
 
-        automaticallyImplyLeading: false,
-        pinned: true,
-        // backgroundColor: Colors.white,
-        actionsIconTheme: const IconThemeData(color: Colors.black),
-        title:  titleWidget ,
-        bottom: PreferredSize(
-    preferredSize: Size.fromHeight(CustomSizes.height * 0.08),
-    child: Container(
-    // color: Colors.black,
-    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-    constraints: BoxConstraints(
-    minHeight: Size.fromHeight(CustomSizes.height * 0.05).height,
-    maxHeight: Size.fromHeight(CustomSizes.height * 0.08).height),
-    // height: Size.fromHeight(Get.height * 0.06).height,
-    width: Get.width,
-    child: bottomWidget,
-    ),
-    ),
+      bottom: isBottomEnabled?PreferredSize(
+        preferredSize: Size.fromHeight(CustomSizes.height * 0.07),
+        child: bottomWidget,
+      ):null,
     );
   }
 }

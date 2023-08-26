@@ -27,21 +27,21 @@ class HomeScreen extends GetView<HomeController> {
           slivers: [
             ParkInBar(
                 titleWidget: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 18),
-                      child: Text(
-                        "Select Vehicle",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: CustomSizes.height * 0.06 * 0.5),
-                      ),
+                    Text(
+                      "Select Vehicle",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: CustomSizes.height * 0.025),
+
                     ),
+                    Divider(color: Colors.black,height: 2,endIndent: 220,indent: 1,)
                   ],
                 ),
-                bottomWidget: Divider(color: Colors.black,height: 2,endIndent: 200,indent: 5,)),
+              bottomWidget: Container(),
+                ),
             SliverToBoxAdapter(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

@@ -40,7 +40,7 @@ class TransactionQr extends GetView<TransactionQrController> {
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
             ),
             subtitle:
-                Text(controller.currentTransaction.vehicleData!.vehicleType!),
+                Text(controller.currentTransaction.vehicleData!.vehicleType!,),
             trailing: Obx(
                 (){
                   if(controller.status.value == ParkingStatus.started)
