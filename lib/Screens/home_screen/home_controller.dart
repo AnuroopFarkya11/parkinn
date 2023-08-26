@@ -23,6 +23,9 @@ class HomeController extends GetxController {
   GlobalKey<FormState> vNumKey = GlobalKey<FormState>();
   GlobalKey<FormState> vTypeKey = GlobalKey<FormState>();
 
+  final RegExp _vehicleNumberRegExp =
+  RegExp(r'^[A-Z]{2}[0-9]{1,2}(?:[A-Z])?(?:[A-Z]*)?[0-9]{4}$');
+
   late int vehicleIndex;
   late String? vType;
   late RxBool isAdding;
@@ -135,8 +138,9 @@ class HomeController extends GetxController {
 // SCREEN 2
 
   String? vehicleNumValidator(value) {
-    if (value!.isEmpty) {
-      return "Please enter your vehicle number.";
+    bool isValid = _vehicleNumberRegExp.hasMatch(value);
+    if (!isValid) {
+      return "Please enter correct vehicle number";
     }
     return null;
   }

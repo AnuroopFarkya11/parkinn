@@ -29,6 +29,9 @@ class ParkInField extends StatelessWidget {
       child: Form(
         key: formKey,
         child: TextFormField(
+          onChanged: (value) {
+            
+          },
           style: TextStyle(fontSize: 20),
           cursorColor: BrandColors.brandBlack,
           controller: controller,

@@ -25,62 +25,41 @@ class AuthScreen extends GetView<AuthController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-
-            ParkynBar(titleWidget:Row(
-            children: [
-              Text("Parkyn", style: TextStyle(
-                  color: BrandColors.primaryColor,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w500),),
-              Image.asset("assets/icons/icon_full.png", height: 35,)
-            ],
-          ),
-              expandedHeight: CustomSizes.height*0.07,
+            ParkynBar(
+              titleWidget: Row(
+                children: [
+                  Text(
+                    "Parkyn",
+                    style: TextStyle(
+                        color: BrandColors.primaryColor,
+                        fontSize: 35,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Image.asset(
+                    "assets/icons/icon_full.png",
+                    height: 35,
+                  )
+                ],
+              ),
+              expandedHeight: CustomSizes.height * 0.07,
               bottomWidget: Row(
-                  children: [
-                    Text(
-                      'Get a ',
-                      style: TextStyle(
-                          color: Colors.black, fontSize: CustomSizes.height * 0.040),
-                    ),
-                    Text(
-                      ' Parkyn Tag.',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: CustomSizes.height* 0.040,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-
+                children: [
+                  Text(
+                    'Get a ',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: CustomSizes.height * 0.040),
+                  ),
+                  Text(
+                    ' Parkyn Tag.',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: CustomSizes.height * 0.040,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
-            // const ParkInBar(subTitle: "Simple parking.", isBold: true,subtitleHeight:CustomSizes.subLarge ),
-            // ParkInBar(
-            //   titleWidget: Row(
-            //     children: [
-            //       Text("Parkyn", style: TextStyle(
-            //           color: BrandColors.primaryColor,
-            //           fontSize: 35,
-            //           fontWeight: FontWeight.w500),),
-            //       Image.asset("assets/icons/icon_full.png", height: 35,)
-            //     ],
-            //   ),
-            //     bottomWidget: Row(
-            //   children: [
-            //     Text(
-            //       'Get a ',
-            //       style: TextStyle(
-            //           color: Colors.black, fontSize: CustomSizes.width * 0.10),
-            //     ),
-            //     Text(
-            //       ' Parkyn Tag.',
-            //       style: TextStyle(
-            //           color: Colors.black,
-            //           fontSize: CustomSizes.width * 0.10,
-            //           fontWeight: FontWeight.bold),
-            //     ),
-            //   ],
-            // )),
             SliverPadding(
               padding: EdgeInsets.only(top: CustomSizes.height * 0.04),
               sliver: SliverFillRemaining(
@@ -91,66 +70,68 @@ class AuthScreen extends GetView<AuthController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // ParkInField(
-                      //     validator: controller.onNumberValidator,
-                      //     labelText: "Mobile Number",
-                      //     textInputType: TextInputType.number,
-                      //     formKey: controller.numberKey,
-                      //     focusNode: controller.numberFocus,
-                      //     controller: controller.numberController),
-
                       Obx(() {
                         if (controller.otpCheck.value) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Otp sent to +91${controller.numberController.text}"),
-                              SizedBox(height: CustomSizes.height*0.03,),
-                              Text("OTP",style: TextStyle(color: BrandColors.black,fontWeight: FontWeight.w900),),
+                              Text(
+                                  "Otp sent to +91${controller.numberController.text}"),
+                              SizedBox(
+                                height: CustomSizes.height * 0.03,
+                              ),
+                              Text(
+                                "OTP",
+                                style: TextStyle(
+                                    color: BrandColors.black,
+                                    fontWeight: FontWeight.w900),
+                              ),
                               OtpTextField(
-
                                 cursorColor: BrandColors.black,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 keyboardType: TextInputType.number,
                                 numberOfFields: 5,
                                 onCodeChanged: (value) {
-                                  if(value.length<5)
-                                    {
-                                      controller.isSubmitEnabled.value=false;
-                                    }
-
+                                  if (value.length < 5) {
+                                    controller.isSubmitEnabled.value = false;
+                                  }
                                 },
                                 onSubmit: (value) {
-                                  if(value.length==5) {
+                                  if (value.length == 5) {
                                     controller.isSubmitEnabled.value = true;
                                     controller.otp = value;
                                   }
-
                                 },
                               ),
-                              SizedBox(height: CustomSizes.height*0.03,),
+                              SizedBox(
+                                height: CustomSizes.height * 0.03,
+                              ),
                               Row(
                                 children: [
                                   Obx(
-                                  ()=>ElevatedButton(
-
-                                      onPressed: controller.isSubmitEnabled.value?controller.onVerifyOtp:null,
+                                    () => ElevatedButton(
+                                      onPressed:
+                                          controller.isSubmitEnabled.value
+                                              ? controller.onVerifyOtp
+                                              : null,
                                       child: controller.isLoading.value
                                           ? const SizedBox(
-                                          height: 15,
-                                          width: 15,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                            strokeWidth: 3.0,
-                                          ))
-                                          :
-                                      const Text("Submit",
-                                          style: TextStyle(color: Colors.white)),
+                                              height: 15,
+                                              width: 15,
+                                              child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                                strokeWidth: 3.0,
+                                              ))
+                                          : const Text("Submit",
+                                              style: TextStyle(
+                                                  color: Colors.white)),
                                     ),
                                   ),
-                                  TextButton(onPressed: (){
-                                    controller.otpCheck.value = false;
-                                  }, child: Text("Back"))
+                                  TextButton(
+                                      onPressed: () {
+                                        controller.otpCheck.value = false;
+                                      },
+                                      child: Text("Back"))
                                 ],
                               )
                             ],
@@ -166,28 +147,34 @@ class AuthScreen extends GetView<AuthController> {
                                   formKey: controller.numberKey,
                                   focusNode: controller.numberFocus,
                                   controller: controller.numberController),
-                              SizedBox(height: CustomSizes.height*0.03,),
-                              ElevatedButton(
-
-                                onPressed: controller.onGetOtp,
-                                child: controller.isLoading.value
-                                    ? const SizedBox(
-                                    height: 15,
-                                    width: 15,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                      strokeWidth: 3.0,
-                                    ))
-                                    :
-                                    const Text("Get otp",
-                                    style: TextStyle(color: Colors.white)),
+                              SizedBox(
+                                height: CustomSizes.height * 0.03,
+                              ),
+                              Obx(
+                                () => ElevatedButton(
+                                  onPressed: controller.isGetOtpEnabled.value
+                                      ? controller.onGetOtp
+                                      : null,
+                                  child: controller.isLoading.value
+                                      ? const SizedBox(
+                                          height: 15,
+                                          width: 15,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                            strokeWidth: 3.0,
+                                          ))
+                                      : const Text("Get otp",
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                ),
                               )
                             ],
                           );
                         }
                       }),
-                      SizedBox(height: CustomSizes.height*0.03,),
-
+                      SizedBox(
+                        height: CustomSizes.height * 0.03,
+                      ),
                     ],
                   ),
                 ),

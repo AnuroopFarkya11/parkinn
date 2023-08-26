@@ -25,6 +25,7 @@ class AuthController extends GetxController {
   late Rx<bool> isLoading;
   Customer? customer;
   late RxBool isSubmitEnabled;
+  late RxBool isGetOtpEnabled;
   late String? otp;
 
   @override
@@ -34,31 +35,22 @@ class AuthController extends GetxController {
     otpCheck = false.obs;
     isLoading = false.obs;
     isSubmitEnabled = false.obs;
-
+    isGetOtpEnabled = false.obs;
   }
 
   String? onNumberValidator(String? p0) {
     if (p0!.isEmpty) {
       return "Please enter a mobile number";
     }
-    if (p0.isNotEmpty && p0.length < 10 && p0.length > 10) {
+    else if (p0.isNotEmpty && p0.length != 10) {
       return "Please enter a valid number";
     }
-
-    return null;
-  }
-
-/*
-  String? onOtpValidation(String? otp) {
-    if (otp!.isEmpty) {
-      return "Please enter your otp";
-    }
-    if (otp.length < 5 || otp.length > 5) {
-      return "Please enter a valid OTP.";
+    else{
+      isGetOtpEnabled.value = true;
     }
     return null;
   }
-*/
+
 
   void onGetOtp() {
     if (numberKey.currentState!.validate()) {

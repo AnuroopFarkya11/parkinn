@@ -20,45 +20,26 @@ class HomeScreen extends GetView<HomeController> {
     // int selectedTileIndex = -1;
 
     return Scaffold(
-
       endDrawer: const ParkInDrawer(),
       body: SafeArea(
         child: CustomScrollView(
           // physics: NeverScrollableScrollPhysics(),
           slivers: [
-
             ParkynBar(
-              titleWidget:Text(
+              titleWidget: Text(
                 "Select Vehicle",
-                style: TextStyle(
-
-                    fontSize: CustomSizes.height * 0.025),
-
-              ), bottomWidget: Divider(height: 2,endIndent: 210,indent: 1,),
-
-
-
+                style: TextStyle(fontSize: CustomSizes.height * 0.025),
+              ),
+              bottomWidget: Divider(
+                height: 2,
+                endIndent: 210,
+                indent: 1,
+              ),
             ),
-           /* ParkInBar(
-                titleWidget: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    Text(
-                      "Select Vehicle",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: CustomSizes.height * 0.025),
-
-                    ),
-                    Divider(color: Colors.black,height: 2,endIndent: 220,indent: 1,)
-                  ],
-                ),
-              bottomWidget: Container(),
-                ),*/
             SliverToBoxAdapter(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: CustomSizes.width*0.01, vertical: 5),
+                padding: EdgeInsets.symmetric(
+                    horizontal: CustomSizes.width * 0.01, vertical: 5),
                 // decoration: BoxDecoration(
                 //     border: Border.all(color: Colors.grey, width: 0.5),
                 //     borderRadius: BorderRadius.circular(12)),
@@ -73,19 +54,21 @@ class HomeScreen extends GetView<HomeController> {
                             controller: controller.scrollController,
                             thumbVisibility: true,
                             child: ListView.builder(
-
                               shrinkWrap: true,
                               itemCount:
                                   controller.customer.value.vehicles!.length,
                               reverse: true,
                               physics: const BouncingScrollPhysics(),
                               controller: controller.scrollController,
-                              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 15),
                               addAutomaticKeepAlives: true,
                               itemBuilder: (context, index) {
                                 return Obx(
                                   () => ParkInnCard(
-                                    isDeleted: controller.deleteTileIndex.value==index,
+                                    isDeleted:
+                                        controller.deleteTileIndex.value ==
+                                            index,
                                     vehicle: controller
                                         .customer.value.vehicles![index],
                                     isVehicleSelected:
@@ -127,7 +110,6 @@ class HomeScreen extends GetView<HomeController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 10),
@@ -149,7 +131,7 @@ class HomeScreen extends GetView<HomeController> {
                                   height: 20,
                                 ),
                                 SizedBox(
-                                  width: CustomSizes.width*0.6,
+                                  width: CustomSizes.width * 0.6,
                                   child: Form(
                                       key: controller.vTypeKey,
                                       child: DropdownButtonFormField(
@@ -179,7 +161,8 @@ class HomeScreen extends GetView<HomeController> {
                                     Obx(
                                       () => ElevatedButton(
                                           onPressed: controller.onAddPressed,
-                                          style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.black),
                                           child: controller.isAdding.value
                                               ? SizedBox(
                                                   height: 15,
@@ -189,7 +172,11 @@ class HomeScreen extends GetView<HomeController> {
                                                           color: Colors.white,
                                                           strokeWidth: 2.0),
                                                 )
-                                              : Text("Add", style: TextStyle(color: Colors.white),)),
+                                              : Text(
+                                                  "Add",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                )),
                                     ),
                                     SizedBox(
                                       width: 20,
@@ -199,7 +186,6 @@ class HomeScreen extends GetView<HomeController> {
                                       child: Text(
                                         "Cancel",
                                       ),
-
                                     ),
                                   ],
                                 ),
@@ -218,20 +204,24 @@ class HomeScreen extends GetView<HomeController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           Row(
                             children: [
                               ElevatedButton(
                                   onPressed: () {
                                     controller.clickAdd.value = true;
                                   },
-                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                                  child: Text("New vehicle", style: TextStyle(color: Colors.white),)),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black),
+                                  child: Text(
+                                    "New vehicle",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
                               SizedBox(
                                 width: 10,
                               ),
                               ElevatedButton(
-                                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black),
                                   onPressed: controller.onProceedTap,
                                   child: controller.proceed.value
                                       ? SizedBox(
@@ -242,7 +232,10 @@ class HomeScreen extends GetView<HomeController> {
                                             strokeWidth: 3.0,
                                           ),
                                         )
-                                      : Text("Proceed", style: TextStyle(color: Colors.white),)),
+                                      : Text(
+                                          "Proceed",
+                                          style: TextStyle(color: Colors.white),
+                                        )),
                             ],
                           ),
                         ],
