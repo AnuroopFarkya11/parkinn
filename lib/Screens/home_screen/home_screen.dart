@@ -64,14 +64,14 @@ class HomeScreen extends GetView<HomeController> {
                               itemBuilder: (context, index) {
                                 return Obx(
                                   () => ParkInnCard(
-                                    isDeleted: controller.deleteTileIndex.value!=index,
+                                    isDeleted: controller.deleteTileIndex.value==index,
                                     vehicle: controller
                                         .customer.value.vehicles![index],
                                     isVehicleSelected:
                                         controller.selectedTileIndex.value ==
                                             index,
                                     onTap: () {
-                                      controller.vehicleIndex = index;
+                                      // controller.vehicleIndex = index;
                                       log(
                                           name: "HOME SCREEN",
                                           "RES:${controller.selectedTileIndex.value = index}");

@@ -50,18 +50,18 @@ class _ParkInnCardState extends State<ParkInnCard> {
           children: [
             // Text(vehicle.vehicleType!),
             widget.isDeleted
-                ? IconButton(
-                    onPressed: widget.trailingOnTap,
-                    icon: const Icon(Icons.delete),
-                    color: Colors.black,
-                    iconSize: 25)
-                : const SizedBox(
+                ? const SizedBox(
                     width: 18,
                     height: 18,
                     child: CircularProgressIndicator(
                       color: Colors.black,
                       strokeWidth: 3,
-                    )),
+                    ))
+                : IconButton(
+                    onPressed: widget.trailingOnTap,
+                    icon: const Icon(Icons.delete),
+                    color: Colors.black,
+                    iconSize: 25)
           ],
         ),
         // selected: isVehicleSelected,
