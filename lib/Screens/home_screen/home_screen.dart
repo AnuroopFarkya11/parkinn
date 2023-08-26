@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:parkinn/Screens/home_screen/home_controller.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
+import 'package:parkinn/Widgets/bottom_bar/bottom_bar.dart';
 import 'package:parkinn/Widgets/card_layout/card_layout.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 import '../../Services/API/api_services.dart';
@@ -32,7 +33,10 @@ class HomeScreen extends GetView<HomeController> {
                 "Select Vehicle",
                 style: TextStyle(
 
-                    fontSize: CustomSizes.height * 0.025),
+                    fontSize: CustomSizes.height * 0.025,
+                  color: BrandColors.brandBlack
+
+                ),
 
               ), bottomWidget: Divider(height: 2,endIndent: 210,indent: 1,),
 
@@ -316,6 +320,7 @@ class HomeScreen extends GetView<HomeController> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomBar(),
     );
   }
 }

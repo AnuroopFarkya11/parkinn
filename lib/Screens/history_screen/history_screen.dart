@@ -4,6 +4,7 @@ import 'package:parkinn/Screens/history_screen/history_controller.dart';
 import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Utils/sizes.dart';
 import 'package:parkinn/Widgets/app_bar/app_bar.dart';
+import 'package:parkinn/Widgets/app_bar/parkyn_bar.dart';
 import 'package:parkinn/Widgets/card_layout/history_card.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
 import '../../Utils/brand_color.dart';
@@ -26,35 +27,37 @@ class History extends GetView<HistoryController> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            ParkInBar(
-                titleWidget: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "History",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: CustomSizes.height * 0.06 * 0.5),
-                        ),
-                      ],
-                    ),
-                  ],
+
+            ParkynBar(titleWidget:  Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "History",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: CustomSizes.height * 0.06 * 0.5),
                 ),
-                bottomWidget: Container(
-                  padding: EdgeInsets.all(CustomSizes.height * 0.008),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                        color: BrandColors.subTitleColor, width: 2.5),
-                  ),
-                  child: Text("All vehicles",
-                      style: TextStyle(color: BrandColors.subTitleColor)),
-                )),
+                // SizedBox(height: CustomSizes.height*0.01,),
+                Divider(height: 10,endIndent: 210,indent: 1,),
+              ],
+            ), expandedHeight: CustomSizes.height*0.05,bottomWidget:Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                padding: EdgeInsets.all(CustomSizes.height * 0.008),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                      color: BrandColors.subTitleColor, width: 2.5),
+                ),
+                child: Text("All vehicles",
+                    style: TextStyle(color: BrandColors.subTitleColor)),
+              ),
+            )
+
+            ),
+
+
             SliverFillRemaining(
               child: Container(
                 padding: EdgeInsets.all(12),
