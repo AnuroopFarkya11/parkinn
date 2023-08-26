@@ -27,12 +27,12 @@ class _HistoryCardState extends State<HistoryCard> {
         children: [
           Text(
             widget.vehicleNumber,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color: BrandColors.brandBlack, fontWeight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
           ),
           Text(
             "- ${widget.amount}",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color: BrandColors.brandBlack, fontWeight: FontWeight.bold),
             overflow: TextOverflow.ellipsis,
           ),
         ],
@@ -40,8 +40,8 @@ class _HistoryCardState extends State<HistoryCard> {
       subtitle: Row(
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("${widget.vehicleType} | ${widget.location}", style: TextStyle(fontSize: 12),overflow: TextOverflow.ellipsis,),
-          Text("Closing balance - Rs ${widget.closingBalance}", style: TextStyle(fontSize: 12),overflow: TextOverflow.ellipsis)
+          Text("${widget.vehicleType} | ${widget.location}", style: TextStyle(fontSize: 12,color: BrandColors.brandBlack),overflow: TextOverflow.ellipsis,),
+          Text("Closing balance - Rs ${widget.closingBalance}", style: TextStyle(fontSize: 12,color: BrandColors.brandBlack),overflow: TextOverflow.ellipsis)
         ],
       ),
 

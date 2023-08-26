@@ -11,6 +11,8 @@ class ParkInField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
+  final void Function(String)? onchanged;
+
 
   const ParkInField({
     Key? key,
@@ -20,6 +22,7 @@ class ParkInField extends StatelessWidget {
     this.validator,
     this.focusNode,
     this.textInputType = TextInputType.text,
+    this.onchanged
   }) : super(key: key);
 
   @override
@@ -29,9 +32,7 @@ class ParkInField extends StatelessWidget {
       child: Form(
         key: formKey,
         child: TextFormField(
-          onChanged: (value) {
-            
-          },
+          onChanged:onchanged ,
           style: TextStyle(fontSize: 20),
           cursorColor: BrandColors.brandBlack,
           controller: controller,
