@@ -34,11 +34,11 @@ class TransactionQr extends GetView<TransactionQrController> {
                     style: TextStyle(
                         color: BrandColors.primaryColor,
                         fontWeight: FontWeight.bold,
-                        fontSize: 35),
+                        fontSize: 30),
                   ),
                   Text(
                     "Tag",
-                    style: TextStyle(color: Colors.black, fontSize: 35,fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black, fontSize: 30,fontWeight: FontWeight.bold),
                   )
                 ],
               ),
@@ -49,7 +49,7 @@ class TransactionQr extends GetView<TransactionQrController> {
                 tileColor: Colors.grey.shade300,
                 title: Text(
                   controller.currentTransaction.vehicleData!.vehicleNumber!,
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
+                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17),
                 ),
                 subtitle: Text(
                   controller.currentTransaction.vehicleData!.vehicleType!,

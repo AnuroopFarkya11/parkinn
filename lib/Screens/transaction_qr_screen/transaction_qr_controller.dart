@@ -118,6 +118,8 @@ class TransactionQrController extends GetxController {
             DateTime? istTime = ApiDecoding.decodeTime(time: data["startTime"]);
             startTime?.value = DateFormat('hh:mm a').format(istTime!);
             location = data["locationId"];
+            GlobalController.to.customer = await API.updateCustomer();
+
             log(name:"WEB SOCKET DATA","START TIME: $startTime");
             Get.snackbar("Parking Status", "Parking started successfully",snackPosition: SnackPosition.BOTTOM);
 

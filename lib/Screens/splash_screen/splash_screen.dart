@@ -39,9 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
             try {
               GlobalController.to.customer =
                   await API.loginUser(userNumber, userID);
-              log(
-                  name: "HISTORY",
-                  "${GlobalController.to.customer!.history!.map((e) => e!.transactionId)}");
+              log(name:"CUSTOMER","${GlobalController.to.customer!.customerId!}");
               if (GlobalController.to.customer!.currentTransaction == null) {
                 Get.offNamed('/homeScreen');
               } else {
@@ -69,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Center(
                 child: Text(
-              "ParkInn",
+              GlobalController.to.companyName,
               style: TextStyle(
                   color: BrandColors.primaryColor,
                   fontSize: 55,

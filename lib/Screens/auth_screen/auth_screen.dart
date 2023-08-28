@@ -45,15 +45,15 @@ class AuthScreen extends GetView<AuthController> {
                   Text(
                     'Get a ',
                     style: TextStyle(
-                        color: Colors.black,
+                        color: BrandColors.brandBlack,
                         fontSize: CustomSizes.height * 0.040),
                   ),
                   Text(
                     ' Parkyn Tag.',
                     style: TextStyle(
-                        color: Colors.black,
+                        color: BrandColors.brandBlack,
                         fontSize: CustomSizes.height * 0.040,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w900),
                   ),
                 ],
               ),

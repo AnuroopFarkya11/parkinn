@@ -24,7 +24,7 @@ class ParkInDrawer extends StatelessWidget {
               DrawerHeader(
                   child: Center(
                       child: Text(
-                "ParkInn",
+                GlobalController.to.companyName,
                 style: TextStyle(
                   color: BrandColors.primaryColor,
                   fontSize: 40,

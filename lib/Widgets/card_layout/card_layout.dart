@@ -36,17 +36,17 @@ class _ParkInnCardState extends State<ParkInnCard> {
   Widget build(BuildContext context) {
     return ListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      tileColor: widget.isVehicleSelected ? Colors.black : Colors.transparent,
+      tileColor: widget.isVehicleSelected ? BrandColors.tileBlack : Colors.transparent,
       title: Text(
         widget.vehicle.vehicleNumber!,
         style: TextStyle(
-            color: widget.isVehicleSelected ? Colors.white : Colors.black,
+            color: widget.isVehicleSelected ? Colors.white : BrandColors.textBlack,
             fontWeight: FontWeight.bold),
       ),
       subtitle: Text(
         widget.vehicle.vehicleType!,
         style: TextStyle(
-            color: widget.isVehicleSelected ? Colors.white : Colors.black),
+            color: widget.isVehicleSelected ? BrandColors.subtext1Black : BrandColors.subtext2Black),
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
@@ -64,7 +64,7 @@ class _ParkInnCardState extends State<ParkInnCard> {
                   onPressed: widget.trailingOnTap,
                   icon: const Icon(Icons.delete),
                   color:
-                      widget.isVehicleSelected ? Colors.white : Colors.black,
+                      widget.isVehicleSelected ? Colors.white : BrandColors.textBlack,
                   iconSize: 25)
         ],
       ),

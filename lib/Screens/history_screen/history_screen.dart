@@ -41,7 +41,7 @@ class History extends GetView<HistoryController> {
                 Divider(height: 10,endIndent: 210,indent: 1,),
               ],
             ), expandedHeight: CustomSizes.height*0.05,bottomWidget:Align(
-              alignment: Alignment.topLeft,
+              alignment: Alignment.topRight,
               child: Container(
                 padding: EdgeInsets.all(CustomSizes.height * 0.008),
                 decoration: BoxDecoration(
@@ -50,7 +50,7 @@ class History extends GetView<HistoryController> {
                   border: Border.all(
                       color: BrandColors.subTitleColor, width: 2.5),
                 ),
-                child: Text("All vehicles",
+                child: Text("All Vehicles",
                     style: TextStyle(color: BrandColors.subTitleColor)),
               ),
             )
@@ -66,7 +66,7 @@ class History extends GetView<HistoryController> {
                         child: Text("No Transaction Record"),
                       )
                     : ListView.builder(
-                        // reverse: true,
+                        reverse: true,
                         shrinkWrap: true,
                         itemCount: controller.customer!.history!.length,
                         itemBuilder: (context, index) {
