@@ -56,7 +56,7 @@ class ApiDecoding {
       return null;
     }
 
-    log(name: "DECODE TRANSACTION", transaction.toString());
+    // log(name: "DECODE TRANSACTION", transaction.toString());
     return Transaction(
         transactionId: transaction["transactionId"],
         vehicleData: decodeVehicle(vehicle: transaction["vehicle"]),

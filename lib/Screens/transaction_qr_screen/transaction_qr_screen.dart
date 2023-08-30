@@ -33,12 +33,12 @@ class TransactionQr extends GetView<TransactionQrController> {
                     "Parkyn",
                     style: TextStyle(
                         color: BrandColors.primaryColor,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w900,
                         fontSize: 30),
                   ),
                   Text(
                     "Tag",
-                    style: TextStyle(color: Colors.black, fontSize: 30,fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black, fontSize: 30,fontWeight: FontWeight.w900),
                   )
                 ],
               ),

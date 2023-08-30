@@ -28,9 +28,13 @@ class ParkInDrawer extends StatelessWidget {
                 style: TextStyle(
                   color: BrandColors.primaryColor,
                   fontSize: 40,
+                  fontWeight: FontWeight.w900
                 ),
               ))),
               ListTile(
+                selected: GlobalController.to.currentRoute == ParkYnRoute.profileScreen,
+                selectedTileColor: BrandColors.primaryColor,
+                selectedColor: BrandColors.brandWhite,
                 onTap: () {
                   GlobalController.to.currentRoute!=ParkYnRoute.profileScreen?Get.toNamed(ParkYnRoute.profileScreen):Navigator.pop(context);
                 },
@@ -40,6 +44,9 @@ class ParkInDrawer extends StatelessWidget {
               ListTile(
                 title: Text("Home"),
                 leading: Icon(Icons.home),
+                selected: GlobalController.to.currentRoute == ParkYnRoute.homeScreen,
+                selectedTileColor: BrandColors.primaryColor,
+                selectedColor: BrandColors.brandWhite,
                 onTap: () {
                   if (GlobalController.to.customer!.currentTransaction ==
                       null) {
@@ -56,6 +63,9 @@ class ParkInDrawer extends StatelessWidget {
               ListTile(
                 title: Text("History"),
                 leading: Icon(Icons.history),
+                selected: GlobalController.to.currentRoute == ParkYnRoute.historyScreen,
+                selectedTileColor: BrandColors.primaryColor,
+                selectedColor: BrandColors.brandWhite,
                 onTap: () {
                   if(GlobalController.to.currentRoute==ParkYnRoute.historyScreen)
                   {
@@ -82,6 +92,7 @@ class ParkInDrawer extends StatelessWidget {
                 },
                 title: Text("Change Theme"),
                 leading: Icon(Icons.dark_mode),
+
               ),
               ListTile(
                 onTap: () {
@@ -100,7 +111,7 @@ class ParkInDrawer extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: ListTile(
-                title: Text("About Developer"),
+                title: Text("About ${GlobalController.to.companyName}"),
                 leading: Icon(Icons.info_outline),
               ),
             ),

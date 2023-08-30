@@ -65,29 +65,34 @@ class History extends GetView<HistoryController> {
                     ? Center(
                         child: Text("No Transaction Record"),
                       )
-                    : ListView.builder(
-                        reverse: true,
-                        shrinkWrap: true,
-                        itemCount: controller.customer!.history!.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              HistoryCard(
-                                vehicleNumber: controller
-                                    .history![index]!.vehicleData!.vehicleNumber!,
-                                vehicleType: controller
-                                    .history![index]!.vehicleData!.vehicleType!,
-                                location: controller.history![index]!.locationId!,
-                                //todo Pass the original values
-                                closingBalance: "360",
-                                amount: '60',
-                              ),
-                              Divider(height: 5,indent: 15,endIndent: 15,)
-                            ],
-                          );
-                          // return ParkInnCard("Ramji", "4 wheeler");
-                        },
-                      ),
+                    : Column(
+                  mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListView.builder(
+                            reverse: true,
+                            shrinkWrap: true,
+                            itemCount: controller.customer!.history!.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  HistoryCard(
+                                    vehicleNumber: controller
+                                        .history![index]!.vehicleData!.vehicleNumber!,
+                                    vehicleType: controller
+                                        .history![index]!.vehicleData!.vehicleType!,
+                                    location: controller.history![index]!.locationId!,
+                                    //todo Pass the original values
+                                    closingBalance: "360",
+                                    amount: '60',
+                                  ),
+                                  Divider(height: 5,indent: 15,endIndent: 15,)
+                                ],
+                              );
+                              // return ParkInnCard("Ramji", "4 wheeler");
+                            },
+                          ),
+                      ],
+                    ),
               ),
             )
           ],

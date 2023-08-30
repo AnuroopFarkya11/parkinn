@@ -31,7 +31,7 @@ class AuthScreen extends GetView<AuthController> {
                     style: TextStyle(
                         color: BrandColors.primaryColor,
                         fontSize: 35,
-                        fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.w900),
                   ),
                   Image.asset(
                     "assets/icons/icon_full.png",

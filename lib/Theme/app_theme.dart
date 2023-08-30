@@ -6,11 +6,12 @@ import '../Utils/brand_color.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
+    fontFamily: 'Inter',
     // useMaterial3: true,
     appBarTheme: AppBarTheme(
         backgroundColor: BrandColors.transparent,
         foregroundColor: BrandColors.black),
-    textTheme: GoogleFonts.interTextTheme(),
+    // textTheme: TextTheme(bodyLarge: TextStyle(fontFamily: 'Inter'),bodyMedium: TextStyle(fontFamily: 'Inter',fontWeight: FontWeight.bold)),
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
             foregroundColor: MaterialStateColor.resolveWith(
