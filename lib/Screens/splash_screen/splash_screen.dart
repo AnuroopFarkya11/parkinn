@@ -7,6 +7,7 @@ import 'package:parkinn/Services/API/api_services.dart';
 import 'package:parkinn/Services/global_controller.dart';
 import 'package:parkinn/Utils/brand_color.dart';
 import 'package:parkinn/Widgets/drawer/app_drawer.dart';
+import 'package:parkinn/Widgets/snack_bar/snack_bar.dart';
 import 'package:parkinn/routes/route_name.dart';
 
 import '../../Modals/customer_modal.dart';
@@ -46,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 Get.offNamed('/transactionQr');
               }
             } on Exception catch (e) {
-              // TODO
+              ParkynSnackBar("Error", "Please try again.");
             }
           }
         } else {

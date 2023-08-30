@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:parkinn/Services/global_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedService {
@@ -75,6 +76,7 @@ class SharedService {
   {
     // true means light
     // false means dark
+    // GlobalController.to.currentTheme = status;
     try {
       log(name: "SHARED SERVICE", "Theme Status : $status");
       shared!.setBool("appTheme", status);

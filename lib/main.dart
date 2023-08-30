@@ -58,8 +58,8 @@ import 'package:parkinn/routes/route_class.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Get.put<GlobalController>(GlobalController());
   await SharedService.initializeSharedPreferences();
+  Get.put<GlobalController>(GlobalController());
   runApp(const ParkInn());
    Get.put(CardController());
   // Get.put(AuthController());

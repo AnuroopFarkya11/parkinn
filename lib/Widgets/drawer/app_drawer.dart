@@ -9,8 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../Utils/brand_color.dart';
 
 class ParkInDrawer extends StatelessWidget {
-
-
   const ParkInDrawer({Key? key}) : super(key: key);
 
   @override
@@ -26,58 +24,55 @@ class ParkInDrawer extends StatelessWidget {
                       child: Text(
                 GlobalController.to.companyName,
                 style: TextStyle(
-                  color: BrandColors.primaryColor,
-                  fontSize: 40,
-                  fontWeight: FontWeight.w900
-                ),
+                    color: BrandColors.primaryColor,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w900),
               ))),
-              ListTile(
-                selected: GlobalController.to.currentRoute == ParkYnRoute.profileScreen,
-                selectedTileColor: BrandColors.primaryColor,
-                selectedColor: BrandColors.brandWhite,
-                onTap: () {
-                  GlobalController.to.currentRoute!=ParkYnRoute.profileScreen?Get.toNamed(ParkYnRoute.profileScreen):Navigator.pop(context);
-                },
-                title: Text("Your Profile"),
-                leading: Icon(Icons.person),
-              ),
-              ListTile(
-                title: Text("Home"),
-                leading: Icon(Icons.home),
-                selected: GlobalController.to.currentRoute == ParkYnRoute.homeScreen,
-                selectedTileColor: BrandColors.primaryColor,
-                selectedColor: BrandColors.brandWhite,
-                onTap: () {
-                  if (GlobalController.to.customer!.currentTransaction ==
-                      null) {
-                    GlobalController.to.currentRoute != ParkYnRoute.homeScreen
-                        ? Get.offAllNamed(ParkYnRoute.homeScreen)
+              DrawerTile(
+                  title: "Your Profile",
+                  leading: Icons.person,
+                  onTap: () {
+                    GlobalController.to.currentRoute !=
+                            ParkYnRoute.profileScreen
+                        ? Get.toNamed(ParkYnRoute.profileScreen)
                         : Navigator.pop(context);
-                  } else {
-                    GlobalController.to.currentRoute != ParkYnRoute.transactionScreen
-                        ? Get.offAllNamed(ParkYnRoute.transactionScreen)
-                        : Navigator.pop(context);
-                  }
-                },
-              ),
-              ListTile(
-                title: Text("History"),
-                leading: Icon(Icons.history),
-                selected: GlobalController.to.currentRoute == ParkYnRoute.historyScreen,
-                selectedTileColor: BrandColors.primaryColor,
-                selectedColor: BrandColors.brandWhite,
+                  },
+                  selected: GlobalController.to.currentRoute ==
+                      ParkYnRoute.profileScreen),
+              DrawerTile(
+                  title: "Home",
+                  leading: Icons.home,
+                  onTap: () {
+                    if (GlobalController.to.customer!.currentTransaction ==
+                        null) {
+                      GlobalController.to.currentRoute != ParkYnRoute.homeScreen
+                          ? Get.offAllNamed(ParkYnRoute.homeScreen)
+                          : Navigator.pop(context);
+                    } else {
+                      GlobalController.to.currentRoute !=
+                              ParkYnRoute.transactionScreen
+                          ? Get.offAllNamed(ParkYnRoute.transactionScreen)
+                          : Navigator.pop(context);
+                    }
+                  },
+                  selected: GlobalController.to.currentRoute ==
+                      ParkYnRoute.homeScreen),
+              DrawerTile(
+                  title: "History",
+                  leading: Icons.history,
+                  onTap: () {
+                    if (GlobalController.to.currentRoute ==
+                        ParkYnRoute.historyScreen) {
+                      Navigator.pop(context);
+                    } else {
+                      Get.offAllNamed(ParkYnRoute.historyScreen);
+                    }
+                  },
+                  selected: GlobalController.to.currentRoute ==
+                      ParkYnRoute.historyScreen),
+              DrawerTile(
                 onTap: () {
-                  if(GlobalController.to.currentRoute==ParkYnRoute.historyScreen)
-                  {
-                    Navigator.pop(context);
-                  }
-                  else{
-                  Get.offAllNamed(ParkYnRoute.historyScreen);
-                  }
-                },
-              ),
-              ListTile(
-                onTap: () {
+
                   bool? currentTheme = SharedService.getThemeStatus();
                   if (currentTheme == null) {
                     // this indicates dark theme
@@ -90,9 +85,8 @@ class ParkInDrawer extends StatelessWidget {
                         : AppTheme.darkTheme);
                   }
                 },
-                title: Text("Change Theme"),
-                leading: Icon(Icons.dark_mode),
-
+                title: "Change Theme",
+                leading:Icons.dark_mode,
               ),
               ListTile(
                 onTap: () {
@@ -118,6 +112,33 @@ class ParkInDrawer extends StatelessWidget {
           ))
         ],
       ),
+    );
+  }
+}
+
+class DrawerTile extends StatelessWidget {
+  String title;
+  IconData leading;
+  Function() onTap;
+  bool selected;
+
+  DrawerTile(
+      {Key? key,
+      required this.title,
+      required this.leading,
+      required this.onTap,
+      this.selected = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      selected: selected,
+      selectedTileColor: BrandColors.black,
+      selectedColor: BrandColors.brandWhite,
+      onTap: onTap,
+      title: Text(title),
+      leading: Icon(leading),
     );
   }
 }

@@ -5,13 +5,10 @@ import 'package:parkinn/Modals/customer_modal.dart';
 import 'package:parkinn/Modals/transaction_modal.dart';
 import 'package:parkinn/Services/API/api_decoding_methods.dart';
 import 'package:parkinn/Services/global_controller.dart';
-import 'package:parkinn/Services/web_socket_services/web_socket.dart';
-import 'package:parkinn/Widgets/drawer/app_drawer.dart';
-
+import 'package:parkinn/Widgets/snack_bar/snack_bar.dart';
 import '../../Services/API/api_services.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:parkinn/Services/API/api_paths.dart';
-
 import '../../routes/route_name.dart';
 
 
@@ -121,7 +118,7 @@ class TransactionQrController extends GetxController {
             GlobalController.to.customer = await API.updateCustomer();
 
             log(name:"WEB SOCKET DATA","START TIME: $startTime");
-            Get.snackbar("Parking Status", "Parking started successfully",snackPosition: SnackPosition.BOTTOM);
+            ParkynSnackBar("Parking Status", "Parking started successfully");
 
 
 
@@ -139,7 +136,7 @@ class TransactionQrController extends GetxController {
 
           }
         } else {
-          Get.snackbar("Parking Status", "Unable to fetch data",snackPosition: SnackPosition.BOTTOM);
+          ParkynSnackBar("Parking Status","Unable to fetch data");
           log(name:"SOCKET DATA","No data");
         }
         // todo catch the dynamic data and convert it to proper datatype
@@ -170,10 +167,10 @@ class TransactionQrController extends GetxController {
     change.value = true;
     try {
       GlobalController.to.customer = await API.deleteTransaction();
-      Get.snackbar("Transaction", "Current Transaction Deleted",snackPosition: SnackPosition.BOTTOM);
+      ParkynSnackBar("Transaction","Current Transaction Deleted");
       Get.offAllNamed('homeScreen');
     } catch (e) {
-      Get.snackbar("Transaction", "Failed to delete transaction",snackPosition: SnackPosition.BOTTOM);
+      ParkynSnackBar("Transaction", "Failed to delete transaction");
     }
   }
 }
